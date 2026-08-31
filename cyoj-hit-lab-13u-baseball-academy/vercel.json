@@ -1,5 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/member/:sessionId",
+      "destination": "/api/member?session_id=:sessionId"
+    }
+  ],
   "crons": [
     {
       "path": "/api/process-installments",
