@@ -1,32 +1,50 @@
 (() => {
-  const choices = [...document.querySelectorAll(".choice")];
-  const planDetails = document.getElementById("plan-details");
-  const fullDetails = document.getElementById("full-details");
-  const guardian = document.getElementById("guardian");
-  const terms = document.getElementById("terms");
-  const checkout = document.getElementById("checkout");
-  const summaryTitle = document.getElementById("summary-title");
-  const summaryPrice = document.getElementById("summary-price");
+  const choices = [
+    ...document.querySelectorAll(".choice")
+  ];
+
+  const planDetails =
+    document.getElementById("plan-details");
+
+  const fullDetails =
+    document.getElementById("full-details");
+
+  const guardian =
+    document.getElementById("guardian");
+
+  const terms =
+    document.getElementById("terms");
+
+  const checkout =
+    document.getElementById("checkout");
+
+  const summaryTitle =
+    document.getElementById("summary-title");
+
+  const summaryPrice =
+    document.getElementById("summary-price");
+
 
   /*
-   * SAFETY LOCK
+   * MASTER PAYMENT SAFETY LOCK
    *
-   * Leave this false until the 13U Stripe checkout,
-   * installment backend, webhook and environment variables
-   * have all been configured and tested.
+   * DO NOT change this to true until:
+   *
+   * - 13U Stripe products/prices exist
+   * - Vercel environment variables are added
+   * - 13U webhook endpoint is created in Stripe
+   * - webhook secret is added to Vercel
+   * - Resend is configured
+   * - membership QR card is tested
+   * - installment cron is verified
+   * - both checkout paths are tested
    */
   const CHECKOUT_ENABLED = false;
 
-  /*
-   * The 13U pay-in-full Stripe URL will be added here
-   * after the new 13U Stripe payment link is created.
-   *
-   * Do not reuse the 14U Yeaney Stripe link.
-   */
-  const fullLink = "";
 
   let selected = "plan";
   let busy = false;
+
 
   function refresh() {
     const authorized =
@@ -44,73 +62,117 @@
       String(!authorized)
     );
 
-    checkout.tabIndex = authorized ? 0 : -1;
+    checkout.tabIndex =
+      authorized ? 0 : -1;
   }
 
+
+  function createAttemptId() {
+    if (
+      globalThis.crypto &&
+      crypto.randomUUID
+    ) {
+      return crypto.randomUUID();
+    }
+
+    return (
+      `${Date.now()}-` +
+      `${Math.random()
+        .toString(36)
+        .slice(2)}`
+    );
+  }
+
+
   choices.forEach((button) => {
-    button.addEventListener("click", () => {
-      selected = button.dataset.plan;
+    button.addEventListener(
+      "click",
+      () => {
+        selected =
+          button.dataset.plan;
 
-      choices.forEach((item) => {
-        const active = item === button;
+        choices.forEach(
+          (item) => {
+            const active =
+              item === button;
 
-        item.classList.toggle(
-          "selected",
-          active
+            item.classList.toggle(
+              "selected",
+              active
+            );
+
+            item.setAttribute(
+              "aria-pressed",
+              String(active)
+            );
+          }
         );
 
-        item.setAttribute(
-          "aria-pressed",
-          String(active)
+
+        const isPlan =
+          selected === "plan";
+
+
+        planDetails.classList.toggle(
+          "hidden",
+          !isPlan
         );
-      });
 
-      const isPlan = selected === "plan";
+        fullDetails.classList.toggle(
+          "hidden",
+          isPlan
+        );
 
-      planDetails.classList.toggle(
-        "hidden",
-        !isPlan
-      );
 
-      fullDetails.classList.toggle(
-        "hidden",
-        isPlan
-      );
+        summaryTitle.textContent =
+          isPlan
+            ? "Installment plan"
+            : "Pay in full";
 
-      summaryTitle.textContent =
-        isPlan
-          ? "Installment plan"
-          : "Pay in full";
 
-      summaryPrice.textContent =
-        isPlan
-          ? "$1,000"
-          : "$1,995";
-    });
-  });
-
-  [guardian, terms].forEach((element) => {
-    element.addEventListener(
-      "change",
-      refresh
+        summaryPrice.textContent =
+          isPlan
+            ? "$1,000"
+            : "$1,995";
+      }
     );
   });
+
+
+  [
+    guardian,
+    terms
+  ].forEach(
+    (element) => {
+      element.addEventListener(
+        "change",
+        refresh
+      );
+    }
+  );
+
 
   checkout.addEventListener(
     "click",
     async (event) => {
       event.preventDefault();
 
+
       if (
-        checkout.classList.contains("disabled") ||
+        checkout.classList.contains(
+          "disabled"
+        ) ||
         busy
       ) {
         return;
       }
 
+
       /*
-       * Prevent any payment from being started
-       * until the 13U Stripe system is finished.
+       * SAFETY LOCK
+       *
+       * Nothing can reach Stripe
+       * while this remains false.
        */
       if (!CHECKOUT_ENABLED) {
         alert(
@@ -120,80 +182,81 @@
         return;
       }
 
-      /*
-       * PAY IN FULL
-       */
-      if (selected === "full") {
-        if (
-          !fullLink ||
-          !fullLink.startsWith("https://")
-        ) {
-          alert(
-            "13U pay-in-full checkout is not configured yet. Please email academyteams@cyojhitlab.com."
-          );
 
-          return;
-        }
-
-        window.location.assign(fullLink);
-
-        return;
-      }
-
-      /*
-       * INSTALLMENT PLAN
-       */
       busy = true;
       refresh();
+
 
       const originalText =
         checkout.textContent;
 
+
       checkout.textContent =
         "Opening secure Stripe checkout...";
 
+
       try {
         const attemptId =
-          globalThis.crypto &&
-          crypto.randomUUID
-            ? crypto.randomUUID()
-            : `${Date.now()}-${Math.random()
-                .toString(36)
-                .slice(2)}`;
+          createAttemptId();
 
-        const response = await fetch(
-          "/api/create-installment-checkout",
-          {
-            method: "POST",
 
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
+        /*
+         * Use a different 13U backend
+         * depending on the family's
+         * selected payment option.
+         */
+        const endpoint =
+          selected === "full"
+            ? "/api/create-full-checkout"
+            : "/api/create-installment-checkout";
 
-            body: JSON.stringify({
-              team:
-                "13U Baseball Academy",
 
-              season:
-                "2027",
+        const response =
+          await fetch(
+            endpoint,
+            {
+              method:
+                "POST",
 
-              guardianAuthorized:
-                true,
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
 
-              installmentTermsAccepted:
-                true,
+              body:
+                JSON.stringify({
+                  team:
+                    "13U Baseball Academy",
 
-              agreementVersion:
-                "2026-08-31-13u-v1",
+                  teamCode:
+                    "13U_BASEBALL_ACADEMY",
 
-              attemptId
-            })
-          }
-        );
+                  season:
+                    "2027",
+
+                  paymentOption:
+                    selected === "full"
+                      ? "pay_in_full"
+                      : "installment",
+
+                  guardianAuthorized:
+                    true,
+
+                  installmentTermsAccepted:
+                    true,
+
+                  agreementVersion:
+                    "2026-08-31-13u-v1",
+
+                  attemptId
+                })
+            }
+          );
+
 
         const data =
           await response.json();
+
 
         if (
           !response.ok ||
@@ -201,13 +264,21 @@
         ) {
           throw new Error(
             data.error ||
-              "Unable to create checkout"
+            "Unable to create checkout"
           );
         }
 
+
+        /*
+         * Redirect only after our
+         * 13U backend has successfully
+         * created a Stripe Checkout
+         * Session.
+         */
         window.location.assign(
           data.url
         );
+
       } catch (error) {
         busy = false;
 
@@ -216,14 +287,20 @@
 
         refresh();
 
+
         alert(
-          "We could not open the 13U Baseball Academy Stripe checkout. Please try again later or email academyteams@cyojhitlab.com."
+          "We could not open the 13U Baseball Academy secure checkout. Please try again later or email academyteams@cyojhitlab.com."
         );
 
-        console.error(error);
+
+        console.error(
+          "13U checkout failed",
+          error
+        );
       }
     }
   );
+
 
   refresh();
 })();
