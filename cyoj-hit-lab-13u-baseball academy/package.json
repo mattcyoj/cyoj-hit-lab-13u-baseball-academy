@@ -1,0 +1,8 @@
+{
+  "name": "cyoj-hit-lab-14u-yeaney",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "stripe": "^22.5.0"
+  }
+}

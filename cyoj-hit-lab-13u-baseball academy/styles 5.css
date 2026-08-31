@@ -1,0 +1,252 @@
+:root{
+  --ink:#09100c;
+  --ink-soft:#111b15;
+  --green:#0d7a3b;
+  --green-dark:#075e2c;
+  --accent:#37cf73;
+  --paper:#f4f6f2;
+  --white:#ffffff;
+  --muted:#5b665f;
+  --line:#d7ded8;
+  --line-dark:#26342b;
+  --shadow:0 24px 70px rgba(8,18,11,.10);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{display:block;max-width:100%}
+button,input{font:inherit}
+
+.skip{position:fixed;left:18px;top:12px;z-index:1000;transform:translateY(-180%);background:#fff;color:#07110b;padding:11px 15px;border:2px solid var(--green);font-weight:800;text-decoration:none;transition:transform .18s ease}
+.skip:focus{transform:translateY(0)}
+
+.site-header{position:sticky;top:0;z-index:50;height:82px;padding:10px clamp(20px,5vw,76px);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:30px;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(9,16,12,.10)}
+.brand,.footer-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img,.footer-brand img{width:50px;height:50px;object-fit:contain}
+.brand strong,.footer-brand strong{display:block;font:800 22px/1 "Barlow Condensed",sans-serif;letter-spacing:.07em}
+.brand small,.footer-brand small{display:block;margin-top:4px;color:var(--muted);font-size:9px;letter-spacing:.14em;text-transform:uppercase}
+.site-header nav{display:flex;gap:30px}
+.site-header nav a,.header-cta{font:800 14px/1 "Barlow Condensed",sans-serif;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
+.site-header nav a{padding:12px 0;border-bottom:2px solid transparent}
+.site-header nav a:hover{border-color:var(--accent)}
+.header-cta{justify-self:end;border-bottom:2px solid var(--green);padding:11px 0}
+
+.eyebrow{margin:0 0 14px;color:var(--green);font-size:10px;font-weight:900;letter-spacing:.20em;text-transform:uppercase}
+.eyebrow-light{color:#71e79c}
+.button{min-height:52px;display:inline-flex;align-items:center;justify-content:center;padding:0 24px;text-decoration:none;text-transform:uppercase;font-size:11px;font-weight:900;letter-spacing:.08em;border:0}
+.button-green{background:var(--accent);color:#051009}
+.button-green:hover{background:#49d981}
+.text-link{text-decoration:none;text-transform:uppercase;font-size:11px;font-weight:900;letter-spacing:.07em}
+.text-link span{display:inline-block;margin-left:5px}
+
+.hero{background:radial-gradient(circle at 86% 18%,rgba(55,207,115,.16),transparent 28%),linear-gradient(135deg,#070b08 0%,#0b140e 62%,#07110b 100%);color:#fff}
+.hero-inner{max-width:1240px;margin:0 auto;padding:clamp(64px,7vw,96px) clamp(20px,5vw,62px);display:grid;grid-template-columns:minmax(0,1.03fr) minmax(420px,.77fr);gap:clamp(48px,7vw,94px);align-items:center}
+.hero-copy h1,.section-heading h2,.coach-copy h2,.training-copy h2,.payment-heading h2,.terms-intro h2{margin:0;font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:-.025em}
+.hero-copy h1{font-size:clamp(58px,6.25vw,86px);line-height:.90;max-width:760px}
+.hero-lede{max-width:650px;margin:25px 0 0;color:#d5ded7;font-size:clamp(16px,1.35vw,19px);line-height:1.65}
+.hero-actions{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:34px}
+
+.team-summary{position:relative;overflow:hidden;border:1px solid rgba(120,232,160,.34);background:linear-gradient(145deg,rgba(12,27,18,.96),rgba(7,17,11,.96));box-shadow:0 30px 70px rgba(0,0,0,.26)}
+.team-summary-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:24px;width:100%;height:100%;padding:24px;box-sizing:border-box;opacity:.075;pointer-events:none;user-select:none;transform:none}
+.team-summary-watermark img{width:clamp(150px,16vw,210px);height:clamp(150px,16vw,210px);flex:0 0 auto;object-fit:contain;filter:grayscale(1) brightness(2.5)}
+.team-summary-watermark div{min-width:0;color:#fff;text-transform:uppercase}
+.team-summary-watermark strong{display:block;font:900 clamp(46px,4.8vw,70px)/.86 "Barlow Condensed",sans-serif;letter-spacing:.01em;white-space:nowrap}
+.team-summary-watermark span{display:block;margin-top:12px;font:800 clamp(9px,.8vw,12px)/1 Inter,sans-serif;letter-spacing:.22em;white-space:nowrap}
+.team-summary-content{position:relative;z-index:1;padding:clamp(32px,4vw,48px)}
+.summary-kicker{margin:0;color:#76e79d;font-size:9px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+.team-summary h2{margin:8px 0 0;font:800 clamp(46px,5vw,66px)/.95 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:-.02em}
+.summary-coach{margin:8px 0 26px;color:#bdc9c0;font-size:13px;font-weight:600}
+.summary-package{padding:22px 0;border-block:1px solid rgba(255,255,255,.14)}
+.summary-package span,.summary-options span{display:block;color:#a7b3ab;font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.summary-package strong{display:block;margin-top:5px;font:800 clamp(54px,5vw,70px)/.95 "Barlow Condensed",sans-serif}
+.summary-options{display:grid;grid-template-columns:.8fr 1.2fr;gap:0;margin-top:24px}
+.summary-options>div{padding-right:18px}
+.summary-options>div+div{padding-left:22px;padding-right:0;border-left:1px solid rgba(255,255,255,.14)}
+.summary-options strong{display:block;margin-top:8px;font:700 23px/1.05 "Barlow Condensed",sans-serif}
+.summary-options small{display:block;margin-top:7px;color:#95a199;font-size:9px;line-height:1.45}
+.summary-note{margin:24px 0 0;color:#8f9c93;font-size:9px}
+
+.trust-strip{display:grid;grid-template-columns:repeat(4,1fr);background:var(--green);color:#fff}
+.trust-strip div{padding:20px clamp(18px,2.6vw,34px);border-right:1px solid rgba(255,255,255,.22)}
+.trust-strip div:last-child{border-right:0}
+.trust-strip strong,.trust-strip span{display:block}
+.trust-strip strong{font:800 18px/1 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.05em}
+.trust-strip span{margin-top:6px;color:#e7f2ea;font-size:10px;line-height:1.4}
+
+.section{padding:clamp(70px,8vw,108px) clamp(20px,5vw,72px)}
+.package{background:#fff}
+.package-heading{max-width:1200px;margin:0 auto 48px;display:grid;grid-template-columns:1.1fr .75fr;gap:clamp(36px,7vw,92px);align-items:end}
+.section-heading h2,.payment-heading h2,.terms-intro h2{font-size:clamp(46px,5.1vw,70px);line-height:.94}
+.package-heading>p,.payment-heading>p{margin:0;color:var(--muted);font-size:14px;line-height:1.75}
+.package-inclusions{max-width:1200px;margin:0 auto;border-top:1px solid var(--line)}
+.inclusion-row{display:grid;grid-template-columns:minmax(260px,.78fr) minmax(0,1.22fr);gap:clamp(34px,6vw,84px);padding:34px 0;border-bottom:1px solid var(--line);align-items:start}
+.inclusion-row-featured{margin-inline:-24px;padding-inline:24px;background:#f0f6f2}
+.inclusion-heading h3{margin:9px 0 0;max-width:460px;font:800 clamp(29px,2.7vw,38px)/1 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:-.01em}
+.package-kicker{margin:0;color:var(--green);font-size:9px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+.inclusion-list{list-style:none;margin:0;padding:3px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
+.inclusion-list li{position:relative;padding-left:25px;color:#2e3832;font-size:13px;line-height:1.45}
+.inclusion-list li:before{content:"✓";position:absolute;left:0;top:-1px;color:var(--green);font-weight:900;font-size:16px}
+.membership-dates{margin:13px 0 0;font:800 21px/1.1 "Barlow Condensed",sans-serif;text-transform:uppercase}
+.membership-dates span{color:var(--muted);font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase}
+.fine-print{max-width:1200px;margin:24px auto 0;color:var(--muted);font-size:9px;line-height:1.6}
+
+.coach-section{background:var(--ink);color:#fff}
+.coach-inner{max-width:1240px;margin:0 auto;padding:clamp(72px,8vw,110px) clamp(20px,5vw,62px);display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(46px,7vw,90px);align-items:center}
+.coach-media{position:relative;padding:0 34px 38px 0}
+.coach-main-photo{margin:0;aspect-ratio:4/4.6;overflow:hidden;border:1px solid rgba(255,255,255,.16);background:#101611}
+.coach-main-photo img{width:100%;height:100%;object-fit:cover;object-position:center 55%}
+.coach-portrait-card{position:absolute;right:0;bottom:0;display:flex;align-items:center;gap:13px;width:min(270px,68%);padding:12px;background:#fff;color:var(--ink);box-shadow:0 18px 48px rgba(0,0,0,.28)}
+.coach-portrait-card img{width:68px;height:80px;object-fit:cover;object-position:center 16%}
+.coach-portrait-card strong,.coach-portrait-card span{display:block}
+.coach-portrait-card strong{font:800 21px/1 "Barlow Condensed",sans-serif;text-transform:uppercase}
+.coach-portrait-card span{margin-top:5px;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.1em}
+.coach-copy h2{font-size:clamp(49px,5.4vw,74px);line-height:.91}
+.coach-copy>p{max-width:640px;color:#c9d2cb;font-size:14px;line-height:1.75}
+.coach-copy>p:first-of-type{margin-top:26px}
+.coach-values{display:flex;flex-wrap:wrap;gap:10px 23px;margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15);color:var(--accent);font:800 14px/1 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.08em}
+
+.training-section{background:#fff}
+.training-inner{max-width:1240px;margin:0 auto;padding:clamp(72px,8vw,108px) clamp(20px,5vw,62px);display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:clamp(46px,6vw,80px);align-items:center}
+.training-copy h2{font-size:clamp(46px,5vw,68px);line-height:.94}
+.training-copy>p:not(.eyebrow){color:var(--muted);font-size:14px;line-height:1.75}
+.location-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}
+.location-cards article{padding:22px;border:1px solid var(--line);background:var(--paper)}
+.location-cards span,.location-cards strong,.location-cards small{display:block}
+.location-cards span{color:var(--green);font-size:8px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.location-cards strong{margin-top:7px;font:800 23px/1 "Barlow Condensed",sans-serif;text-transform:uppercase}
+.location-cards small{margin-top:7px;color:var(--muted);font-size:9px;line-height:1.5}
+.training-photo{margin:0;aspect-ratio:4/3;overflow:hidden;background:#0b110d}
+.training-photo img{width:100%;height:100%;object-fit:cover;object-position:center}
+
+.payment{background:var(--paper)}
+.payment-inner{max-width:1200px;margin:0 auto;padding:clamp(72px,8vw,108px) clamp(20px,5vw,62px)}
+.payment-heading{display:grid;grid-template-columns:1.1fr .78fr;gap:clamp(36px,7vw,88px);align-items:end;margin-bottom:42px}
+.enrollment-card{background:#fff;border:1px solid #ccd5ce;padding:clamp(26px,4vw,44px);box-shadow:var(--shadow)}
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.choice{cursor:pointer;text-align:left;background:#fff;border:1px solid #cbd4cd;padding:26px;min-height:240px;display:flex;flex-direction:column;color:var(--ink);transition:border-color .15s ease,background .15s ease,box-shadow .15s ease}
+.choice:hover{border-color:#9fb5a6}
+.choice.selected{border-color:var(--green);background:#eff6f1;box-shadow:inset 0 0 0 1px var(--green)}
+.choice-topline{display:flex;justify-content:space-between;gap:14px;align-items:center}
+.choice-label{color:var(--green);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:900}
+.choice-badge{padding:5px 8px;border:1px solid #bdd1c2;color:#4d5b52;font-size:8px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+.choice>strong{margin-top:22px;font:800 47px/1 "Barlow Condensed",sans-serif}
+.choice>strong small{font:700 10px Inter,sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.choice-schedule{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:23px;padding-top:16px;border-top:1px solid #d6ded8}
+.choice-schedule span{color:#49534c;font-size:10px;line-height:1.4}
+.choice-schedule b{display:block;color:var(--ink);font:800 20px/1 "Barlow Condensed",sans-serif}
+.choice-schedule-single{grid-template-columns:1fr}
+.choice>p{margin:auto 0 0;padding-top:18px;color:var(--muted);font-size:10px;line-height:1.5}
+.reveal{margin-top:18px}.hidden{display:none}
+.schedule-card,.paid-full-card{background:#f3f7f4;border-left:4px solid var(--green);padding:22px}
+.schedule-heading,.schedule-row{display:flex;justify-content:space-between;gap:22px;align-items:center}
+.schedule-heading{padding-bottom:14px;border-bottom:1px solid #ccd5cf;font-size:12px;font-weight:800}
+.schedule-heading strong,.schedule-row>strong{font-family:"Barlow Condensed",sans-serif}
+.schedule-heading strong{font-size:24px}
+.schedule-row{padding:15px 0;border-bottom:1px solid #d7ded9}
+.schedule-row span,.schedule-row small{display:block}
+.schedule-row span{font-size:11px;font-weight:800}.schedule-row small{margin-top:3px;color:var(--muted);font-size:9px}
+.schedule-row>strong{font-size:28px}.schedule-row.active>strong{color:var(--green)}
+.schedule-card>p{margin:16px 0 0;color:var(--muted);font-size:9px;line-height:1.55}
+.paid-full-card span{display:block;color:var(--green);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.14em}
+.paid-full-card strong{display:block;margin-top:5px;font:800 50px/1 "Barlow Condensed",sans-serif}
+.paid-full-card p{margin:8px 0 0;color:var(--muted);font-size:11px}
+.agreement{display:grid;gap:15px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+.agreement label{display:flex;gap:11px;align-items:flex-start;cursor:pointer}.agreement input{width:18px;height:18px;accent-color:var(--green);flex:0 0 auto}.agreement span{color:#414a44;font-size:10px;line-height:1.55}
+.checkout-summary{display:grid;grid-template-columns:.9fr .9fr auto;align-items:center;gap:22px;margin-top:24px;padding:20px 22px;background:var(--ink);color:#fff}
+.checkout-summary span,.checkout-summary strong{display:block}
+.checkout-summary span{color:#aab5ad;font-size:8px;text-transform:uppercase;letter-spacing:.13em}
+.checkout-summary strong{margin-top:4px;font:700 24px/1 "Barlow Condensed",sans-serif}
+.disabled{opacity:.45;pointer-events:none}
+.stripe-note{margin:13px auto 0;max-width:760px;text-align:center;color:var(--muted);font-size:9px;line-height:1.5}
+
+.terms-section{background:var(--ink);color:#fff}
+.terms-inner{max-width:1200px;margin:0 auto;padding:clamp(68px,8vw,100px) clamp(20px,5vw,62px);display:grid;grid-template-columns:.75fr 1.25fr;gap:clamp(44px,7vw,86px)}
+.terms-intro h2{font-size:clamp(48px,5.4vw,72px);line-height:.90}
+.terms-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 34px}
+.terms-grid article{padding:20px 0;border-top:1px solid var(--line-dark)}
+.terms-grid h3{margin:0 0 8px;color:var(--accent);font:800 18px/1 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.07em}
+.terms-grid p{margin:0;color:#c6d0c8;font-size:11px;line-height:1.65}
+.terms-grid a{color:#fff}
+
+footer{background:#fff}
+.footer-inner{max-width:1240px;margin:0 auto;padding:34px clamp(20px,5vw,62px);display:grid;grid-template-columns:1fr minmax(470px,.85fr);align-items:center;gap:44px}
+.footer-details{display:grid;grid-template-columns:1fr 1.2fr;gap:42px;align-items:start}
+footer address{font-style:normal;color:#566158;font-size:11px;line-height:1.55}
+footer address strong,.footer-contact>strong{display:block;margin-bottom:6px;color:var(--green);font-size:9px;text-transform:uppercase;letter-spacing:.12em}
+.footer-contact{display:flex;flex-direction:column;align-items:flex-start;gap:5px;color:var(--ink)}
+.footer-contact a{color:var(--ink);font-size:11px;font-weight:800;text-decoration:none;line-height:1.35}
+.footer-contact a:hover{text-decoration:underline}
+
+@media(max-width:1040px){
+  .site-header{grid-template-columns:1fr auto}.site-header nav{display:none}
+  .hero-inner{grid-template-columns:1fr;max-width:850px}.team-summary{max-width:720px}
+  .trust-strip{grid-template-columns:1fr 1fr}.trust-strip div:nth-child(2){border-right:0}.trust-strip div:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.22)}
+  .package-heading,.payment-heading,.coach-inner,.training-inner,.terms-inner{grid-template-columns:1fr}
+  .coach-inner,.training-inner{max-width:850px}.coach-media{max-width:650px}.training-photo{order:-1}
+  .checkout-summary{grid-template-columns:1fr 1fr}.checkout-summary .button{grid-column:1/-1}
+  .footer-inner{grid-template-columns:1fr}.footer-details{grid-template-columns:1fr 1fr;max-width:680px}
+}
+
+@media(max-width:720px){
+  html{scroll-padding-top:74px}.site-header{height:72px;padding-inline:18px}.brand img{width:43px;height:43px}.brand strong{font-size:19px}.brand small{display:none}.header-cta{font-size:10px}
+  .hero-inner{padding:54px 20px 62px}.hero-copy h1{font-size:clamp(52px,15vw,72px)}.hero-lede{font-size:15px}.hero-actions{align-items:flex-start;flex-direction:column;gap:16px}
+  .team-summary-content{padding:28px 24px}.team-summary-watermark{inset:0;width:100%;height:100%;padding:18px;gap:14px;opacity:.065}.team-summary-watermark img{width:118px;height:118px}.team-summary-watermark strong{font-size:42px}.team-summary-watermark span{font-size:8px;letter-spacing:.16em}.team-summary h2{font-size:50px}.summary-package strong{font-size:58px}.summary-options{grid-template-columns:1fr;gap:18px}.summary-options>div+div{border-left:0;border-top:1px solid rgba(255,255,255,.14);padding:18px 0 0}
+  .trust-strip{grid-template-columns:1fr}.trust-strip div{border-right:0;border-bottom:1px solid rgba(255,255,255,.22)!important}.trust-strip div:last-child{border-bottom:0!important}
+  .section,.payment-inner,.coach-inner,.training-inner,.terms-inner{padding-left:20px;padding-right:20px}
+  .choice-grid,.location-cards,.terms-grid,.checkout-summary{grid-template-columns:1fr}
+  .inclusion-row{grid-template-columns:1fr;gap:20px;padding:28px 0}.inclusion-row-featured{margin-inline:-14px;padding-inline:14px}.inclusion-list{grid-template-columns:1fr 1fr}
+  .coach-media{padding-right:18px;padding-bottom:34px}.coach-main-photo{aspect-ratio:4/5}.coach-portrait-card{width:min(250px,74%)}.coach-copy h2,.training-copy h2,.section-heading h2,.payment-heading h2,.terms-intro h2{font-size:clamp(43px,13vw,58px)}
+  .training-photo{aspect-ratio:4/3}
+  .inclusion-list{grid-template-columns:1fr}
+  .choice{min-height:220px;padding:23px}.choice>strong{font-size:43px}.choice-schedule{grid-template-columns:1fr 1fr}
+  .schedule-heading,.schedule-row{gap:16px}.schedule-heading{align-items:flex-end}.schedule-row>strong{font-size:25px}
+  .checkout-summary .button{grid-column:auto;width:100%}
+  .footer-inner{grid-template-columns:1fr}.footer-details{grid-template-columns:1fr;gap:20px}
+}
+
+@media(max-width:420px){
+  .header-cta{display:none}.site-header{grid-template-columns:1fr}
+  .choice-schedule{grid-template-columns:1fr;gap:8px}
+  .coach-portrait-card{position:relative;right:auto;bottom:auto;width:100%;margin-top:-1px;box-shadow:none}
+  .coach-media{padding:0}
+}
+
+/* v4: true full-card hero watermark */
+.team-summary::before{
+  content:"";
+  position:absolute;
+  inset:-7%;
+  z-index:0;
+  background-image:url("https://cyoj-hit-lab-14u-yeaney-payments.cyoj-hit-lab-6720.chatgpt.site/team-logo.webp");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:min(94%,460px) auto;
+  opacity:.15;
+  filter:grayscale(1) brightness(2.2) contrast(.9);
+  pointer-events:none;
+}
+.team-summary::after{
+  content:"CYOJ HIT LAB\A 2027 BASEBALL ACADEMY";
+  white-space:pre;
+  position:absolute;
+  left:50%;
+  top:53%;
+  width:115%;
+  transform:translate(-50%,-50%);
+  z-index:0;
+  color:#fff;
+  text-align:center;
+  font:900 clamp(58px,5.8vw,82px)/.82 "Barlow Condensed",sans-serif;
+  letter-spacing:.015em;
+  opacity:.055;
+  pointer-events:none;
+}
+.team-summary-watermark{display:none!important}
+.team-summary-content{position:relative;z-index:1}
+
+@media(max-width:720px){
+  .team-summary::before{inset:-4%;background-size:108% auto;opacity:.12}
+  .team-summary::after{top:55%;width:125%;font-size:54px;opacity:.045}
+}
