@@ -1,8 +1,9 @@
 {
-  "name": "cyoj-hit-lab-14u-yeaney",
+  "name": "cyoj-hit-lab-13u-baseball-academy",
   "private": true,
   "version": "1.0.0",
   "dependencies": {
+    "qrcode": "^1.5.4",
     "stripe": "^22.5.0"
   }
 }
