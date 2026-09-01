@@ -22,10 +22,6 @@ const TEAM_CODE =
 const JOTFORM_FORM_ID =
   '262305529358158';
 
-/*
- * This is the actual current Jotform
- * signature field ID on the LIVE waiver.
- */
 const JOTFORM_PARENT_SIGNATURE_FIELD_ID =
   '66';
 
@@ -55,17 +51,6 @@ function getSiteUrl() {
     process.env.SITE_URL ||
     DEFAULT_SITE_URL
   ).replace(/\/+$/, '');
-}
-
-
-function getId(value) {
-  if (!value) {
-    return null;
-  }
-
-  return typeof value === 'string'
-    ? value
-    : value.id;
 }
 
 
@@ -271,6 +256,13 @@ async function getRawBody(req) {
 }
 
 
+/*
+ * Multipart boundaries are case-sensitive.
+ *
+ * IMPORTANT:
+ * Never lowercase the complete Content-Type
+ * string before extracting the boundary.
+ */
 function parseMultipart(
   rawText,
   contentType
@@ -278,8 +270,10 @@ function parseMultipart(
   const result = {};
 
   const boundaryMatch =
-    contentType.match(
-      /boundary="?([^";]+)"?/i
+    String(
+      contentType || ''
+    ).match(
+      /boundary=(?:"([^"]+)"|([^;]+))/i
     );
 
   if (!boundaryMatch) {
@@ -287,50 +281,112 @@ function parseMultipart(
   }
 
   const boundary =
-    boundaryMatch[1];
+    String(
+      boundaryMatch[1] ||
+      boundaryMatch[2] ||
+      ''
+    ).trim();
+
+  if (!boundary) {
+    return result;
+  }
+
+  const delimiter =
+    `--${boundary}`;
 
   const parts =
     rawText.split(
-      `--${boundary}`
+      delimiter
     );
 
   for (
-    const part of parts
+    const rawPart of parts
   ) {
+    let part =
+      rawPart;
+
+    if (
+      !part ||
+      part === '--' ||
+      part === '--\r\n'
+    ) {
+      continue;
+    }
+
+    if (
+      part.startsWith(
+        '\r\n'
+      )
+    ) {
+      part =
+        part.slice(2);
+    }
+
+    if (
+      part.endsWith(
+        '\r\n'
+      )
+    ) {
+      part =
+        part.slice(
+          0,
+          -2
+        );
+    }
+
+    if (
+      part.endsWith(
+        '--'
+      )
+    ) {
+      part =
+        part.slice(
+          0,
+          -2
+        );
+    }
+
+    const headerEnd =
+      part.indexOf(
+        '\r\n\r\n'
+      );
+
+    if (
+      headerEnd === -1
+    ) {
+      continue;
+    }
+
+    const headersText =
+      part.slice(
+        0,
+        headerEnd
+      );
+
+    const value =
+      part
+        .slice(
+          headerEnd + 4
+        )
+        .replace(
+          /\r\n$/,
+          ''
+        );
+
     const nameMatch =
-      part.match(
-        /name="([^"]+)"/i
+      headersText.match(
+        /content-disposition:[^\r\n]*\bname="([^"]+)"/i
       );
 
     if (!nameMatch) {
       continue;
     }
 
-    const separatorIndex =
-      part.indexOf(
-        '\r\n\r\n'
-      );
+    const fieldName =
+      nameMatch[1];
 
-    if (
-      separatorIndex === -1
-    ) {
-      continue;
-    }
-
-    const value =
-      part
-        .slice(
-          separatorIndex + 4
-        )
-        .replace(
-          /\r\n--?$/,
-          ''
-        )
-        .trim();
-
-    result[
-      nameMatch[1]
-    ] = value;
+    result[fieldName] =
+      value;
   }
 
   return result;
@@ -346,10 +402,22 @@ function parseWebhookBody(
       'utf8'
     );
 
-  const normalizedType =
+  /*
+   * Use a lowercased copy ONLY
+   * to identify the media type.
+   *
+   * Keep the original Content-Type
+   * untouched for multipart boundary
+   * extraction.
+   */
+  const originalContentType =
     String(
       contentType || ''
-    ).toLowerCase();
+    );
+
+  const normalizedType =
+    originalContentType
+      .toLowerCase();
 
   if (
     normalizedType.includes(
@@ -372,7 +440,7 @@ function parseWebhookBody(
   ) {
     return parseMultipart(
       rawText,
-      normalizedType
+      originalContentType
     );
   }
 
@@ -660,17 +728,12 @@ function getAnswerTextByLabel(
 
 
 /*
- * IMPORTANT:
+ * LIVE Jotform parent/legal guardian
+ * signature field.
  *
- * The LIVE waiver's current actual
- * parent/legal guardian signature field
- * is answer ID 66.
- *
- * We check that exact field FIRST.
- *
- * We then retain question-label matching
- * as a fallback in case the Jotform field
- * order or internal ID ever changes.
+ * Exact field ID 66 is checked first.
+ * Question-label matching remains as
+ * a fallback if the form changes later.
  */
 function getParentSignature(
   submission
@@ -975,11 +1038,6 @@ async function findMatchingPaid13UCustomer(
   const matches =
     new Map();
 
-  /*
-   * First try the waiver email.
-   * This is the fastest path for most
-   * customers.
-   */
   if (
     normalizeEmail(
       waiver.email
@@ -1039,14 +1097,6 @@ async function findMatchingPaid13UCustomer(
     }
   }
 
-  /*
-   * If email did not find the customer,
-   * search customers more broadly.
-   *
-   * Five pages x 100 customers gives us
-   * room for 500 Stripe customers without
-   * accidentally matching unrelated teams.
-   */
   let startingAfter =
     undefined;
 
@@ -1288,6 +1338,7 @@ support@cyojhitlab.com
           </p>
 
           <p style="margin:28px 0;">
+
             <a
               href="${escapeHtml(
                 cardUrl
@@ -1296,6 +1347,7 @@ support@cyojhitlab.com
             >
               Open Digital Membership Card
             </a>
+
           </p>
 
           <p>
@@ -1533,10 +1585,6 @@ async function activateMembershipFromWaiver({
     updates
   );
 
-  /*
-   * Only issue the active-card email
-   * if payment standing is good.
-   */
   if (
     membershipStatus ===
       'active'
@@ -1716,10 +1764,6 @@ export default async function handler(
         });
     }
 
-    /*
-     * 13U athletes are minors.
-     * Field ID 66 is checked first.
-     */
     if (
       !String(
         waiver.parentSignature ||
@@ -1746,14 +1790,6 @@ export default async function handler(
         waiver
       );
 
-    /*
-     * This is expected if the athlete
-     * completed the waiver BEFORE making
-     * the 13U payment.
-     *
-     * The Stripe payment webhook will
-     * check Jotform again after payment.
-     */
     if (
       match.status ===
         'not_found'
@@ -1772,10 +1808,6 @@ export default async function handler(
         });
     }
 
-    /*
-     * Never guess if more than one paid
-     * 13U Stripe customer matches.
-     */
     if (
       match.status ===
         'ambiguous'
@@ -1784,6 +1816,7 @@ export default async function handler(
         '13U Jotform waiver customer match is ambiguous',
         {
           submissionId,
+
           athleteName:
             waiver.athleteName,
         }
@@ -1806,12 +1839,6 @@ export default async function handler(
     const customer =
       match.customer;
 
-    /*
-     * If this exact waiver was already
-     * recorded, treat a duplicate webhook
-     * as successful and do not issue
-     * duplicate work unnecessarily.
-     */
     if (
       String(
         customer.metadata
