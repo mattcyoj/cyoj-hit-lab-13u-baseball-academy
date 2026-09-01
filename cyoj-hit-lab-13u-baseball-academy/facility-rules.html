@@ -1,0 +1,1679 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="theme-color"
+    content="#06100a"
+  >
+
+  <meta
+    name="description"
+    content="CYOJ Hit Lab facility and safety rules for 2027 13U Baseball Academy athletes and families."
+  >
+
+  <title>
+    Facility Rules | CYOJ Hit Lab 13U Baseball Academy
+  </title>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --ink: #06100a;
+      --green: #0d7a3b;
+      --accent: #37cf73;
+      --accent-soft: #71e79c;
+      --paper: #f4f6f2;
+      --white: #ffffff;
+      --muted: #5b665f;
+      --line: #d7ded8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+
+      background: var(--paper);
+      color: var(--ink);
+
+      font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+
+    .legal-header {
+      background: #041008;
+      color: #fff;
+
+      border-bottom:
+        1px solid rgba(113,231,156,.16);
+    }
+
+    .legal-header-inner {
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+      padding:
+        15px
+        clamp(20px,5vw,60px);
+
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 24px;
+    }
+
+    .legal-brand {
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+
+      color: #fff;
+
+      text-decoration: none;
+    }
+
+    .legal-brand img {
+      width: 50px;
+      height: 50px;
+
+      object-fit: contain;
+    }
+
+    .legal-brand strong {
+      display: block;
+
+      font:
+        800
+        22px/1
+        "Barlow Condensed",
+        sans-serif;
+
+      letter-spacing: .07em;
+    }
+
+    .legal-brand small {
+      display: block;
+
+      margin-top: 4px;
+
+      color: #93a299;
+
+      font-size: 8px;
+      font-weight: 700;
+
+      letter-spacing: .13em;
+
+      text-transform: uppercase;
+    }
+
+    .return-link {
+      padding-bottom: 6px;
+
+      color: #fff;
+
+      border-bottom:
+        2px solid var(--accent);
+
+      font:
+        800
+        12px/1
+        "Barlow Condensed",
+        sans-serif;
+
+      letter-spacing: .09em;
+
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+
+    .legal-hero {
+      background:
+        radial-gradient(
+          circle at 82% 12%,
+          rgba(55,207,115,.12),
+          transparent 28%
+        ),
+        linear-gradient(
+          130deg,
+          #030805 0%,
+          #061009 65%,
+          #07160d 100%
+        );
+
+      color: #fff;
+    }
+
+    .legal-hero-inner {
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+      padding:
+        clamp(70px,8vw,104px)
+        clamp(20px,5vw,60px);
+    }
+
+    .eyebrow {
+      margin: 0 0 16px;
+
+      color: var(--accent-soft);
+
+      font-size: 9px;
+      font-weight: 900;
+
+      letter-spacing: .20em;
+
+      text-transform: uppercase;
+    }
+
+    .legal-hero h1 {
+      max-width: 900px;
+
+      margin: 0;
+
+      font:
+        900
+        clamp(58px,7vw,92px)/.88
+        "Barlow Condensed",
+        sans-serif;
+
+      letter-spacing: -.025em;
+
+      text-transform: uppercase;
+    }
+
+    .legal-hero p:not(.eyebrow) {
+      max-width: 760px;
+
+      margin: 27px 0 0;
+
+      color: #d8e0da;
+
+      font-size: 15px;
+
+      line-height: 1.75;
+    }
+
+    .agreement-meta {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 14px 30px;
+
+      margin-top: 32px;
+
+      padding-top: 22px;
+
+      border-top:
+        1px solid rgba(255,255,255,.16);
+
+      color: #adb9b0;
+
+      font-size: 9px;
+      font-weight: 700;
+
+      letter-spacing: .08em;
+
+      text-transform: uppercase;
+    }
+
+    .agreement-meta strong {
+      color: #fff;
+    }
+
+
+    /* =========================================================
+       DOCUMENT
+       ========================================================= */
+
+    .legal-main {
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+      padding:
+        clamp(56px,7vw,86px)
+        clamp(20px,5vw,60px)
+        clamp(72px,8vw,106px);
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(220px,.48fr)
+        minmax(0,1.52fr);
+
+      gap:
+        clamp(44px,7vw,92px);
+
+      align-items: start;
+    }
+
+    .legal-sidebar {
+      position: sticky;
+
+      top: 28px;
+    }
+
+    .legal-sidebar span {
+      display: block;
+
+      color: var(--green);
+
+      font-size: 8px;
+      font-weight: 900;
+
+      letter-spacing: .17em;
+
+      text-transform: uppercase;
+    }
+
+    .legal-sidebar strong {
+      display: block;
+
+      margin-top: 9px;
+
+      font:
+        800
+        30px/1
+        "Barlow Condensed",
+        sans-serif;
+
+      text-transform: uppercase;
+    }
+
+    .legal-sidebar p {
+      margin: 15px 0 0;
+
+      color: var(--muted);
+
+      font-size: 10px;
+
+      line-height: 1.6;
+    }
+
+    .legal-document {
+      background: #fff;
+
+      border:
+        1px solid var(--line);
+    }
+
+    .legal-section {
+      padding:
+        clamp(28px,4vw,42px);
+
+      border-bottom:
+        1px solid var(--line);
+    }
+
+    .legal-section:last-child {
+      border-bottom: 0;
+    }
+
+    .section-number {
+      margin: 0 0 7px;
+
+      color: var(--green);
+
+      font-size: 8px;
+      font-weight: 900;
+
+      letter-spacing: .17em;
+
+      text-transform: uppercase;
+    }
+
+    .legal-section h2 {
+      margin: 0;
+
+      font:
+        800
+        clamp(27px,3vw,36px)/1
+        "Barlow Condensed",
+        sans-serif;
+
+      text-transform: uppercase;
+    }
+
+    .legal-section p {
+      margin: 15px 0 0;
+
+      color: #3f4942;
+
+      font-size: 12px;
+
+      line-height: 1.75;
+    }
+
+    .legal-section ul {
+      margin:
+        18px
+        0
+        0;
+
+      padding: 0;
+
+      list-style: none;
+
+      display: grid;
+
+      gap: 12px;
+    }
+
+    .legal-section li {
+      position: relative;
+
+      padding-left: 24px;
+
+      color: #3f4942;
+
+      font-size: 12px;
+
+      line-height: 1.65;
+    }
+
+    .legal-section li::before {
+      content: "✓";
+
+      position: absolute;
+
+      left: 0;
+      top: 0;
+
+      color: var(--green);
+
+      font-weight: 900;
+    }
+
+
+    /* =========================================================
+       FEATURE BOX
+       ========================================================= */
+
+    .safety-box {
+      margin-top: 20px;
+
+      padding:
+        clamp(24px,3vw,32px);
+
+      background:
+        linear-gradient(
+          135deg,
+          #07130c,
+          #0a1b11
+        );
+
+      color: #fff;
+
+      border-left:
+        4px solid var(--accent);
+    }
+
+    .safety-box span {
+      display: block;
+
+      color: var(--accent-soft);
+
+      font-size: 8px;
+      font-weight: 900;
+
+      letter-spacing: .17em;
+
+      text-transform: uppercase;
+    }
+
+    .safety-box strong {
+      display: block;
+
+      max-width: 650px;
+
+      margin-top: 9px;
+
+      font:
+        800
+        clamp(29px,3.3vw,42px)/.95
+        "Barlow Condensed",
+        sans-serif;
+
+      text-transform: uppercase;
+    }
+
+    .safety-box p {
+      color: #cdd6cf;
+
+      margin-top: 14px;
+    }
+
+
+    /* =========================================================
+       NOTICE BOX
+       ========================================================= */
+
+    .notice-box {
+      margin-top: 20px;
+
+      padding: 20px;
+
+      background: #edf5f0;
+
+      border-left:
+        3px solid var(--green);
+    }
+
+    .notice-box strong {
+      display: block;
+
+      color: var(--green);
+
+      font:
+        800
+        17px/1
+        "Barlow Condensed",
+        sans-serif;
+
+      letter-spacing: .05em;
+
+      text-transform: uppercase;
+    }
+
+    .notice-box p {
+      margin-top: 8px;
+    }
+
+
+    /* =========================================================
+       LOCATION BOX
+       ========================================================= */
+
+    .location-box {
+      margin-top: 20px;
+
+      display: grid;
+
+      grid-template-columns:
+        1fr
+        1fr;
+
+      border:
+        1px solid var(--line);
+
+      background: #f7f9f7;
+    }
+
+    .location-box div {
+      padding: 20px;
+    }
+
+    .location-box div + div {
+      border-left:
+        1px solid var(--line);
+    }
+
+    .location-box span,
+    .location-box strong {
+      display: block;
+    }
+
+    .location-box span {
+      color: var(--green);
+
+      font-size: 8px;
+      font-weight: 900;
+
+      letter-spacing: .14em;
+
+      text-transform: uppercase;
+    }
+
+    .location-box strong {
+      margin-top: 6px;
+
+      font:
+        800
+        21px/1
+        "Barlow Condensed",
+        sans-serif;
+
+      text-transform: uppercase;
+    }
+
+    .location-box p {
+      margin-top: 7px;
+
+      font-size: 10px;
+    }
+
+
+    /* =========================================================
+       CONTACT
+       ========================================================= */
+
+    .legal-contact {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .legal-contact-inner {
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+      padding:
+        44px
+        clamp(20px,5vw,60px);
+
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 30px;
+    }
+
+    .legal-contact span {
+      display: block;
+
+      color: var(--accent-soft);
+
+      font-size: 8px;
+      font-weight: 900;
+
+      letter-spacing: .16em;
+
+      text-transform: uppercase;
+    }
+
+    .legal-contact strong {
+      display: block;
+
+      margin-top: 6px;
+
+      font:
+        800
+        27px/1
+        "Barlow Condensed",
+        sans-serif;
+
+      text-transform: uppercase;
+    }
+
+    .contact-links {
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: flex-end;
+
+      gap: 5px;
+    }
+
+    .contact-links a {
+      color: #fff;
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+
+    footer {
+      background: #fff;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+      padding:
+        28px
+        clamp(20px,5vw,60px);
+
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 28px;
+    }
+
+    .footer-inner p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 8px;
+
+      line-height: 1.55;
+    }
+
+    .footer-inner a {
+      color: var(--green);
+
+      font-size: 9px;
+      font-weight: 900;
+
+      text-transform: uppercase;
+
+      letter-spacing: .08em;
+    }
+
+
+    /* =========================================================
+       MOBILE
+       ========================================================= */
+
+    @media (max-width: 800px) {
+
+      .legal-header-inner,
+      .legal-contact-inner,
+      .footer-inner {
+        align-items: flex-start;
+      }
+
+      .legal-main {
+        grid-template-columns: 1fr;
+      }
+
+      .legal-sidebar {
+        position: static;
+      }
+
+      .legal-contact-inner,
+      .footer-inner {
+        flex-direction: column;
+      }
+
+      .contact-links {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .location-box {
+        grid-template-columns: 1fr;
+      }
+
+      .location-box div + div {
+        border-left: 0;
+
+        border-top:
+          1px solid var(--line);
+      }
+    }
+
+    @media (max-width: 520px) {
+
+      .legal-brand small {
+        display: none;
+      }
+
+      .return-link {
+        font-size: 10px;
+      }
+
+      .legal-hero h1 {
+        font-size:
+          clamp(
+            50px,
+            15vw,
+            68px
+          );
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- =======================================================
+       HEADER
+       ======================================================= -->
+
+  <header class="legal-header">
+
+    <div class="legal-header-inner">
+
+
+      <a
+        class="legal-brand"
+        href="/"
+        aria-label="Return to 13U Baseball Academy"
+      >
+
+        <img
+          src="/team-logo.webp"
+          alt=""
+          width="50"
+          height="50"
+        >
+
+        <span>
+
+          <strong>
+            CYOJ HIT LAB
+          </strong>
+
+          <small>
+            2027 Baseball Academy · 13U
+          </small>
+
+        </span>
+
+      </a>
+
+
+      <a
+        class="return-link"
+        href="/"
+      >
+        ← Return to 13U Academy
+      </a>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =======================================================
+       HERO
+       ======================================================= -->
+
+  <section class="legal-hero">
+
+    <div class="legal-hero-inner">
+
+      <p class="eyebrow">
+        CYOJ Hit Lab · 13U Baseball Academy
+      </p>
+
+      <h1>
+        Facility<br>
+        Rules
+      </h1>
+
+      <p>
+        These rules are designed to help provide a safe,
+        respectful and productive training environment for
+        Academy athletes, families, guests, coaches and staff
+        using CYOJ Hit Lab.
+      </p>
+
+
+      <div class="agreement-meta">
+
+        <span>
+          Facility:
+          <strong>
+            CYOJ Hit Lab
+          </strong>
+        </span>
+
+        <span>
+          Program:
+          <strong>
+            2027 13U Baseball Academy
+          </strong>
+        </span>
+
+        <span>
+          Athlete Waiver:
+          <strong>
+            Required
+          </strong>
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =======================================================
+       DOCUMENT
+       ======================================================= -->
+
+  <main class="legal-main">
+
+
+    <aside class="legal-sidebar">
+
+      <span>
+        CYOJ Hit Lab
+      </span>
+
+      <strong>
+        Facility &<br>
+        Safety Rules
+      </strong>
+
+      <p>
+        All athletes and families are responsible for following
+        applicable facility instructions and helping maintain a
+        safe training environment.
+      </p>
+
+    </aside>
+
+
+
+    <div class="legal-document">
+
+
+      <!-- SECTION 01 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 01
+        </p>
+
+        <h2>
+          Athlete Waiver Required
+        </h2>
+
+        <p>
+          A current CYOJ Hit Lab Athlete Waiver must be completed
+          for each participating athlete before the athlete may use
+          CYOJ Hit Lab or participate in applicable Hit Lab activities.
+        </p>
+
+        <p>
+          Academy payment and enrollment do not replace the athlete
+          waiver requirement.
+        </p>
+
+
+        <div class="safety-box">
+
+          <span>
+            Required before facility use
+          </span>
+
+          <strong>
+            Payment + Athlete Waiver = Membership Access
+          </strong>
+
+          <p>
+            The athlete's applicable Academy payment must be successfully
+            completed and the required Hit Lab Athlete Waiver must be
+            completed before full Academy membership access and the
+            athlete's digital membership card are activated.
+          </p>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- SECTION 02 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 02
+        </p>
+
+        <h2>
+          General Conduct
+        </h2>
+
+        <p>
+          CYOJ Hit Lab is a youth athletic training environment.
+          Athletes, parents, guardians and guests are expected to
+          conduct themselves safely and respectfully at all times.
+        </p>
+
+        <ul>
+
+          <li>
+            No running in the Lab Lounge, shop or other non-training areas.
+          </li>
+
+          <li>
+            No roughhousing inside the facility.
+          </li>
+
+          <li>
+            Respect athletes, coaches, staff, families and other facility users.
+          </li>
+
+          <li>
+            Follow reasonable directions provided by Hit Lab coaches,
+            staff and facility personnel.
+          </li>
+
+          <li>
+            Do not intentionally disrupt another athlete's training,
+            lesson, practice or reserved facility time.
+          </li>
+
+          <li>
+            Use appropriate language and behavior in a youth-focused
+            training environment.
+          </li>
+
+        </ul>
+
+      </section>
+
+
+
+      <!-- SECTION 03 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 03
+        </p>
+
+        <h2>
+          Parent & Guardian Supervision
+        </h2>
+
+        <p>
+          Parents and guardians are responsible for appropriately
+          supervising children who accompany them to CYOJ Hit Lab.
+        </p>
+
+        <div class="notice-box">
+
+          <strong>
+            Additional children
+          </strong>
+
+          <p>
+            Parents and guardians must watch any additional children
+            they bring into the facility. Children who are not actively
+            participating in training should remain in appropriate
+            non-training areas and may not run, roughhouse or enter
+            active training areas without permission.
+          </p>
+
+        </div>
+
+        <p>
+          Parents and guardians should not allow children to interfere
+          with batting cages, bullpen areas, equipment, technology,
+          team practices, private instruction or other active training.
+        </p>
+
+      </section>
+
+
+
+      <!-- SECTION 04 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 04
+        </p>
+
+        <h2>
+          Batting Cage & Training Safety
+        </h2>
+
+        <p>
+          Batting cages, bullpen areas and other active training spaces
+          involve moving balls, bats, training equipment and athletes.
+          All users must remain aware of their surroundings and follow
+          the instructions associated with the activity being performed.
+        </p>
+
+        <ul>
+
+          <li>
+            Do not enter an active cage or training area until it is
+            safe to do so.
+          </li>
+
+          <li>
+            Bats should only be swung in designated training areas.
+          </li>
+
+          <li>
+            Athletes should remain clear of other athletes who are
+            hitting, throwing or using training equipment.
+          </li>
+
+          <li>
+            Use appropriate protective equipment for the activity
+            being performed.
+          </li>
+
+          <li>
+            Follow all coaching, staff and posted safety instructions.
+          </li>
+
+          <li>
+            Stop an activity immediately if equipment, netting,
+            flooring or another facility condition appears unsafe.
+          </li>
+
+        </ul>
+
+      </section>
+
+
+
+      <!-- SECTION 05 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 05
+        </p>
+
+        <h2>
+          Equipment & Training Technology
+        </h2>
+
+        <p>
+          CYOJ Hit Lab provides access to specialized baseball and
+          softball training equipment and technology. Equipment must
+          be used only for its intended purpose and in accordance with
+          applicable instructions.
+        </p>
+
+        <ul>
+
+          <li>
+            Do not make unauthorized repairs, modifications or
+            adjustments to facility equipment.
+          </li>
+
+          <li>
+            Do not climb on nets, screens, frames, machines or
+            other training structures.
+          </li>
+
+          <li>
+            Use HitTrax, Rapsodo and other training technology
+            appropriately and with care.
+          </li>
+
+          <li>
+            Pitching machines and other mechanical training equipment
+            must be used in accordance with applicable facility
+            instructions.
+          </li>
+
+          <li>
+            Report damaged, malfunctioning or unsafe equipment
+            promptly.
+          </li>
+
+        </ul>
+
+
+        <div class="notice-box">
+
+          <strong>
+            Equipment problem?
+          </strong>
+
+          <p>
+            Stop using the equipment and see Hit Lab staff before
+            continuing. Do not attempt to repair or disassemble
+            facility equipment yourself.
+          </p>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- SECTION 06 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 06
+        </p>
+
+        <h2>
+          Academy Membership Access
+        </h2>
+
+        <p>
+          The 2027 13U Baseball Academy package includes CYOJ Hit Lab
+          membership access for the athlete from August 1, 2026 through
+          August 1, 2027.
+        </p>
+
+        <p>
+          The included membership provides unlimited use of CYOJ Hit Lab
+          during regular business hours, subject to facility availability,
+          scheduling procedures, reservations, safety requirements and
+          these Facility Rules.
+        </p>
+
+        <p>
+          Membership access does not guarantee that a specific cage,
+          training area, piece of equipment or technology will be
+          immediately available at every visit.
+        </p>
+
+
+        <div class="notice-box">
+
+          <strong>
+            After-hours access
+          </strong>
+
+          <p>
+            After-hours access is coming soon. Until that access program
+            is formally activated for an athlete, Academy membership
+            should not be interpreted as permission to enter or use
+            the facility outside authorized operating or scheduled hours.
+          </p>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- SECTION 07 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 07
+        </p>
+
+        <h2>
+          Reservations & Shared Facility Use
+        </h2>
+
+        <p>
+          CYOJ Hit Lab is a shared training facility used by individual
+          athletes, teams, trainers, coaches, programs and other
+          authorized users.
+        </p>
+
+        <p>
+          Academy athletes must follow applicable booking, reservation
+          and facility-access procedures when using Hit Lab outside
+          scheduled team activities.
+        </p>
+
+        <ul>
+
+          <li>
+            Respect reserved cage and training times.
+          </li>
+
+          <li>
+            Finish the session when the applicable reservation or
+            scheduled period ends.
+          </li>
+
+          <li>
+            Do not enter or take over an area currently reserved
+            or actively being used by another athlete or group.
+          </li>
+
+          <li>
+            Follow any posted or communicated procedures for
+            checking in and using training spaces.
+          </li>
+
+        </ul>
+
+      </section>
+
+
+
+      <!-- SECTION 08 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 08
+        </p>
+
+        <h2>
+          Membership Cards, Guests & Access
+        </h2>
+
+        <p>
+          Academy membership is issued for the enrolled athlete and
+          is not transferable to another athlete or family.
+        </p>
+
+        <p>
+          A digital Academy membership card may be used to confirm
+          the athlete's active membership status and applicable
+          facility access.
+        </p>
+
+        <p>
+          Guests, siblings, friends or other individuals accompanying
+          an Academy athlete are not automatically granted the same
+          training or membership privileges as the Academy member.
+          Any participating guest remains subject to applicable
+          facility requirements, safety rules and waiver requirements.
+        </p>
+
+      </section>
+
+
+
+      <!-- SECTION 09 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 09
+        </p>
+
+        <h2>
+          Lab Lounge, Shop & Common Areas
+        </h2>
+
+        <p>
+          The Lab Lounge, shop and common areas should remain safe,
+          clean and accessible for athletes, families and staff.
+        </p>
+
+        <ul>
+
+          <li>
+            No running.
+          </li>
+
+          <li>
+            No roughhousing.
+          </li>
+
+          <li>
+            Keep walkways and entrances clear.
+          </li>
+
+          <li>
+            Parents and guardians must supervise additional children
+            they bring into the facility.
+          </li>
+
+          <li>
+            Dispose of trash and leave the area in reasonable condition
+            for the next facility user.
+          </li>
+
+          <li>
+            Keep personal belongings out of active training areas
+            and locations where they may create a safety hazard.
+          </li>
+
+        </ul>
+
+      </section>
+
+
+
+      <!-- SECTION 10 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 10
+        </p>
+
+        <h2>
+          Facility Property & Damage
+        </h2>
+
+        <p>
+          Athletes, families and guests must treat CYOJ Hit Lab
+          equipment, technology, furniture, fixtures and other
+          property with reasonable care.
+        </p>
+
+        <p>
+          Accidental damage, equipment failure or other facility
+          concerns should be reported to Hit Lab staff promptly.
+        </p>
+
+        <p>
+          Intentional misuse, reckless conduct, unauthorized modification
+          of equipment or deliberate damage may result in restriction
+          or suspension of facility access and may require additional
+          review by CYOJ Hit Lab.
+        </p>
+
+      </section>
+
+
+
+      <!-- SECTION 11 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 11
+        </p>
+
+        <h2>
+          Safety Concerns & Injuries
+        </h2>
+
+        <p>
+          Athletes should stop participating and notify a coach,
+          responsible adult or Hit Lab staff member if they are injured,
+          become ill or believe a facility condition is unsafe.
+        </p>
+
+        <p>
+          Parents, guardians and athletes should communicate known
+          restrictions or safety concerns to the appropriate coach
+          or staff member when relevant to participation.
+        </p>
+
+        <p>
+          In an emergency, users should follow the directions of
+          coaches, staff, emergency responders or other responsible
+          personnel.
+        </p>
+
+      </section>
+
+
+
+      <!-- SECTION 12 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 12
+        </p>
+
+        <h2>
+          Facility Rule Enforcement
+        </h2>
+
+        <p>
+          CYOJ Hit Lab may intervene when conduct creates a safety
+          concern, disrupts facility operations, interferes with
+          another user's training or violates applicable facility rules.
+        </p>
+
+        <p>
+          Depending on the circumstances, an athlete, parent, guardian
+          or guest may be directed to stop an activity, leave a training
+          area or leave the facility.
+        </p>
+
+        <p>
+          Repeated, serious or unsafe violations may result in additional
+          restrictions on facility access. Any such action will be
+          evaluated based on the circumstances and the need to protect
+          athletes, families, staff and facility operations.
+        </p>
+
+      </section>
+
+
+
+      <!-- SECTION 13 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 13
+        </p>
+
+        <h2>
+          Facility Location
+        </h2>
+
+        <p>
+          CYOJ Hit Lab serves as the 13U Baseball Academy's West Salem
+          indoor training facility.
+        </p>
+
+
+        <div class="location-box">
+
+          <div>
+
+            <span>
+              Facility
+            </span>
+
+            <strong>
+              CYOJ Hit Lab
+            </strong>
+
+            <p>
+              576 Patterson Dr NW, Suite 120<br>
+              Salem, OR 97304
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Academy Questions
+            </span>
+
+            <strong>
+              Contact CYOJ Hit Lab
+            </strong>
+
+            <p>
+              academyteams@cyojhitlab.com<br>
+              971-301-8679
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- SECTION 14 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 14
+        </p>
+
+        <h2>
+          Relationship to Other Requirements
+        </h2>
+
+        <p>
+          These Facility Rules should be reviewed together with the
+          2027 13U Baseball Academy Agreement, applicable payment and
+          cancellation terms, privacy practices and the current
+          CYOJ Hit Lab Athlete Waiver.
+        </p>
+
+        <p>
+          Participation in the 13U Academy or possession of an active
+          membership card does not eliminate the responsibility to
+          follow facility safety rules, staff directions or applicable
+          waiver requirements.
+        </p>
+
+      </section>
+
+
+
+      <!-- SECTION 15 -->
+
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 15
+        </p>
+
+        <h2>
+          Questions
+        </h2>
+
+        <p>
+          Questions regarding facility access, Academy membership,
+          safety procedures or these Facility Rules should be directed
+          to CYOJ Hit Lab.
+        </p>
+
+        <p>
+          Email:
+          <a href="mailto:academyteams@cyojhitlab.com">
+            academyteams@cyojhitlab.com
+          </a>
+        </p>
+
+        <p>
+          Phone:
+          <a href="tel:+19713018679">
+            971-301-8679
+          </a>
+        </p>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+
+  <!-- =======================================================
+       CONTACT
+       ======================================================= -->
+
+  <section class="legal-contact">
+
+    <div class="legal-contact-inner">
+
+      <div>
+
+        <span>
+          Questions about facility use?
+        </span>
+
+        <strong>
+          CYOJ Hit Lab
+        </strong>
+
+      </div>
+
+
+      <div class="contact-links">
+
+        <a href="mailto:academyteams@cyojhitlab.com">
+          academyteams@cyojhitlab.com
+        </a>
+
+        <a href="tel:+19713018679">
+          971-301-8679
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =======================================================
+       FOOTER
+       ======================================================= -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <p>
+        CYOJ Hit Lab is operated by Create Your Own Journey Foundation,
+        a 501(c)(3) nonprofit organization.
+      </p>
+
+      <a href="/">
+        Return to 13U Baseball Academy →
+      </a>
+
+    </div>
+
+  </footer>
+
+
+</body>
+</html>
