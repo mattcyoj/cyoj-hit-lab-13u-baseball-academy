@@ -77,30 +77,24 @@ input {
 
   z-index: 1000;
 
-  transform:
-    translateY(-180%);
+  transform: translateY(-180%);
 
-  padding:
-    11px
-    15px;
+  padding: 11px 15px;
 
   background: #fff;
   color: #07110b;
 
-  border:
-    2px solid var(--accent);
+  border: 2px solid var(--accent);
 
   font-weight: 800;
 
   text-decoration: none;
 
-  transition:
-    transform .18s ease;
+  transition: transform .18s ease;
 }
 
 .skip:focus {
-  transform:
-    translateY(0);
+  transform: translateY(0);
 }
 
 
@@ -220,8 +214,7 @@ input {
 
 
 .site-header nav a {
-  padding:
-    12px 0;
+  padding: 12px 0;
 
   color: #e6ece8;
 
@@ -241,8 +234,7 @@ input {
 .header-cta {
   justify-self: end;
 
-  padding:
-    11px 0;
+  padding: 11px 0;
 
   color: #fff;
 
@@ -352,33 +344,29 @@ input {
 
   background:
     radial-gradient(
-      circle at 84% 22%,
+      circle at 86% 24%,
       rgba(55,207,115,.12),
-      transparent 29%
-    ),
-    radial-gradient(
-      circle at 35% 52%,
-      rgba(13,122,59,.09),
-      transparent 37%
+      transparent 30%
     ),
     linear-gradient(
       128deg,
-      #040906 0%,
-      #07100a 55%,
-      #06120b 100%
+      #030805 0%,
+      #061009 57%,
+      #06140c 100%
     );
 }
 
 
 /* =========================================================
-   HERO WATERMARK
+   LARGE FULL-COLOR HIT LAB WATERMARK
 
-   Full-color CYOJ Hit Lab logo.
+   This is intentionally MUCH larger.
 
-   Important:
-   - stays behind LEFT / CENTER hero area
-   - does NOT sit underneath pricing panel
-   - retains green / white / black logo color
+   It fills approximately the footprint Matt marked with
+   the orange circle.
+
+   The pricing panel is above the watermark with an opaque
+   background, so the logo will not interfere with pricing.
    ========================================================= */
 
 .hero-watermark {
@@ -386,15 +374,13 @@ input {
 
   z-index: 0;
 
-  top: 52%;
-
-  right: 41%;
+  left: -6%;
+  top: 50%;
 
   width:
-    clamp(
-      540px,
-      43vw,
-      760px
+    min(
+      94vw,
+      1080px
     );
 
   transform:
@@ -404,7 +390,7 @@ input {
 
   user-select: none;
 
-  opacity: .13;
+  opacity: .21;
 }
 
 
@@ -415,25 +401,22 @@ input {
   opacity: 1;
 
   filter:
-    saturate(.95)
-    brightness(.90)
-    contrast(1.05);
+    saturate(1.45)
+    brightness(1.08)
+    contrast(1.08);
 }
 
 
-/* dark veil over logo so text stays readable */
+/*
+   IMPORTANT:
+   No dark overlay here.
+
+   We want the green/white coloring of the real
+   CYOJ Hit Lab logo to remain visible.
+*/
 
 .hero-watermark::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  background:
-    rgba(3,10,6,.19);
-
-  border-radius: 50%;
+  display: none;
 }
 
 
@@ -444,8 +427,7 @@ input {
 
   max-width: 1320px;
 
-  margin:
-    0 auto;
+  margin: 0 auto;
 
   padding:
     clamp(72px,7.7vw,108px)
@@ -455,10 +437,10 @@ input {
 
   grid-template-columns:
     minmax(0,1.14fr)
-    minmax(380px,.68fr);
+    minmax(390px,.70fr);
 
   gap:
-    clamp(64px,7vw,112px);
+    clamp(60px,6vw,96px);
 
   align-items: center;
 }
@@ -504,6 +486,9 @@ input {
     );
 
   line-height: .88;
+
+  text-shadow:
+    0 2px 12px rgba(0,0,0,.34);
 }
 
 
@@ -513,7 +498,7 @@ input {
   margin:
     28px 0 0;
 
-  color: #d3ddd6;
+  color: #d9e1db;
 
   font-size:
     clamp(
@@ -523,6 +508,9 @@ input {
     );
 
   line-height: 1.7;
+
+  text-shadow:
+    0 1px 8px rgba(0,0,0,.42);
 }
 
 
@@ -546,22 +534,22 @@ input {
 .team-summary {
   position: relative;
 
-  z-index: 4;
+  z-index: 5;
 
   overflow: hidden;
 
   border:
-    1px solid rgba(113,231,156,.30);
+    1px solid rgba(113,231,156,.34);
 
   background:
     linear-gradient(
       150deg,
-      rgba(8,24,15,.995),
-      rgba(4,13,8,.995)
+      #08190f 0%,
+      #041008 100%
     );
 
   box-shadow:
-    0 34px 90px rgba(0,0,0,.32);
+    0 34px 90px rgba(0,0,0,.36);
 }
 
 
@@ -577,9 +565,9 @@ input {
 
   padding:
     clamp(
-      30px,
-      3.3vw,
-      42px
+      28px,
+      3vw,
+      38px
     );
 }
 
@@ -603,9 +591,9 @@ input {
    ========================================================= */
 
 .snapshot-price {
-  margin-top: 18px;
+  margin-top: 17px;
 
-  padding-bottom: 22px;
+  padding-bottom: 20px;
 
   border-bottom:
     1px solid rgba(255,255,255,.15);
@@ -635,21 +623,18 @@ input {
 
   font:
     900
-    clamp(60px,5vw,76px)/.90
+    clamp(58px,4.8vw,72px)/.90
     "Barlow Condensed",
     sans-serif;
 }
 
 
 /* =========================================================
-   CLEAN PACKAGE DETAILS
-
-   No dashboard boxes.
-   Simple rows with breathing room.
+   PACKAGE DETAILS
    ========================================================= */
 
 .snapshot-details {
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 
@@ -657,7 +642,7 @@ input {
   display: grid;
 
   grid-template-columns:
-    minmax(110px,.42fr)
+    minmax(118px,.44fr)
     minmax(0,1fr);
 
   gap: 18px;
@@ -665,7 +650,7 @@ input {
   align-items: center;
 
   padding:
-    16px 0;
+    15px 0;
 
   border-bottom:
     1px solid rgba(255,255,255,.10);
@@ -696,12 +681,10 @@ input {
 }
 
 
-/* membership date gets room */
-
 .snapshot-detail:last-child strong {
-  font-size: 17px;
+  font-size: 16px;
 
-  line-height: 1.12;
+  line-height: 1.15;
 }
 
 
@@ -710,9 +693,7 @@ input {
    ========================================================= */
 
 .snapshot-payment-heading {
-  margin-top: 24px;
-
-  padding-top: 2px;
+  margin-top: 21px;
 
   color: #8f9d94;
 
@@ -729,8 +710,8 @@ input {
   display: grid;
 
   grid-template-columns:
-    .77fr
-    1.23fr;
+    .68fr
+    1.32fr;
 
   margin-top: 12px;
 }
@@ -739,12 +720,12 @@ input {
 .snapshot-payment {
   min-width: 0;
 
-  padding-right: 18px;
+  padding-right: 16px;
 }
 
 
 .snapshot-payment + .snapshot-payment {
-  padding-left: 20px;
+  padding-left: 19px;
   padding-right: 0;
 
   border-left:
@@ -778,9 +759,16 @@ input {
 
   font:
     800
-    23px/1.08
+    22px/1.08
     "Barlow Condensed",
     sans-serif;
+}
+
+
+.snapshot-payment:last-child strong {
+  white-space: nowrap;
+
+  font-size: 20px;
 }
 
 
@@ -794,7 +782,7 @@ input {
 
   font-style: normal;
 
-  font-size: 13px;
+  font-size: 12px;
 
   transform:
     translateY(-2px);
@@ -815,7 +803,7 @@ input {
 .snapshot-link {
   display: inline-block;
 
-  margin-top: 25px;
+  margin-top: 22px;
 
   color: var(--accent-soft);
 
@@ -979,8 +967,7 @@ input {
 .package-inclusions {
   max-width: 1200px;
 
-  margin:
-    0 auto;
+  margin: 0 auto;
 
   border-top:
     1px solid var(--line);
@@ -1251,8 +1238,7 @@ input {
 .training-inner {
   max-width: 1240px;
 
-  margin:
-    0 auto;
+  margin: 0 auto;
 
   padding:
     clamp(72px,8vw,106px)
@@ -1311,8 +1297,7 @@ input {
   border:
     1px solid var(--line);
 
-  background:
-    var(--paper);
+  background: var(--paper);
 }
 
 
@@ -1666,8 +1651,7 @@ input {
 
 
 .schedule-row {
-  padding:
-    15px 0;
+  padding: 15px 0;
 
   border-bottom:
     1px solid #d7ded9;
@@ -1888,8 +1872,7 @@ input {
 .terms-inner {
   max-width: 1200px;
 
-  margin:
-    0 auto;
+  margin: 0 auto;
 
   padding:
     clamp(68px,8vw,98px)
@@ -1986,8 +1969,7 @@ footer {
 .footer-inner {
   max-width: 1240px;
 
-  margin:
-    0 auto;
+  margin: 0 auto;
 
   padding:
     34px
@@ -2100,21 +2082,19 @@ footer address strong,
 
 
   .hero-watermark {
-    top: 31%;
+    top: 29%;
 
-    right: auto;
-    left: 52%;
+    left: -12%;
 
     width:
       min(
-        720px,
-        84vw
+        112vw,
+        900px
       );
 
-    transform:
-      translate(-50%,-50%);
+    transform: translateY(-50%);
 
-    opacity: .10;
+    opacity: .18;
   }
 
 
@@ -2266,17 +2246,15 @@ footer address strong,
 
 
   .hero-watermark {
-    top: 25%;
+    top: 24%;
 
-    left: 63%;
-    right: auto;
+    left: -26%;
 
-    width: 520px;
+    width: 155vw;
 
-    transform:
-      translate(-50%,-50%);
+    transform: translateY(-50%);
 
-    opacity: .085;
+    opacity: .14;
   }
 
 
@@ -2322,6 +2300,11 @@ footer address strong,
 
     border-top:
       1px solid rgba(255,255,255,.14);
+  }
+
+
+  .snapshot-payment:last-child strong {
+    white-space: normal;
   }
 
 
@@ -2486,11 +2469,11 @@ footer address strong,
 
 
   .hero-watermark {
-    left: 67%;
-    top: 23%;
+    left: -37%;
+    top: 22%;
 
-    width: 470px;
+    width: 170vw;
 
-    opacity: .075;
+    opacity: .12;
   }
 }
