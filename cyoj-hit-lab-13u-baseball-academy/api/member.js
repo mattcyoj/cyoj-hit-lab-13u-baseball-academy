@@ -9,14 +9,24 @@ const TEAM_CODE = '13U_BASEBALL_ACADEMY';
 const PROGRAM = 'CYOJ Hit Lab 2027 Baseball Academy';
 const SEASON = '2027';
 
-const MEMBERSHIP_START_DISPLAY = 'Aug. 1, 2026';
-const MEMBERSHIP_END_DISPLAY = 'Aug. 1, 2027';
+const JOTFORM_FORM_ID =
+  '262305529358158';
+
+const MEMBERSHIP_START_DISPLAY =
+  'Aug. 1, 2026';
+
+const MEMBERSHIP_END_DISPLAY =
+  'Aug. 1, 2027';
 
 const MEMBERSHIP_START =
-  new Date('2026-08-01T00:00:00-07:00');
+  new Date(
+    '2026-08-01T00:00:00-07:00'
+  );
 
 const MEMBERSHIP_END =
-  new Date('2027-08-02T00:00:00-07:00');
+  new Date(
+    '2027-08-02T00:00:00-07:00'
+  );
 
 const WAIVER_URL =
   'https://form.jotform.com/262305529358158';
@@ -26,7 +36,9 @@ const DEFAULT_SITE_URL =
 
 
 function getId(value) {
-  if (!value) return null;
+  if (!value) {
+    return null;
+  }
 
   return typeof value === 'string'
     ? value
@@ -35,43 +47,98 @@ function getId(value) {
 
 
 function escapeHtml(value) {
-  return String(value ?? '')
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#039;');
+  return String(
+    value ?? ''
+  )
+    .replaceAll(
+      '&',
+      '&amp;'
+    )
+    .replaceAll(
+      '<',
+      '&lt;'
+    )
+    .replaceAll(
+      '>',
+      '&gt;'
+    )
+    .replaceAll(
+      '"',
+      '&quot;'
+    )
+    .replaceAll(
+      "'",
+      '&#039;'
+    );
 }
 
 
-function normalizeMetadataValue(value) {
-  return String(value || '')
+function normalizeMetadataValue(
+  value
+) {
+  return String(
+    value || ''
+  )
     .trim()
     .toLowerCase();
 }
 
 
-function getCustomFieldValue(session, key) {
-  const field =
-    (session.custom_fields || []).find(
-      (item) => item.key === key
+function normalizeIdentity(
+  value
+) {
+  return String(
+    value || ''
+  )
+    .normalize(
+      'NFKD'
+    )
+    .replace(
+      /[\u0300-\u036f]/g,
+      ''
+    )
+    .toLowerCase()
+    .replace(
+      /[^a-z0-9]/g,
+      ''
     );
+}
 
-  if (!field) return '';
 
-  if (field.type === 'text') {
+function getCustomFieldValue(
+  session,
+  key
+) {
+  const field =
+    (session.custom_fields || [])
+      .find(
+        (item) =>
+          item.key === key
+      );
+
+  if (!field) {
+    return '';
+  }
+
+  if (
+    field.type === 'text'
+  ) {
     return String(
       field.text?.value || ''
     ).trim();
   }
 
-  if (field.type === 'dropdown') {
+  if (
+    field.type === 'dropdown'
+  ) {
     return String(
       field.dropdown?.value || ''
     ).trim();
   }
 
-  if (field.type === 'numeric') {
+  if (
+    field.type === 'numeric'
+  ) {
     return String(
       field.numeric?.value ?? ''
     ).trim();
@@ -81,73 +148,161 @@ function getCustomFieldValue(session, key) {
 }
 
 
-function is13UCheckout(session) {
+function is13UCheckout(
+  session
+) {
   const metadata =
     session.metadata || {};
 
   return (
-    metadata.team === TEAM_NAME &&
+    metadata.team ===
+      TEAM_NAME &&
     (
-      metadata.team_code === TEAM_CODE ||
-      metadata.program === PROGRAM
+      metadata.team_code ===
+        TEAM_CODE ||
+      metadata.program ===
+        PROGRAM
     )
   );
 }
 
 
-function createMemberId(sessionId) {
+function createMemberId(
+  sessionId
+) {
   const hash =
     crypto
-      .createHash('sha256')
+      .createHash(
+        'sha256'
+      )
       .update(
         `CYOJ-13U-MEMBER-${sessionId}`
       )
-      .digest('hex')
-      .slice(0, 10)
+      .digest(
+        'hex'
+      )
+      .slice(
+        0,
+        10
+      )
       .toUpperCase();
 
   return `13U-${hash}`;
 }
 
 
+/*
+ * A generic waiver_status=completed
+ * value is NOT enough.
+ *
+ * A valid 13U membership waiver must:
+ *
+ * - be marked completed or verified
+ * - belong to the current LIVE form
+ * - contain a real Jotform submission ID
+ * - belong to the same athlete
+ */
+function metadataHasCurrentWaiver({
+  metadata,
+  playerName,
+}) {
+  if (
+    !metadata ||
+    typeof metadata !==
+      'object'
+  ) {
+    return false;
+  }
+
+  const waiverStatus =
+    normalizeMetadataValue(
+      metadata.waiver_status ||
+      metadata.hit_lab_waiver_status
+    );
+
+  if (
+    ![
+      'completed',
+      'verified',
+    ].includes(
+      waiverStatus
+    )
+  ) {
+    return false;
+  }
+
+  const waiverFormId =
+    String(
+      metadata.waiver_form_id ||
+      ''
+    ).trim();
+
+  if (
+    waiverFormId !==
+      JOTFORM_FORM_ID
+  ) {
+    return false;
+  }
+
+  const waiverSubmissionId =
+    String(
+      metadata.waiver_submission_id ||
+      ''
+    ).trim();
+
+  if (
+    !waiverSubmissionId
+  ) {
+    return false;
+  }
+
+  const expectedPlayer =
+    normalizeIdentity(
+      playerName
+    );
+
+  const storedPlayer =
+    normalizeIdentity(
+      metadata.player_name
+    );
+
+  if (
+    !expectedPlayer ||
+    !storedPlayer ||
+    expectedPlayer !==
+      storedPlayer
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+
 function hasCompletedWaiver({
   session,
   customer,
+  playerName,
 }) {
-  /*
-   * Canonical value used by the
-   * 13U waiver integration:
-   *
-   * waiver_status = completed
-   *
-   * We also recognize "verified"
-   * so staff can manually verify
-   * a valid existing waiver if needed.
-   */
-
   const sessionMetadata =
     session?.metadata || {};
 
   const customerMetadata =
     customer?.metadata || {};
 
-  const possibleValues = [
-    customerMetadata.waiver_status,
-    customerMetadata.hit_lab_waiver_status,
-    sessionMetadata.waiver_status,
-    sessionMetadata.hit_lab_waiver_status,
-  ];
+  return (
+    metadataHasCurrentWaiver({
+      metadata:
+        sessionMetadata,
 
-  return possibleValues.some(
-    (value) => {
-      const normalized =
-        normalizeMetadataValue(value);
+      playerName,
+    }) ||
+    metadataHasCurrentWaiver({
+      metadata:
+        customerMetadata,
 
-      return (
-        normalized === 'completed' ||
-        normalized === 'verified'
-      );
-    }
+      playerName,
+    })
   );
 }
 
@@ -160,11 +315,16 @@ function getMembershipStatus({
     new Date();
 
   if (
-    session.payment_status !== 'paid'
+    session.payment_status !==
+      'paid'
   ) {
     return {
-      key: 'inactive',
-      label: 'NOT ACTIVE',
+      key:
+        'inactive',
+
+      label:
+        'NOT ACTIVE',
+
       message:
         'A confirmed Academy payment was not found.',
     };
@@ -174,8 +334,12 @@ function getMembershipStatus({
     now >= MEMBERSHIP_END
   ) {
     return {
-      key: 'expired',
-      label: 'EXPIRED',
+      key:
+        'expired',
+
+      label:
+        'EXPIRED',
+
       message:
         'This 2027 13U Baseball Academy membership period has ended.',
     };
@@ -189,14 +353,29 @@ function getMembershipStatus({
       metadata.enrollment_status
     );
 
+  const membershipStatus =
+    normalizeMetadataValue(
+      metadata.membership_status
+    );
+
+  /*
+   * Either payment-standing field
+   * can place the account into
+   * payment-attention status.
+   */
   if (
     enrollmentStatus ===
-    'payment_attention_required'
+      'payment_attention_required' ||
+    membershipStatus ===
+      'payment_attention_required'
   ) {
     return {
-      key: 'attention',
+      key:
+        'attention',
+
       label:
         'PAYMENT ATTENTION REQUIRED',
+
       message:
         'A scheduled Academy payment requires attention before membership access can continue.',
     };
@@ -206,9 +385,12 @@ function getMembershipStatus({
     now < MEMBERSHIP_START
   ) {
     return {
-      key: 'scheduled',
+      key:
+        'scheduled',
+
       label:
         'ACTIVE · STARTS AUG. 1',
+
       message:
         'Payment and waiver requirements are complete. Membership access begins August 1, 2026.',
     };
@@ -216,34 +398,45 @@ function getMembershipStatus({
 
   if (
     enrollmentStatus ===
-    'paid_in_full'
+      'paid_in_full'
   ) {
     return {
-      key: 'paid',
+      key:
+        'paid',
+
       label:
         'ACTIVE · PAID IN FULL',
+
       message:
         'Payment confirmed and CYOJ Hit Lab Athlete Waiver verified.',
     };
   }
 
   return {
-    key: 'active',
+    key:
+      'active',
+
     label:
       'ACTIVE · PAYMENT PLAN CURRENT',
+
     message:
       'Payment confirmed and CYOJ Hit Lab Athlete Waiver verified.',
   };
 }
 
 
-function getSiteUrl(req) {
+function getSiteUrl(
+  req
+) {
   const configured =
     String(
-      process.env.SITE_URL || ''
+      process.env.SITE_URL ||
+      ''
     ).trim();
 
-  if (configured) {
+  if (
+    configured
+  ) {
     return configured.replace(
       /\/+$/,
       ''
@@ -256,11 +449,14 @@ function getSiteUrl(req) {
     ] ||
     req.headers.host;
 
-  if (host) {
+  if (
+    host
+  ) {
     const protocol =
       req.headers[
         'x-forwarded-proto'
-      ] || 'https';
+      ] ||
+      'https';
 
     return `${protocol}://${host}`;
   }
@@ -269,7 +465,9 @@ function getSiteUrl(req) {
 }
 
 
-function setSecurityHeaders(res) {
+function setSecurityHeaders(
+  res
+) {
   res.setHeader(
     'Cache-Control',
     'private, no-store, max-age=0'
@@ -744,7 +942,6 @@ function renderWaiverPendingPage({
 <body>
 
   <main class="shell">
-
 
     <div class="brand">
 
@@ -1757,12 +1954,18 @@ function renderMemberCard({
 
 
 module.exports =
-  async function handler(req, res) {
+  async function handler(
+    req,
+    res
+  ) {
 
-    setSecurityHeaders(res);
+    setSecurityHeaders(
+      res
+    );
 
     if (
-      req.method !== 'GET'
+      req.method !==
+        'GET'
     ) {
       res.setHeader(
         'Allow',
@@ -1807,8 +2010,9 @@ module.exports =
       '';
 
     const sessionId =
-      String(rawSessionId)
-        .trim();
+      String(
+        rawSessionId
+      ).trim();
 
 
     if (
@@ -1845,18 +2049,21 @@ module.exports =
     try {
 
       const session =
-        await stripe.checkout.sessions.retrieve(
-          sessionId,
-          {
-            expand: [
-              'customer',
-            ],
-          }
-        );
+        await stripe.checkout
+          .sessions.retrieve(
+            sessionId,
+            {
+              expand: [
+                'customer',
+              ],
+            }
+          );
 
 
       if (
-        !is13UCheckout(session)
+        !is13UCheckout(
+          session
+        )
       ) {
         return res
           .status(404)
@@ -1874,7 +2081,7 @@ module.exports =
 
       if (
         session.payment_status !==
-        'paid'
+          'paid'
       ) {
         return res
           .status(403)
@@ -1892,7 +2099,7 @@ module.exports =
 
       const customer =
         typeof session.customer ===
-        'object'
+          'object'
           ? session.customer
           : null;
 
@@ -1911,19 +2118,18 @@ module.exports =
 
 
       /*
-       * Payment alone is not enough.
+       * Payment alone is never enough.
        *
-       * The athlete must also have a
-       * verified CYOJ Hit Lab waiver.
-       *
-       * Until the Jotform integration
-       * marks waiver_status=completed,
-       * the membership remains pending.
+       * The membership card requires
+       * a current LIVE Jotform waiver,
+       * a real waiver submission ID,
+       * and a same-athlete match.
        */
       const waiverCompleted =
         hasCompletedWaiver({
           session,
           customer,
+          playerName,
         });
 
 
@@ -1954,7 +2160,9 @@ module.exports =
 
 
       const siteUrl =
-        getSiteUrl(req);
+        getSiteUrl(
+          req
+        );
 
 
       const verificationUrl =
@@ -2015,7 +2223,7 @@ module.exports =
 
       if (
         error.code ===
-        'resource_missing'
+          'resource_missing'
       ) {
         return res
           .status(404)
