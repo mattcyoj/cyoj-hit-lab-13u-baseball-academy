@@ -1,26 +1,46 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#08110c">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+  <meta
+    name="theme-color"
+    content="#08110c"
+  >
 
   <meta
     name="description"
-    content="2027 CYOJ Hit Lab 13U Baseball Academy team package, player development information, training locations and secure payment options."
+    content="2027 CYOJ Hit Lab 13U Baseball Academy team package, player development, Hit Lab membership, training locations and secure payment options."
   >
 
-  <title>13U Baseball Academy | CYOJ Hit Lab 2027</title>
+  <title>
+    13U Baseball Academy | CYOJ Hit Lab 2027
+  </title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
   <link
     href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   >
 
-  <link rel="stylesheet" href="/styles.css">
+  <link
+    rel="stylesheet"
+    href="/styles.css"
+  >
 
   <style>
     .development-panel {
@@ -31,8 +51,16 @@
       padding: clamp(30px, 4vw, 46px);
       border: 1px solid rgba(255,255,255,.16);
       background:
-        radial-gradient(circle at 80% 18%, rgba(55,207,115,.17), transparent 32%),
-        linear-gradient(145deg, #101b14 0%, #09100c 100%);
+        radial-gradient(
+          circle at 80% 18%,
+          rgba(55,207,115,.17),
+          transparent 32%
+        ),
+        linear-gradient(
+          145deg,
+          #101b14 0%,
+          #09100c 100%
+        );
       position: relative;
       overflow: hidden;
     }
@@ -69,7 +97,8 @@
       max-width: 430px;
       margin: 12px 0 0;
       color: #fff;
-      font: 800 clamp(40px, 4.6vw, 62px)/.92 "Barlow Condensed", sans-serif;
+      font: 800 clamp(40px, 4.6vw, 62px)/.92
+        "Barlow Condensed", sans-serif;
       letter-spacing: -.02em;
       text-transform: uppercase;
     }
@@ -96,7 +125,8 @@
 
     .development-panel-grid strong {
       color: #37cf73;
-      font: 800 20px/1 "Barlow Condensed", sans-serif;
+      font: 800 20px/1
+        "Barlow Condensed", sans-serif;
       text-transform: uppercase;
       letter-spacing: .05em;
     }
@@ -106,13 +136,6 @@
       color: #aebbb1;
       font-size: 9px;
       line-height: 1.5;
-    }
-
-    .hero-coach-name {
-      margin: 9px 0 26px;
-      color: #bdc9c0;
-      font-size: 13px;
-      font-weight: 600;
     }
 
     @media (max-width: 720px) {
@@ -127,9 +150,18 @@
   </style>
 </head>
 
-<body>
-  <a class="skip" href="#payment">Skip to payment</a>
 
+<body>
+
+  <a
+    class="skip"
+    href="#payment"
+  >
+    Skip to payment
+  </a>
+
+
+  <!-- HEADER -->
   <header class="site-header">
 
     <a
@@ -137,6 +169,7 @@
       href="#top"
       aria-label="CYOJ Hit Lab 2027 13U Baseball Academy home"
     >
+
       <img
         src="/team-logo.webp"
         alt="CYOJ Hit Lab"
@@ -145,31 +178,77 @@
       >
 
       <span>
-        <strong>CYOJ HIT LAB</strong>
-        <small>2027 Baseball Academy</small>
+        <strong>
+          CYOJ HIT LAB
+        </strong>
+
+        <small>
+          2027 Baseball Academy
+        </small>
       </span>
+
     </a>
 
+
     <nav aria-label="Page navigation">
-      <a href="#package">Team Package</a>
-      <a href="#development">Development</a>
-      <a href="#training">Training</a>
-      <a href="#payment">Payment</a>
+
+      <a href="#package">
+        Team Package
+      </a>
+
+      <a href="#development">
+        Development
+      </a>
+
+      <a href="#training">
+        Training
+      </a>
+
+      <a href="#payment">
+        Payment
+      </a>
+
     </nav>
 
-    <a class="header-cta" href="#payment">
+
+    <a
+      class="header-cta"
+      href="#payment"
+    >
       Secure Team Payment
     </a>
 
   </header>
 
+
   <main id="top">
+
 
     <!-- HERO -->
     <section class="hero">
 
+      <!--
+        LARGE HERO WATERMARK
+
+        This logo belongs behind the overall
+        hero composition — NOT inside the
+        package snapshot card.
+      -->
+      <div
+        class="hero-watermark"
+        aria-hidden="true"
+      >
+        <img
+          src="/team-logo.webp"
+          alt=""
+        >
+      </div>
+
+
       <div class="hero-inner">
 
+
+        <!-- HERO COPY -->
         <div class="hero-copy">
 
           <p class="eyebrow eyebrow-light">
@@ -182,9 +261,11 @@
           </h1>
 
           <p class="hero-lede">
-            Team package, player-development information, training locations
-            and secure enrollment for CYOJ Hit Lab Baseball Academy families.
+            A complete 13U Academy experience built around competitive
+            baseball, purposeful development, year-long Hit Lab access
+            and a standard of preparation and accountability.
           </p>
+
 
           <div class="hero-actions">
 
@@ -196,64 +277,122 @@
             </a>
 
             <a
-              class="text-link"
+              class="button button-outline"
               href="#payment"
             >
-              Go to secure payment
-              <span aria-hidden="true">↓</span>
+              Payment Options
             </a>
 
           </div>
 
         </div>
 
+
+        <!-- TEAM PACKAGE SNAPSHOT -->
         <aside
-          class="team-summary"
-          aria-label="13U Baseball Academy team package summary"
+          class="team-summary package-snapshot"
+          aria-label="13U Baseball Academy team package snapshot"
         >
-
-          <div
-            class="team-summary-watermark"
-            aria-hidden="true"
-          >
-            <img
-              src="/team-logo.webp"
-              alt=""
-            >
-
-            <div>
-              <strong>CYOJ HIT LAB</strong>
-              <span>2027 Baseball Academy</span>
-            </div>
-          </div>
 
           <div class="team-summary-content">
 
             <p class="summary-kicker">
-              2027 Baseball Academy
+              2027 13U Team Package
             </p>
 
-            <h2>13U Baseball Academy</h2>
+            <div class="snapshot-price">
 
-            <p class="hero-coach-name">
-              Development · Preparation · Accountability
-            </p>
+              <span>
+                Complete season package
+              </span>
 
-            <div class="summary-package">
-
-              <span>2027 Team Package</span>
-
-              <strong>$1,995</strong>
+              <strong>
+                $1,995
+              </strong>
 
             </div>
+
+
+            <div class="snapshot-highlights">
+
+              <div>
+
+                <strong>
+                  8–10
+                </strong>
+
+                <span>
+                  Tournaments planned
+                </span>
+
+              </div>
+
+
+              <div>
+
+                <strong>
+                  2×
+                </strong>
+
+                <span>
+                  Team practices each week
+                </span>
+
+              </div>
+
+
+              <div>
+
+                <strong>
+                  Geer Park
+                </strong>
+
+                <span>
+                  Team practice location
+                </span>
+
+              </div>
+
+
+              <div>
+
+                <strong>
+                  12 Months
+                </strong>
+
+                <span>
+                  Hit Lab membership included
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="snapshot-membership">
+
+              <span>
+                Hit Lab membership
+              </span>
+
+              <strong>
+                Aug. 1, 2026 – Aug. 1, 2027
+              </strong>
+
+            </div>
+
 
             <div class="summary-options">
 
               <div>
 
-                <span>Pay in Full</span>
+                <span>
+                  Pay in Full
+                </span>
 
-                <strong>$1,995</strong>
+                <strong>
+                  $1,995
+                </strong>
 
                 <small>
                   One secure Stripe payment
@@ -261,9 +400,12 @@
 
               </div>
 
+
               <div>
 
-                <span>Installment Plan</span>
+                <span>
+                  Installment Plan
+                </span>
 
                 <strong>
                   $1,000 / $500 / $495
@@ -277,9 +419,13 @@
 
             </div>
 
-            <p class="summary-note">
-              Secure checkout is handled by Stripe.
-            </p>
+
+            <a
+              class="snapshot-link"
+              href="#payment"
+            >
+              View payment schedule →
+            </a>
 
           </div>
 
@@ -290,35 +436,57 @@
     </section>
 
 
-    <!-- TRUST STRIP -->
+    <!-- HERO STATS STRIP -->
     <section
       class="trust-strip"
-      aria-label="Program highlights"
+      aria-label="13U Academy highlights"
     >
 
       <div>
-        <strong>13U Baseball</strong>
-        <span>2027 Academy season</span>
-      </div>
+        <strong>
+          13U Baseball
+        </strong>
 
-      <div>
-        <strong>Player Development</strong>
         <span>
-          Fundamentals, preparation, confidence and accountability
+          2027 Academy season
         </span>
       </div>
 
-      <div>
-        <strong>Geer Park</strong>
-        <span>Team practice location</span>
-      </div>
 
       <div>
-        <strong>CYOJ Hit Lab</strong>
-        <span>West Salem training facility</span>
+        <strong>
+          8–10 Tournaments
+        </strong>
+
+        <span>
+          Planned for the season
+        </span>
+      </div>
+
+
+      <div>
+        <strong>
+          Geer Park
+        </strong>
+
+        <span>
+          Two team practices each week
+        </span>
+      </div>
+
+
+      <div>
+        <strong>
+          Hit Lab Membership
+        </strong>
+
+        <span>
+          Aug. 1, 2026 – Aug. 1, 2027
+        </span>
       </div>
 
     </section>
+
 
 
     <!-- TEAM PACKAGE -->
@@ -341,16 +509,19 @@
 
         </div>
 
+
         <p>
-          The 2027 13U Baseball Academy package brings together competitive
-          team play, practices, uniforms and gear, Hit Lab membership,
-          player development and year-round training opportunities.
+          The 2027 13U Baseball Academy package brings together
+          competitive team play, practices, uniforms and gear,
+          Hit Lab membership, player development and year-long
+          training opportunities.
         </p>
 
       </div>
 
 
       <div class="package-inclusions">
+
 
         <!-- TEAM SEASON -->
         <article class="inclusion-row">
@@ -367,13 +538,33 @@
 
           </div>
 
+
           <ul class="inclusion-list">
-            <li>8–10 tournaments planned for the season</li>
-            <li>Team insurance</li>
-            <li>GameChanger Premium</li>
-            <li>Two team practices each week at Geer Park</li>
-            <li>One pitching clinic per month with Coach Brett Evert</li>
-            <li>Outdoor team-development opportunities</li>
+
+            <li>
+              8–10 tournaments planned for the season
+            </li>
+
+            <li>
+              Team insurance
+            </li>
+
+            <li>
+              GameChanger Premium
+            </li>
+
+            <li>
+              Two team practices each week at Geer Park
+            </li>
+
+            <li>
+              One pitching clinic per month with Coach Brett Evert
+            </li>
+
+            <li>
+              Outdoor team-development opportunities
+            </li>
+
           </ul>
 
         </article>
@@ -394,11 +585,25 @@
 
           </div>
 
+
           <ul class="inclusion-list">
-            <li>Two uniforms</li>
-            <li>Socks and belt</li>
-            <li>Team hat</li>
-            <li>Warmup jacket</li>
+
+            <li>
+              Two uniforms
+            </li>
+
+            <li>
+              Socks and belt
+            </li>
+
+            <li>
+              Team hat
+            </li>
+
+            <li>
+              Warmup jacket
+            </li>
+
           </ul>
 
         </article>
@@ -421,10 +626,14 @@
 
             <p class="membership-dates">
               August 1, 2026 – August 1, 2027
-              <span>CYOJ Hit Lab Academy membership included</span>
+
+              <span>
+                CYOJ Hit Lab Academy membership included
+              </span>
             </p>
 
           </div>
+
 
           <ul class="inclusion-list">
 
@@ -472,6 +681,7 @@
 
           </div>
 
+
           <ul class="inclusion-list">
 
             <li>
@@ -500,13 +710,15 @@
 
       </div>
 
+
       <p class="fine-print">
-        Specific schedules, tournament details, facility access procedures,
-        events and Academy programming are communicated by CYOJ Hit Lab and
-        may be adjusted as the season develops.
+        Specific schedules, tournament details, facility access
+        procedures, events and Academy programming are communicated
+        by CYOJ Hit Lab and may be adjusted as the season develops.
       </p>
 
     </section>
+
 
 
     <!-- PLAYER DEVELOPMENT -->
@@ -516,6 +728,7 @@
     >
 
       <div class="coach-inner">
+
 
         <div class="coach-media">
 
@@ -528,11 +741,12 @@
               </p>
 
               <h3>
-                Build the player.
+                Build the player.<br>
                 Prepare the competitor.
               </h3>
 
             </div>
+
 
             <div
               class="development-panel-grid"
@@ -540,31 +754,54 @@
             >
 
               <div>
-                <strong>Fundamentals</strong>
+
+                <strong>
+                  Fundamentals
+                </strong>
+
                 <span>
                   Build repeatable skills and strong baseball habits.
                 </span>
+
               </div>
 
+
               <div>
-                <strong>Preparation</strong>
+
+                <strong>
+                  Preparation
+                </strong>
+
                 <span>
                   Learn how to practice with purpose and compete prepared.
                 </span>
+
               </div>
 
+
               <div>
-                <strong>Confidence</strong>
+
+                <strong>
+                  Confidence
+                </strong>
+
                 <span>
                   Create confidence through quality work and earned progress.
                 </span>
+
               </div>
 
+
               <div>
-                <strong>Accountability</strong>
+
+                <strong>
+                  Accountability
+                </strong>
+
                 <span>
                   Develop responsibility to teammates, coaches and the game.
                 </span>
+
               </div>
 
             </div>
@@ -586,35 +823,53 @@
           </h2>
 
           <p>
-            The CYOJ Hit Lab 13U Baseball Academy is built around developing
-            complete baseball players in an environment that values
-            fundamentals, preparation, confidence, effort and accountability.
+            The CYOJ Hit Lab 13U Baseball Academy is built around
+            developing complete baseball players in an environment
+            that values fundamentals, preparation, confidence,
+            effort and accountability.
           </p>
 
           <p>
             At 13U, athletes are entering an important stage of baseball
             development. Training is designed to reinforce strong mechanics
             and baseball fundamentals while helping players improve their
-            decision-making, preparation, communication and understanding of
-            team baseball.
+            decision-making, preparation, communication and understanding
+            of team baseball.
           </p>
 
           <p>
             Coaching standards within the Academy emphasize purposeful
             instruction, clear expectations and consistent development.
-            Athletes are expected to compete, learn from mistakes, support
-            teammates and take ownership of their continued growth.
+            Athletes are expected to compete, learn from mistakes,
+            support teammates and take ownership of their continued growth.
           </p>
+
 
           <div
             class="coach-values"
             aria-label="13U development values"
           >
-            <span>Fundamentals</span>
-            <span>Preparation</span>
-            <span>Development</span>
-            <span>Confidence</span>
-            <span>Accountability</span>
+
+            <span>
+              Fundamentals
+            </span>
+
+            <span>
+              Preparation
+            </span>
+
+            <span>
+              Development
+            </span>
+
+            <span>
+              Confidence
+            </span>
+
+            <span>
+              Accountability
+            </span>
+
           </div>
 
         </div>
@@ -622,6 +877,7 @@
       </div>
 
     </section>
+
 
 
     <!-- TRAINING LOCATIONS -->
@@ -632,6 +888,7 @@
 
       <div class="training-inner">
 
+
         <div class="training-copy">
 
           <p class="eyebrow">
@@ -639,19 +896,20 @@
           </p>
 
           <h2>
-            Outdoor team work.
+            Outdoor team work.<br>
             Indoor development.
           </h2>
 
           <p>
-            The Academy combines field-based team work at Geer Park with
-            CYOJ Hit Lab as the program's West Salem training facility,
-            giving athletes opportunities to develop in both outdoor and
-            indoor training environments.
+            The Academy combines field-based team work at Geer Park
+            with CYOJ Hit Lab as the program's West Salem training
+            facility, giving athletes opportunities to develop in
+            both outdoor and indoor training environments.
           </p>
 
 
           <div class="location-cards">
+
 
             <article>
 
@@ -708,6 +966,7 @@
     </section>
 
 
+
     <!-- PAYMENT -->
     <section
       class="payment"
@@ -715,6 +974,7 @@
     >
 
       <div class="payment-inner">
+
 
         <div class="payment-heading">
 
@@ -730,13 +990,15 @@
 
           </div>
 
+
           <p>
-            Select the option that works for your family, review the exact
-            amount and payment schedule, confirm the authorization terms,
-            and continue to Stripe's secure checkout.
+            Select the option that works for your family, review the
+            exact amount and payment schedule, confirm the authorization
+            terms, and continue to Stripe's secure checkout.
           </p>
 
         </div>
+
 
 
         <div
@@ -744,11 +1006,13 @@
           id="enrollment-card"
         >
 
+
           <div
             class="choice-grid"
             role="radiogroup"
             aria-label="Payment option"
           >
+
 
             <!-- INSTALLMENT -->
             <button
@@ -773,29 +1037,41 @@
 
               <strong>
                 $1,000
-                <small>due now</small>
+
+                <small>
+                  due now
+                </small>
               </strong>
 
 
               <div class="choice-schedule">
 
                 <span>
-                  <b>$500</b>
+                  <b>
+                    $500
+                  </b>
+
                   Nov. 1, 2026
                 </span>
 
+
                 <span>
-                  <b>$495</b>
+                  <b>
+                    $495
+                  </b>
+
                   Feb. 1, 2027
                 </span>
 
               </div>
+
 
               <p>
                 Total team package: $1,995
               </p>
 
             </button>
+
 
 
             <!-- PAY IN FULL -->
@@ -818,10 +1094,15 @@
 
               </div>
 
+
               <strong>
                 $1,995
-                <small>due now</small>
+
+                <small>
+                  due now
+                </small>
               </strong>
+
 
               <div
                 class="choice-schedule choice-schedule-single"
@@ -833,6 +1114,7 @@
 
               </div>
 
+
               <p>
                 No later scheduled installments.
               </p>
@@ -842,6 +1124,7 @@
           </div>
 
 
+
           <!-- INSTALLMENT DETAILS -->
           <div
             class="reveal"
@@ -849,6 +1132,7 @@
           >
 
             <div class="schedule-card">
+
 
               <div class="schedule-heading">
 
@@ -927,15 +1211,16 @@
 
 
               <p>
-                Stripe securely saves the payment method used for the initial
-                payment for the remaining scheduled charges. A later
-                installment will not be processed until the prior required
-                payment has been confirmed as paid.
+                Stripe securely saves the payment method used for the
+                initial payment for the remaining scheduled charges.
+                A later installment will not be processed until the prior
+                required payment has been confirmed as paid.
               </p>
 
             </div>
 
           </div>
+
 
 
           <!-- PAY IN FULL DETAILS -->
@@ -955,8 +1240,8 @@
               </strong>
 
               <p>
-                Completes the 2027 13U Baseball Academy team-package balance
-                in one secure Stripe checkout.
+                Completes the 2027 13U Baseball Academy team-package
+                balance in one secure Stripe checkout.
               </p>
 
             </div>
@@ -964,8 +1249,10 @@
           </div>
 
 
+
           <!-- AUTHORIZATION -->
           <div class="agreement">
+
 
             <label>
 
@@ -1001,8 +1288,10 @@
           </div>
 
 
+
           <!-- CHECKOUT SUMMARY -->
           <div class="checkout-summary">
+
 
             <div>
 
@@ -1043,9 +1332,9 @@
 
 
           <p class="stripe-note">
-            Stripe securely collects payer information and player name during
-            checkout. Eligible payment methods are displayed dynamically
-            based on the payer's device and account settings.
+            Stripe securely collects payer information and player name
+            during checkout. Eligible payment methods are displayed
+            dynamically based on the payer's device and account settings.
           </p>
 
         </div>
@@ -1055,6 +1344,7 @@
     </section>
 
 
+
     <!-- TERMS -->
     <section
       class="terms-section"
@@ -1062,6 +1352,7 @@
     >
 
       <div class="terms-inner">
+
 
         <div class="terms-intro">
 
@@ -1077,7 +1368,9 @@
         </div>
 
 
+
         <div class="terms-grid">
+
 
           <article>
 
@@ -1101,9 +1394,9 @@
             </h3>
 
             <p>
-              Families may pay $1,995 in full or use the installment plan:
-              $1,000 initial payment, $500 on November 1, 2026, and
-              $495 on February 1, 2027.
+              Families may pay $1,995 in full or use the installment
+              plan: $1,000 initial payment, $500 on November 1, 2026,
+              and $495 on February 1, 2027.
             </p>
 
           </article>
@@ -1116,9 +1409,9 @@
             </h3>
 
             <p>
-              Required participation forms and waivers are handled separately
-              from this payment page. Academy and facility rules apply
-              throughout the season.
+              Required participation forms and waivers are handled
+              separately from this payment page. Academy and facility
+              rules apply throughout the season.
             </p>
 
           </article>
@@ -1132,10 +1425,13 @@
 
             <p>
               For Academy, team, payment or enrollment questions, contact
+
               <a href="mailto:academyteams@cyojhitlab.com">
                 academyteams@cyojhitlab.com
               </a>
+
               or call
+
               <a href="tel:+19713018679">
                 971-301-8679
               </a>.
@@ -1152,10 +1448,12 @@
   </main>
 
 
+
   <!-- FOOTER -->
   <footer>
 
     <div class="footer-inner">
+
 
       <div class="footer-brand">
 
@@ -1181,7 +1479,9 @@
       </div>
 
 
+
       <div class="footer-details">
+
 
         <address>
 
