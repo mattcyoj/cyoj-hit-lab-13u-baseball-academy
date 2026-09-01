@@ -194,6 +194,116 @@
       line-height: 1.5;
     }
 
+
+    /* =========================================================
+       LEGAL + WAIVER LINKS
+       ========================================================= */
+
+    .agreement a {
+      color: #0d7a3b;
+
+      font-weight: 800;
+    }
+
+    .agreement a:hover {
+      text-decoration: none;
+    }
+
+    .terms-action {
+      display: inline-block;
+
+      margin-top: 12px;
+
+      color: #71e79c !important;
+
+      font:
+        800
+        12px/1
+        "Barlow Condensed",
+        sans-serif;
+
+      letter-spacing: .08em;
+
+      text-transform: uppercase;
+    }
+
+    .footer-legal {
+      max-width: 1240px;
+
+      margin: 0 auto;
+
+      padding:
+        0
+        clamp(20px,5vw,62px)
+        30px;
+    }
+
+    .footer-legal-inner {
+      padding-top: 22px;
+
+      border-top:
+        1px solid #d7ded8;
+
+      display: flex;
+
+      align-items: flex-start;
+      justify-content: space-between;
+
+      gap: 30px;
+    }
+
+    .footer-legal-copy {
+      max-width: 430px;
+
+      margin: 0;
+
+      color: #667168;
+
+      font-size: 9px;
+
+      line-height: 1.6;
+    }
+
+    .footer-legal-links {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      justify-content: flex-end;
+
+      gap:
+        10px
+        22px;
+    }
+
+    .footer-legal-links a {
+      color: #0d7a3b;
+
+      font:
+        800
+        11px/1
+        "Barlow Condensed",
+        sans-serif;
+
+      letter-spacing: .06em;
+
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .footer-legal-links a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-legal-links .waiver-footer-link {
+      color: #06100a;
+
+      padding-bottom: 4px;
+
+      border-bottom:
+        2px solid #37cf73;
+    }
+
     @media (max-width: 720px) {
       .development-panel {
         min-height: auto;
@@ -201,6 +311,14 @@
 
       .development-panel-grid {
         grid-template-columns: 1fr;
+      }
+
+      .footer-legal-inner {
+        flex-direction: column;
+      }
+
+      .footer-legal-links {
+        justify-content: flex-start;
       }
     }
   </style>
@@ -371,7 +489,6 @@
 
 
 
-            <!-- COMPACT 2 x 2 PACKAGE SNAPSHOT -->
             <div class="snapshot-quick-grid">
 
 
@@ -430,7 +547,6 @@
 
 
 
-            <!-- MEMBERSHIP DATES -->
             <div class="snapshot-membership-compact">
 
               <span>
@@ -445,7 +561,6 @@
 
 
 
-            <!-- PAYMENT -->
             <div class="snapshot-payment-heading">
               Payment Options
             </div>
@@ -1393,10 +1508,35 @@
               >
 
               <span>
-                I understand the selected payment amount and, if I choose
-                the installment plan, authorize the remaining scheduled
-                charges shown above. I also understand that a current
-                CYOJ Hit Lab athlete waiver is required for participation.
+                I have reviewed and agree to the
+                <a
+                  href="/academy-agreement.html"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  2027 13U Baseball Academy Agreement
+                </a>
+                and
+                <a
+                  href="/payment-cancellation-policy.html"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Payment &amp; Cancellation Policy
+                </a>.
+                I understand that accepting the roster spot and completing
+                the initial required payment creates a financial commitment
+                to the full $1,995 season package. If I select the installment
+                plan, I authorize the remaining scheduled charges shown above.
+                I also understand that facility access is subject to the
+                <a
+                  href="/facility-rules.html"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  CYOJ Hit Lab Facility Rules
+                </a>
+                and that a current CYOJ Hit Lab Athlete Waiver is required.
               </span>
 
             </label>
@@ -1500,6 +1640,13 @@
               described on this page.
             </p>
 
+            <a
+              class="terms-action"
+              href="/academy-agreement.html"
+            >
+              Review Academy Agreement →
+            </a>
+
           </article>
 
 
@@ -1515,6 +1662,13 @@
               and $495 on February 1, 2027.
             </p>
 
+            <a
+              class="terms-action"
+              href="/payment-cancellation-policy.html"
+            >
+              Review Payment Policy →
+            </a>
+
           </article>
 
 
@@ -1525,10 +1679,20 @@
             </h3>
 
             <p>
-              Required participation forms and waivers are handled
-              separately from this payment page. Academy and facility
+              A current CYOJ Hit Lab Athlete Waiver must be completed
+              before the athlete may use CYOJ Hit Lab or participate
+              in applicable Hit Lab activities. Academy and facility
               rules apply throughout the season.
             </p>
+
+            <a
+              class="terms-action"
+              href="https://form.jotform.com/262305529358158"
+              target="_blank"
+              rel="noopener"
+            >
+              Complete Athlete Waiver →
+            </a>
 
           </article>
 
@@ -1555,6 +1719,13 @@
 
             </p>
 
+            <a
+              class="terms-action"
+              href="/privacy-policy.html"
+            >
+              Review Privacy Policy →
+            </a>
+
           </article>
 
         </div>
@@ -1569,6 +1740,7 @@
 
   <!-- FOOTER -->
   <footer>
+
 
     <div class="footer-inner">
 
@@ -1630,6 +1802,59 @@
           </a>
 
         </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- LEGAL + WAIVER FOOTER -->
+    <div class="footer-legal">
+
+      <div class="footer-legal-inner">
+
+
+        <p class="footer-legal-copy">
+          CYOJ Hit Lab is operated by Create Your Own Journey Foundation,
+          a 501(c)(3) nonprofit organization. Academy participation,
+          payments and facility use are subject to the applicable
+          published agreements, policies, facility rules and athlete
+          waiver requirements.
+        </p>
+
+
+        <nav
+          class="footer-legal-links"
+          aria-label="Academy policies and forms"
+        >
+
+          <a href="/academy-agreement.html">
+            Academy Agreement
+          </a>
+
+          <a href="/payment-cancellation-policy.html">
+            Payment &amp; Cancellation
+          </a>
+
+          <a href="/facility-rules.html">
+            Facility Rules
+          </a>
+
+          <a href="/privacy-policy.html">
+            Privacy Policy
+          </a>
+
+          <a
+            class="waiver-footer-link"
+            href="https://form.jotform.com/262305529358158"
+            target="_blank"
+            rel="noopener"
+          >
+            Complete Athlete Waiver
+          </a>
+
+        </nav>
 
       </div>
 
