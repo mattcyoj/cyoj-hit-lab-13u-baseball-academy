@@ -9,8 +9,21 @@ const TEAM_CODE = '13U_BASEBALL_ACADEMY';
 const PROGRAM = 'CYOJ Hit Lab 2027 Baseball Academy';
 const SEASON = '2027';
 
+const MEMBERSHIP_START_DISPLAY = 'Aug. 1, 2026';
+const MEMBERSHIP_END_DISPLAY = 'Aug. 1, 2027';
+
+const MEMBERSHIP_START =
+  new Date('2026-08-01T00:00:00-07:00');
+
+const MEMBERSHIP_END =
+  new Date('2027-08-02T00:00:00-07:00');
+
+const WAIVER_URL =
+  'https://form.jotform.com/262305529358158';
+
 const DEFAULT_SITE_URL =
   'https://cyoj-hit-lab-13u-baseball-academy.vercel.app';
+
 
 function getId(value) {
   if (!value) return null;
@@ -20,6 +33,7 @@ function getId(value) {
     : value.id;
 }
 
+
 function escapeHtml(value) {
   return String(value ?? '')
     .replaceAll('&', '&amp;')
@@ -28,6 +42,14 @@ function escapeHtml(value) {
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#039;');
 }
+
+
+function normalizeMetadataValue(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase();
+}
+
 
 function getCustomFieldValue(session, key) {
   const field =
@@ -58,6 +80,7 @@ function getCustomFieldValue(session, key) {
   return '';
 }
 
+
 function is13UCheckout(session) {
   const metadata =
     session.metadata || {};
@@ -70,6 +93,7 @@ function is13UCheckout(session) {
     )
   );
 }
+
 
 function createMemberId(sessionId) {
   const hash =
@@ -85,10 +109,56 @@ function createMemberId(sessionId) {
   return `13U-${hash}`;
 }
 
+
+function hasCompletedWaiver({
+  session,
+  customer,
+}) {
+  /*
+   * Canonical value used by the
+   * 13U waiver integration:
+   *
+   * waiver_status = completed
+   *
+   * We also recognize "verified"
+   * so staff can manually verify
+   * a valid existing waiver if needed.
+   */
+
+  const sessionMetadata =
+    session?.metadata || {};
+
+  const customerMetadata =
+    customer?.metadata || {};
+
+  const possibleValues = [
+    customerMetadata.waiver_status,
+    customerMetadata.hit_lab_waiver_status,
+    sessionMetadata.waiver_status,
+    sessionMetadata.hit_lab_waiver_status,
+  ];
+
+  return possibleValues.some(
+    (value) => {
+      const normalized =
+        normalizeMetadataValue(value);
+
+      return (
+        normalized === 'completed' ||
+        normalized === 'verified'
+      );
+    }
+  );
+}
+
+
 function getMembershipStatus({
   session,
   customer,
 }) {
+  const now =
+    new Date();
+
   if (
     session.payment_status !== 'paid'
   ) {
@@ -100,11 +170,24 @@ function getMembershipStatus({
     };
   }
 
+  if (
+    now >= MEMBERSHIP_END
+  ) {
+    return {
+      key: 'expired',
+      label: 'EXPIRED',
+      message:
+        'This 2027 13U Baseball Academy membership period has ended.',
+    };
+  }
+
   const metadata =
     customer?.metadata || {};
 
   const enrollmentStatus =
-    metadata.enrollment_status || '';
+    normalizeMetadataValue(
+      metadata.enrollment_status
+    );
 
   if (
     enrollmentStatus ===
@@ -115,7 +198,19 @@ function getMembershipStatus({
       label:
         'PAYMENT ATTENTION REQUIRED',
       message:
-        'A scheduled Academy payment requires attention.',
+        'A scheduled Academy payment requires attention before membership access can continue.',
+    };
+  }
+
+  if (
+    now < MEMBERSHIP_START
+  ) {
+    return {
+      key: 'scheduled',
+      label:
+        'ACTIVE · STARTS AUG. 1',
+      message:
+        'Payment and waiver requirements are complete. Membership access begins August 1, 2026.',
     };
   }
 
@@ -128,17 +223,19 @@ function getMembershipStatus({
       label:
         'ACTIVE · PAID IN FULL',
       message:
-        '2027 13U Baseball Academy membership is active.',
+        'Payment confirmed and CYOJ Hit Lab Athlete Waiver verified.',
     };
   }
 
   return {
     key: 'active',
-    label: 'ACTIVE',
+    label:
+      'ACTIVE · PAYMENT PLAN CURRENT',
     message:
-      '2027 13U Baseball Academy membership is active.',
+      'Payment confirmed and CYOJ Hit Lab Athlete Waiver verified.',
   };
 }
+
 
 function getSiteUrl(req) {
   const configured =
@@ -171,6 +268,40 @@ function getSiteUrl(req) {
   return DEFAULT_SITE_URL;
 }
 
+
+function setSecurityHeaders(res) {
+  res.setHeader(
+    'Cache-Control',
+    'private, no-store, max-age=0'
+  );
+
+  res.setHeader(
+    'Pragma',
+    'no-cache'
+  );
+
+  res.setHeader(
+    'X-Robots-Tag',
+    'noindex, nofollow'
+  );
+
+  res.setHeader(
+    'X-Frame-Options',
+    'DENY'
+  );
+
+  res.setHeader(
+    'Referrer-Policy',
+    'no-referrer'
+  );
+
+  res.setHeader(
+    'Content-Type',
+    'text/html; charset=utf-8'
+  );
+}
+
+
 function renderErrorPage({
   title,
   message,
@@ -180,15 +311,25 @@ function renderErrorPage({
 <html lang="en">
 <head>
   <meta charset="utf-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1"
   >
+
   <meta
     name="robots"
     content="noindex,nofollow"
   >
-  <title>${escapeHtml(title)}</title>
+
+  <meta
+    name="theme-color"
+    content="#07100a"
+  >
+
+  <title>
+    ${escapeHtml(title)} | CYOJ Hit Lab
+  </title>
 
   <style>
     * {
@@ -197,57 +338,93 @@ function renderErrorPage({
 
     body {
       margin: 0;
-      min-height: 100%;
-      padding: 40px 20px;
+
+      min-height: 100vh;
+
+      padding:
+        40px
+        20px;
+
       display: flex;
+
       justify-content: center;
       align-items: flex-start;
-      background: #09100c;
+
+      background:
+        radial-gradient(
+          circle at 75% 10%,
+          rgba(55,207,115,.12),
+          transparent 30%
+        ),
+        #07100a;
+
       color: #ffffff;
-      font-family: Arial, sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
     }
 
     .panel {
       width: 100%;
       max-width: 620px;
+
       margin-top: 60px;
+
       padding: 34px;
-      border: 1px solid #26342b;
+
+      border:
+        1px solid #26342b;
+
       background: #111b15;
     }
 
     .kicker {
       margin: 0 0 10px;
+
       color: #37cf73;
+
       font-size: 11px;
       font-weight: 800;
+
       letter-spacing: .14em;
+
       text-transform: uppercase;
     }
 
     h1 {
       margin: 0;
+
       font-size: 34px;
+
       line-height: 1;
+
       text-transform: uppercase;
     }
 
     p {
       margin: 18px 0 0;
+
       color: #c9d2cb;
+
       line-height: 1.6;
     }
 
     a {
       color: #71e79c;
+
+      font-weight: 800;
     }
   </style>
 </head>
 
 <body>
+
   <main class="panel">
+
     <p class="kicker">
-      CYOJ Hit Lab
+      CYOJ Hit Lab · 13U Baseball Academy
     </p>
 
     <h1>
@@ -266,25 +443,421 @@ function renderErrorPage({
         support@cyojhitlab.com
       </a>
     </p>
+
   </main>
+
 </body>
 </html>
 `;
 }
+
+
+function renderWaiverPendingPage({
+  playerName,
+}) {
+  return `
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#07100a"
+  >
+
+  <title>
+    Membership Pending | CYOJ Hit Lab
+  </title>
+
+  <style>
+    :root {
+      --ink: #07100a;
+      --panel: #101b14;
+      --accent: #37cf73;
+      --accent-soft: #71e79c;
+      --muted: #b2bdb5;
+      --line: #26342b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+
+      min-height: 100vh;
+
+      padding:
+        30px
+        18px
+        50px;
+
+      background:
+        radial-gradient(
+          circle at 82% 8%,
+          rgba(55,207,115,.14),
+          transparent 30%
+        ),
+        var(--ink);
+
+      color: #fff;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 620px;
+
+      margin: 0 auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+
+      gap: 13px;
+
+      margin-bottom: 22px;
+    }
+
+    .brand img {
+      width: 56px;
+      height: 56px;
+
+      object-fit: contain;
+    }
+
+    .brand strong,
+    .brand span {
+      display: block;
+    }
+
+    .brand strong {
+      font-size: 19px;
+
+      letter-spacing: .06em;
+    }
+
+    .brand span {
+      margin-top: 4px;
+
+      color: #99a69d;
+
+      font-size: 9px;
+      font-weight: 700;
+
+      letter-spacing: .12em;
+
+      text-transform: uppercase;
+    }
+
+    .panel {
+      position: relative;
+
+      overflow: hidden;
+
+      padding:
+        clamp(30px,6vw,44px);
+
+      border:
+        1px solid rgba(55,207,115,.36);
+
+      background:
+        linear-gradient(
+          145deg,
+          #111d16,
+          #09110c
+        );
+    }
+
+    .panel::after {
+      content: "13U";
+
+      position: absolute;
+
+      right: -18px;
+      bottom: -40px;
+
+      color:
+        rgba(255,255,255,.035);
+
+      font-size: 190px;
+      font-weight: 900;
+
+      line-height: .8;
+
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative;
+
+      z-index: 1;
+    }
+
+    .kicker {
+      margin: 0;
+
+      color: var(--accent-soft);
+
+      font-size: 9px;
+      font-weight: 900;
+
+      letter-spacing: .17em;
+
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 12px 0 0;
+
+      font-size:
+        clamp(
+          40px,
+          11vw,
+          58px
+        );
+
+      line-height: .9;
+
+      letter-spacing: -.03em;
+
+      text-transform: uppercase;
+    }
+
+    .player {
+      margin: 16px 0 0;
+
+      color: #ffffff;
+
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .confirmed {
+      margin-top: 28px;
+
+      padding:
+        16px
+        18px;
+
+      border-left:
+        3px solid var(--accent);
+
+      background:
+        rgba(55,207,115,.08);
+    }
+
+    .confirmed strong {
+      display: block;
+
+      color: var(--accent-soft);
+
+      font-size: 11px;
+
+      letter-spacing: .08em;
+
+      text-transform: uppercase;
+    }
+
+    .confirmed p {
+      margin: 7px 0 0;
+
+      color: var(--muted);
+
+      font-size: 12px;
+
+      line-height: 1.6;
+    }
+
+    .requirement {
+      margin-top: 26px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+
+      line-height: 1.7;
+    }
+
+    .button {
+      display: block;
+
+      width: 100%;
+
+      margin-top: 26px;
+
+      padding:
+        16px
+        18px;
+
+      background: var(--accent);
+
+      color: #041008;
+
+      font-size: 12px;
+      font-weight: 900;
+
+      letter-spacing: .06em;
+
+      text-align: center;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .help {
+      margin: 20px 0 0;
+
+      color: #8e9a91;
+
+      font-size: 10px;
+
+      line-height: 1.6;
+
+      text-align: center;
+    }
+
+    .help a {
+      color: #fff;
+
+      font-weight: 800;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="shell">
+
+
+    <div class="brand">
+
+      <img
+        src="/team-logo.webp"
+        alt=""
+        width="56"
+        height="56"
+      >
+
+      <div>
+
+        <strong>
+          CYOJ HIT LAB
+        </strong>
+
+        <span>
+          2027 · 13U Baseball Academy
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <section class="panel">
+
+      <div class="content">
+
+        <p class="kicker">
+          Membership Activation
+        </p>
+
+        <h1>
+          Athlete Waiver<br>
+          Required
+        </h1>
+
+        <p class="player">
+          ${escapeHtml(playerName)}
+        </p>
+
+
+        <div class="confirmed">
+
+          <strong>
+            Academy payment confirmed
+          </strong>
+
+          <p>
+            We found the athlete's successful
+            13U Baseball Academy payment.
+          </p>
+
+        </div>
+
+
+        <p class="requirement">
+          A current CYOJ Hit Lab Athlete Waiver
+          must also be completed and verified before
+          this digital membership card becomes active.
+        </p>
+
+
+        <a
+          class="button"
+          href="${WAIVER_URL}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Complete Athlete Waiver →
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <p class="help">
+      Already completed the waiver?
+      Verification may still be processing.
+      Questions?
+      <a
+        href="mailto:support@cyojhitlab.com"
+      >
+        support@cyojhitlab.com
+      </a>
+    </p>
+
+  </main>
+
+</body>
+</html>
+`;
+}
+
 
 function renderMemberCard({
   playerName,
   memberId,
   qrDataUrl,
   status,
-  verificationUrl,
 }) {
   const statusClass =
     status.key === 'attention'
       ? 'status-attention'
       : status.key === 'inactive'
         ? 'status-inactive'
-        : 'status-active';
+        : status.key === 'expired'
+          ? 'status-inactive'
+          : status.key === 'scheduled'
+            ? 'status-scheduled'
+            : 'status-active';
 
   return `
 <!doctype html>
@@ -304,7 +877,7 @@ function renderMemberCard({
 
   <meta
     name="theme-color"
-    content="#08110c"
+    content="#07100a"
   >
 
   <title>
@@ -313,9 +886,10 @@ function renderMemberCard({
 
   <style>
     :root {
-      --ink: #09100c;
+      --ink: #07100a;
       --green: #0d7a3b;
       --accent: #37cf73;
+      --accent-soft: #71e79c;
       --white: #ffffff;
       --muted: #aab5ad;
       --line: #26342b;
@@ -328,9 +902,13 @@ function renderMemberCard({
     html,
     body {
       margin: 0;
+
       min-height: 100%;
-      background: #07100a;
+
+      background: var(--ink);
+
       color: var(--white);
+
       font-family:
         Arial,
         Helvetica,
@@ -338,42 +916,51 @@ function renderMemberCard({
     }
 
     body {
-      padding: 28px 18px 44px;
+      padding:
+        28px
+        18px
+        44px;
     }
 
     .shell {
       width: 100%;
-      max-width: 620px;
+
+      max-width: 650px;
+
       margin: 0 auto;
     }
 
+
+    /* HEADER */
+
     .topline {
       display: flex;
+
       align-items: center;
       justify-content: space-between;
+
       gap: 18px;
+
       margin-bottom: 18px;
     }
 
     .brand {
       display: flex;
+
       align-items: center;
-      gap: 12px;
+
+      gap: 13px;
+
       min-width: 0;
     }
 
-    .brand-mark {
-      width: 52px;
-      height: 52px;
+    .brand-logo {
+      width: 58px;
+      height: 58px;
+
       flex: 0 0 auto;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: var(--accent);
-      color: #041008;
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing: -.03em;
+
+      object-fit: contain;
     }
 
     .brand strong,
@@ -382,33 +969,50 @@ function renderMemberCard({
     }
 
     .brand strong {
-      font-size: 18px;
+      font-size: 19px;
+
       line-height: 1;
+
       letter-spacing: .06em;
     }
 
     .brand span {
       margin-top: 4px;
+
       color: var(--muted);
+
       font-size: 9px;
+
       letter-spacing: .12em;
+
       text-transform: uppercase;
     }
 
     .season {
       color: var(--accent);
+
       font-size: 10px;
       font-weight: 900;
+
       letter-spacing: .14em;
+
       text-transform: uppercase;
+
       white-space: nowrap;
     }
 
+
+    /* CARD */
+
     .member-card {
       position: relative;
+
       overflow: hidden;
-      border: 1px solid
+
+      border:
+        1px solid
         rgba(55,207,115,.42);
+
       background:
         radial-gradient(
           circle at 88% 12%,
@@ -423,119 +1027,196 @@ function renderMemberCard({
         );
     }
 
-    .member-card::after {
-      content: "13U";
+    .card-watermark {
       position: absolute;
-      right: -22px;
-      bottom: -47px;
-      color:
-        rgba(255,255,255,.035);
-      font-size: 210px;
-      font-weight: 900;
-      line-height: .8;
+
+      right: -60px;
+      top: 50%;
+
+      width: 390px;
+
+      transform:
+        translateY(-50%);
+
+      opacity: .055;
+
       pointer-events: none;
+    }
+
+    .card-watermark img {
+      display: block;
+
+      width: 100%;
+      height: auto;
     }
 
     .card-body {
       position: relative;
+
       z-index: 1;
-      padding: 34px;
+
+      padding:
+        34px
+        34px
+        28px;
     }
 
     .card-kicker {
       margin: 0;
+
       color: var(--accent);
-      font-size: 10px;
+
+      font-size: 9px;
       font-weight: 900;
+
       letter-spacing: .17em;
+
       text-transform: uppercase;
     }
 
     h1 {
-      margin: 10px 0 0;
-      font-size: clamp(
-        38px,
-        9vw,
-        58px
-      );
-      line-height: .93;
+      max-width: 500px;
+
+      margin: 11px 0 0;
+
+      font-size:
+        clamp(
+          38px,
+          9vw,
+          60px
+        );
+
+      line-height: .91;
+
       letter-spacing: -.035em;
+
       text-transform: uppercase;
     }
 
     .academy {
-      margin: 8px 0 0;
+      margin: 10px 0 0;
+
       color: #d3ddd5;
-      font-size: 14px;
-      font-weight: 700;
+
+      font-size: 13px;
+      font-weight: 800;
+
       text-transform: uppercase;
+
       letter-spacing: .05em;
     }
 
+
+    /* STATUS */
+
     .status {
       display: inline-flex;
+
       align-items: center;
+
       gap: 8px;
+
       margin-top: 24px;
-      padding: 9px 12px;
+
+      padding:
+        9px
+        12px;
+
       border: 1px solid;
-      font-size: 10px;
+
+      font-size: 9px;
       font-weight: 900;
+
       letter-spacing: .10em;
+
       text-transform: uppercase;
     }
 
     .status::before {
       content: "";
+
       width: 8px;
       height: 8px;
+
       border-radius: 50%;
+
       background: currentColor;
     }
 
     .status-active {
-      color: #71e79c;
+      color: var(--accent-soft);
+
       border-color:
         rgba(113,231,156,.5);
+
       background:
         rgba(13,122,59,.15);
     }
 
+    .status-scheduled {
+      color: #9ed7ff;
+
+      border-color:
+        rgba(158,215,255,.45);
+
+      background:
+        rgba(158,215,255,.08);
+    }
+
     .status-attention {
       color: #ffd166;
+
       border-color:
         rgba(255,209,102,.5);
+
       background:
         rgba(255,209,102,.08);
     }
 
     .status-inactive {
       color: #ff8f8f;
+
       border-color:
         rgba(255,143,143,.5);
+
       background:
         rgba(255,143,143,.08);
     }
 
     .status-message {
+      max-width: 450px;
+
       margin: 12px 0 0;
-      max-width: 420px;
+
       color: var(--muted);
+
       font-size: 11px;
+
       line-height: 1.55;
     }
 
+
+    /* MEMBER DETAILS */
+
     .card-lower {
       position: relative;
+
       z-index: 1;
+
       display: grid;
+
       grid-template-columns:
-        minmax(0, 1fr)
+        minmax(0,1fr)
         176px;
-      gap: 28px;
+
+      gap: 30px;
+
       align-items: end;
+
       padding:
-        0 34px 34px;
+        0
+        34px
+        34px;
     }
 
     .member-data {
@@ -543,7 +1224,10 @@ function renderMemberCard({
     }
 
     .field {
-      padding: 16px 0;
+      padding:
+        15px
+        0;
+
       border-top:
         1px solid
         rgba(255,255,255,.12);
@@ -556,34 +1240,128 @@ function renderMemberCard({
 
     .field span {
       color: var(--muted);
+
       font-size: 8px;
       font-weight: 800;
+
       letter-spacing: .13em;
+
       text-transform: uppercase;
     }
 
     .field strong {
       margin-top: 5px;
-      font-size: 15px;
-      line-height: 1.25;
+
+      font-size: 14px;
+
+      line-height: 1.3;
+
       overflow-wrap: anywhere;
+    }
+
+
+    /* QR */
+
+    .qr-column {
+      text-align: center;
     }
 
     .qr-wrap {
       padding: 10px;
+
       background: #ffffff;
     }
 
     .qr-wrap img {
       display: block;
+
       width: 100%;
       height: auto;
     }
 
+    .qr-column span {
+      display: block;
+
+      margin-top: 8px;
+
+      color: #8f9b92;
+
+      font-size: 8px;
+
+      line-height: 1.4;
+
+      text-transform: uppercase;
+
+      letter-spacing: .08em;
+    }
+
+
+    /* MEMBER BENEFITS */
+
+    .member-benefits {
+      display: grid;
+
+      grid-template-columns:
+        1fr
+        1fr
+        1fr;
+
+      gap: 1px;
+
+      margin-top: 16px;
+
+      border:
+        1px solid var(--line);
+
+      background: var(--line);
+    }
+
+    .member-benefits div {
+      padding:
+        16px
+        14px;
+
+      background: #0c1610;
+    }
+
+    .member-benefits strong,
+    .member-benefits span {
+      display: block;
+    }
+
+    .member-benefits strong {
+      color: var(--accent);
+
+      font-size: 9px;
+
+      letter-spacing: .08em;
+
+      text-transform: uppercase;
+    }
+
+    .member-benefits span {
+      margin-top: 6px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+
+      line-height: 1.45;
+    }
+
+
+    /* VERIFICATION */
+
     .verification {
       margin-top: 16px;
-      padding: 17px 18px;
-      border: 1px solid var(--line);
+
+      padding:
+        17px
+        18px;
+
+      border:
+        1px solid var(--line);
+
       background: #0c1610;
     }
 
@@ -594,42 +1372,70 @@ function renderMemberCard({
 
     .verification strong {
       color: var(--accent);
+
       font-size: 10px;
+
       letter-spacing: .12em;
+
       text-transform: uppercase;
     }
 
     .verification span {
       margin-top: 7px;
+
       color: var(--muted);
+
       font-size: 9px;
-      line-height: 1.5;
-      overflow-wrap: anywhere;
+
+      line-height: 1.55;
     }
 
     .privacy {
-      margin: 18px 0 0;
+      margin:
+        18px
+        0
+        0;
+
       color: #7f8c83;
+
       font-size: 9px;
+
       line-height: 1.5;
+
       text-align: center;
     }
 
     .help {
-      margin: 24px 0 0;
+      margin:
+        24px
+        0
+        0;
+
       text-align: center;
+
       color: var(--muted);
+
       font-size: 10px;
     }
 
     .help a {
       color: #ffffff;
+
       font-weight: 800;
     }
 
-    @media (max-width: 520px) {
+
+    /* MOBILE */
+
+    @media (max-width: 560px) {
+
       .topline {
         align-items: flex-start;
+      }
+
+      .brand-logo {
+        width: 50px;
+        height: 50px;
       }
 
       .season {
@@ -638,70 +1444,112 @@ function renderMemberCard({
 
       .card-body {
         padding:
-          28px 24px;
+          28px
+          24px
+          24px;
       }
 
       .card-lower {
         grid-template-columns:
           1fr;
+
         padding:
-          0 24px 28px;
+          0
+          24px
+          28px;
+      }
+
+      .qr-column {
+        text-align: left;
       }
 
       .qr-wrap {
         width: 176px;
       }
+
+      .qr-column span {
+        max-width: 176px;
+
+        text-align: center;
+      }
+
+      .member-benefits {
+        grid-template-columns:
+          1fr;
+      }
+
+      .card-watermark {
+        right: -105px;
+
+        width: 330px;
+      }
     }
   </style>
 </head>
+
 
 <body>
 
   <main class="shell">
 
+
+    <!-- TOP BRAND -->
     <div class="topline">
 
       <div class="brand">
 
-        <!--
-          Temporary 13U member mark.
-
-          We will replace this with the
-          approved separate 13U membership
-          logo after the logo is finalized.
-        -->
-        <div
-          class="brand-mark"
-          aria-hidden="true"
+        <img
+          class="brand-logo"
+          src="/team-logo.webp"
+          alt=""
+          width="58"
+          height="58"
         >
-          13U
-        </div>
 
         <div>
+
           <strong>
             CYOJ HIT LAB
           </strong>
 
           <span>
-            Baseball Academy Member
+            13U Baseball Academy Member
           </span>
+
         </div>
 
       </div>
 
+
       <div class="season">
-        2027
+        ${SEASON}
       </div>
 
     </div>
 
 
+
+    <!-- DIGITAL CARD -->
     <section class="member-card">
+
+
+      <div
+        class="card-watermark"
+        aria-hidden="true"
+      >
+
+        <img
+          src="/team-logo.webp"
+          alt=""
+        >
+
+      </div>
+
 
       <div class="card-body">
 
         <p class="card-kicker">
-          Digital Membership Card
+          Official Digital Membership Card
         </p>
 
         <h1>
@@ -709,14 +1557,16 @@ function renderMemberCard({
         </h1>
 
         <p class="academy">
-          13U Baseball Academy
+          2027 13U Baseball Academy
         </p>
+
 
         <div
           class="status ${statusClass}"
         >
           ${escapeHtml(status.label)}
         </div>
+
 
         <p class="status-message">
           ${escapeHtml(status.message)}
@@ -725,11 +1575,15 @@ function renderMemberCard({
       </div>
 
 
+
       <div class="card-lower">
+
 
         <div class="member-data">
 
+
           <div class="field">
+
             <span>
               Member ID
             </span>
@@ -737,40 +1591,71 @@ function renderMemberCard({
             <strong>
               ${escapeHtml(memberId)}
             </strong>
+
           </div>
 
+
           <div class="field">
+
+            <span>
+              Membership Period
+            </span>
+
+            <strong>
+              ${MEMBERSHIP_START_DISPLAY}
+              –
+              ${MEMBERSHIP_END_DISPLAY}
+            </strong>
+
+          </div>
+
+
+          <div class="field">
+
             <span>
               Program
             </span>
 
             <strong>
-              CYOJ Hit Lab 2027
-              13U Baseball Academy
+              CYOJ Hit Lab
+              2027 13U Baseball Academy
             </strong>
+
           </div>
 
+
           <div class="field">
+
             <span>
               Verification
             </span>
 
             <strong>
-              Scan QR for live status
+              Live QR membership status
             </strong>
+
           </div>
 
         </div>
 
 
-        <div class="qr-wrap">
 
-          <img
-            src="${qrDataUrl}"
-            alt="QR code for ${escapeHtml(playerName)} membership verification"
-            width="156"
-            height="156"
-          >
+        <div class="qr-column">
+
+          <div class="qr-wrap">
+
+            <img
+              src="${qrDataUrl}"
+              alt="QR code for ${escapeHtml(playerName)} membership verification"
+              width="156"
+              height="156"
+            >
+
+          </div>
+
+          <span>
+            Scan to verify
+          </span>
 
         </div>
 
@@ -779,6 +1664,56 @@ function renderMemberCard({
     </section>
 
 
+
+    <!-- BENEFITS -->
+    <section
+      class="member-benefits"
+      aria-label="Membership benefits"
+    >
+
+      <div>
+
+        <strong>
+          Hit Lab Access
+        </strong>
+
+        <span>
+          Unlimited use during regular business hours.
+        </span>
+
+      </div>
+
+
+      <div>
+
+        <strong>
+          Camps & Clinics
+        </strong>
+
+        <span>
+          10% member discount.
+        </span>
+
+      </div>
+
+
+      <div>
+
+        <strong>
+          Merchandise
+        </strong>
+
+        <span>
+          10% member discount.
+        </span>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- LIVE STATUS -->
     <div class="verification">
 
       <strong>
@@ -786,11 +1721,12 @@ function renderMemberCard({
       </strong>
 
       <span>
-        This QR code opens the current
-        CYOJ Hit Lab 13U Baseball Academy
-        membership record. Status is
-        generated from the athlete's
-        confirmed Stripe Academy enrollment.
+        This QR code opens the athlete's current
+        CYOJ Hit Lab 13U Baseball Academy membership
+        record. Active status requires a confirmed
+        Academy payment, a verified CYOJ Hit Lab
+        Athlete Waiver, and a membership account
+        in good standing.
       </span>
 
     </div>
@@ -798,13 +1734,13 @@ function renderMemberCard({
 
     <p class="privacy">
       This digital card does not display
-      parent contact information or payment
-      details.
+      parent contact information, waiver details
+      or payment credentials.
     </p>
 
 
     <p class="help">
-      Questions?
+      Membership questions?
       <a
         href="mailto:support@cyojhitlab.com"
       >
@@ -819,8 +1755,12 @@ function renderMemberCard({
 `;
 }
 
+
 module.exports =
   async function handler(req, res) {
+
+    setSecurityHeaders(res);
+
     if (
       req.method !== 'GET'
     ) {
@@ -842,24 +1782,6 @@ module.exports =
         );
     }
 
-    /*
-     * Do not allow membership-card
-     * pages to be cached or indexed.
-     */
-    res.setHeader(
-      'Cache-Control',
-      'private, no-store, max-age=0'
-    );
-
-    res.setHeader(
-      'Pragma',
-      'no-cache'
-    );
-
-    res.setHeader(
-      'X-Robots-Tag',
-      'noindex, nofollow'
-    );
 
     if (
       !process.env
@@ -878,6 +1800,7 @@ module.exports =
         );
     }
 
+
     const rawSessionId =
       req.query?.session_id ||
       req.query?.sessionId ||
@@ -886,6 +1809,7 @@ module.exports =
     const sessionId =
       String(rawSessionId)
         .trim();
+
 
     if (
       !sessionId ||
@@ -906,6 +1830,7 @@ module.exports =
         );
     }
 
+
     const stripe =
       new Stripe(
         process.env
@@ -916,7 +1841,9 @@ module.exports =
         }
       );
 
+
     try {
+
       const session =
         await stripe.checkout.sessions.retrieve(
           sessionId,
@@ -926,6 +1853,7 @@ module.exports =
             ],
           }
         );
+
 
       if (
         !is13UCheckout(session)
@@ -942,6 +1870,7 @@ module.exports =
             })
           );
       }
+
 
       if (
         session.payment_status !==
@@ -960,11 +1889,13 @@ module.exports =
           );
       }
 
+
       const customer =
         typeof session.customer ===
         'object'
           ? session.customer
           : null;
+
 
       const playerName =
         getCustomFieldValue(
@@ -978,10 +1909,42 @@ module.exports =
           ?.player_name ||
         '13U Academy Athlete';
 
+
+      /*
+       * Payment alone is not enough.
+       *
+       * The athlete must also have a
+       * verified CYOJ Hit Lab waiver.
+       *
+       * Until the Jotform integration
+       * marks waiver_status=completed,
+       * the membership remains pending.
+       */
+      const waiverCompleted =
+        hasCompletedWaiver({
+          session,
+          customer,
+        });
+
+
+      if (
+        !waiverCompleted
+      ) {
+        return res
+          .status(200)
+          .send(
+            renderWaiverPendingPage({
+              playerName,
+            })
+          );
+      }
+
+
       const memberId =
         createMemberId(
           session.id
         );
+
 
       const status =
         getMembershipStatus({
@@ -989,14 +1952,17 @@ module.exports =
           customer,
         });
 
+
       const siteUrl =
         getSiteUrl(req);
+
 
       const verificationUrl =
         `${siteUrl}/member/` +
         `${encodeURIComponent(
           session.id
         )}`;
+
 
       const qrDataUrl =
         await QRCode.toDataURL(
@@ -1013,6 +1979,7 @@ module.exports =
           }
         );
 
+
       return res
         .status(200)
         .send(
@@ -1021,24 +1988,30 @@ module.exports =
             memberId,
             qrDataUrl,
             status,
-            verificationUrl,
           })
         );
+
     } catch (error) {
+
       console.error(
         '13U membership card lookup failed',
         {
           sessionId,
+
           type:
             error.type,
+
           code:
             error.code,
+
           requestId:
             error.requestId,
+
           message:
             error.message,
         }
       );
+
 
       if (
         error.code ===
@@ -1056,6 +2029,7 @@ module.exports =
             })
           );
       }
+
 
       return res
         .status(500)
