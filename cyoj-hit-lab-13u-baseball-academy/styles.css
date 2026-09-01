@@ -355,8 +355,6 @@ input {
 }
 
 
-/* right-side readability fade */
-
 .hero::after {
   content: "";
 
@@ -589,10 +587,6 @@ input {
 }
 
 
-/* =========================================================
-   PACKAGE LABEL
-   ========================================================= */
-
 .summary-kicker {
   margin: 0;
 
@@ -606,10 +600,6 @@ input {
   text-transform: uppercase;
 }
 
-
-/* =========================================================
-   MAIN PRICE
-   ========================================================= */
 
 .snapshot-price {
   margin-top: 17px;
@@ -652,10 +642,6 @@ input {
     0 2px 12px rgba(0,0,0,.58);
 }
 
-
-/* =========================================================
-   HERO PACKAGE DETAILS
-   ========================================================= */
 
 .snapshot-details {
   margin-top: 8px;
@@ -717,10 +703,6 @@ input {
   line-height: 1.15;
 }
 
-
-/* =========================================================
-   HERO PAYMENT SUMMARY
-   ========================================================= */
 
 .snapshot-payment-heading {
   margin-top: 21px;
@@ -976,12 +958,6 @@ input {
 }
 
 
-/*
-  Small green accent at the start of the package section.
-  This gives the hero / package transition a deliberate edge
-  without adding another heavy block.
-*/
-
 .package::before {
   content: "";
 
@@ -1111,11 +1087,6 @@ input {
     1px solid #d4e2d8;
 }
 
-
-/*
-  Small left accent makes membership feel intentionally
-  featured rather than simply having a different background.
-*/
 
 .inclusion-row-featured::before {
   content: "";
@@ -1262,7 +1233,7 @@ input {
 
 
 /* =========================================================
-   DEVELOPMENT
+   PLAYER DEVELOPMENT
    ========================================================= */
 
 .coach-section {
@@ -1275,14 +1246,20 @@ input {
 }
 
 
+/*
+  Tighter than before:
+  less unused black space above and below the content.
+*/
+
 .coach-inner {
   max-width: 1240px;
 
   margin: 0 auto;
 
   padding:
-    clamp(72px,8vw,108px)
-    clamp(20px,5vw,62px);
+    clamp(64px,6.5vw,84px)
+    clamp(20px,5vw,62px)
+    clamp(48px,4.5vw,62px);
 
   display: grid;
 
@@ -1293,12 +1270,29 @@ input {
   gap:
     clamp(46px,7vw,90px);
 
-  align-items: center;
+  align-items: start;
+}
+
+
+/*
+  index.html contains the base development-panel rule.
+  This more-specific selector intentionally shortens it.
+*/
+
+.coach-section .development-panel {
+  min-height: 485px;
 }
 
 
 .coach-media {
   position: relative;
+
+  align-self: start;
+}
+
+
+.coach-copy {
+  padding-top: 23px;
 }
 
 
@@ -1321,12 +1315,12 @@ input {
 
   font-size: 14px;
 
-  line-height: 1.75;
+  line-height: 1.72;
 }
 
 
 .coach-copy > p:first-of-type {
-  margin-top: 26px;
+  margin-top: 24px;
 }
 
 
@@ -1336,12 +1330,12 @@ input {
   flex-wrap: wrap;
 
   gap:
-    10px
+    9px
     23px;
 
-  margin-top: 30px;
+  margin-top: 24px;
 
-  padding-top: 20px;
+  padding-top: 17px;
 
   border-top:
     1px solid rgba(255,255,255,.15);
@@ -2289,7 +2283,24 @@ footer address strong,
   }
 
 
-  .coach-inner,
+  .coach-inner {
+    max-width: 850px;
+
+    padding-top: 62px;
+    padding-bottom: 52px;
+  }
+
+
+  .coach-section .development-panel {
+    min-height: auto;
+  }
+
+
+  .coach-copy {
+    padding-top: 0;
+  }
+
+
   .training-inner {
     max-width: 850px;
   }
@@ -2564,6 +2575,29 @@ footer address strong,
 
   .fine-print {
     margin-top: 15px;
+  }
+
+
+  .coach-inner {
+    padding-top: 48px;
+    padding-bottom: 42px;
+  }
+
+
+  .coach-section .development-panel {
+    min-height: auto;
+  }
+
+
+  .coach-copy {
+    padding-top: 0;
+  }
+
+
+  .coach-values {
+    margin-top: 21px;
+
+    padding-top: 16px;
   }
 
 
