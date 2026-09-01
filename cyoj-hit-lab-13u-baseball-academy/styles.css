@@ -342,7 +342,7 @@ input {
 
   background:
     radial-gradient(
-      circle at 86% 24%,
+      circle at 88% 24%,
       rgba(55,207,115,.10),
       transparent 31%
     ),
@@ -351,6 +351,38 @@ input {
       #030805 0%,
       #061009 57%,
       #06140c 100%
+    );
+}
+
+
+/*
+  Subtle readability fade behind ONLY the right side.
+
+  This replaces the large pricing-card background.
+*/
+
+.hero::after {
+  content: "";
+
+  position: absolute;
+
+  z-index: 0;
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 46%;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3,10,6,0) 0%,
+      rgba(3,12,7,.28) 20%,
+      rgba(3,12,7,.56) 62%,
+      rgba(3,12,7,.70) 100%
     );
 }
 
@@ -409,7 +441,7 @@ input {
 .hero-inner {
   position: relative;
 
-  z-index: 1;
+  z-index: 2;
 
   max-width: 1320px;
 
@@ -514,7 +546,14 @@ input {
 
 
 /* =========================================================
-   TRANSPARENT / GLASS PACKAGE PANEL
+   OPEN HERO PACKAGE SUMMARY
+
+   No rectangle.
+   No glass box.
+   No outer border.
+   No box shadow.
+
+   Only a thin green divider separates the pricing area.
    ========================================================= */
 
 .team-summary {
@@ -522,48 +561,24 @@ input {
 
   z-index: 5;
 
-  overflow: hidden;
+  overflow: visible;
 
-  border:
-    1px solid rgba(113,231,156,.28);
+  border: 0;
 
-  background:
-    linear-gradient(
-      150deg,
-      rgba(3,18,10,.67) 0%,
-      rgba(2,11,6,.55) 100%
-    );
+  border-left:
+    2px solid rgba(55,207,115,.72);
 
-  -webkit-backdrop-filter:
-    blur(11px)
-    saturate(1.12);
+  background: transparent;
 
-  backdrop-filter:
-    blur(11px)
-    saturate(1.12);
+  box-shadow: none;
 
-  box-shadow:
-    0 24px 60px rgba(0,0,0,.16);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 
 .team-summary::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 0;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(5,20,11,.18),
-      rgba(5,20,11,.03)
-    );
+  display: none;
 }
 
 
@@ -578,11 +593,10 @@ input {
   z-index: 2;
 
   padding:
-    clamp(
-      28px,
-      3vw,
-      38px
-    );
+    8px
+    0
+    8px
+    clamp(28px,3vw,40px);
 }
 
 
@@ -605,23 +619,23 @@ input {
 
 
 /* =========================================================
-   SNAPSHOT PRICE
+   MAIN PRICE
    ========================================================= */
 
 .snapshot-price {
   margin-top: 17px;
 
-  padding-bottom: 20px;
+  padding-bottom: 21px;
 
   border-bottom:
-    1px solid rgba(255,255,255,.18);
+    1px solid rgba(255,255,255,.21);
 }
 
 
 .snapshot-price span {
   display: block;
 
-  color: #a9b5ad;
+  color: #abb6ae;
 
   font-size: 8px;
   font-weight: 800;
@@ -646,7 +660,7 @@ input {
     sans-serif;
 
   text-shadow:
-    0 2px 10px rgba(0,0,0,.42);
+    0 2px 12px rgba(0,0,0,.58);
 }
 
 
@@ -674,7 +688,7 @@ input {
     15px 0;
 
   border-bottom:
-    1px solid rgba(255,255,255,.13);
+    1px solid rgba(255,255,255,.16);
 }
 
 
@@ -690,15 +704,21 @@ input {
   text-transform: uppercase;
 
   letter-spacing: .02em;
+
+  text-shadow:
+    0 2px 8px rgba(0,0,0,.45);
 }
 
 
 .snapshot-detail span {
-  color: #d0d8d2;
+  color: #d3dcd5;
 
   font-size: 9px;
 
   line-height: 1.5;
+
+  text-shadow:
+    0 1px 5px rgba(0,0,0,.62);
 }
 
 
@@ -716,7 +736,7 @@ input {
 .snapshot-payment-heading {
   margin-top: 21px;
 
-  color: #9daaa1;
+  color: #aab5ad;
 
   font-size: 8px;
   font-weight: 900;
@@ -750,7 +770,7 @@ input {
   padding-right: 0;
 
   border-left:
-    1px solid rgba(255,255,255,.17);
+    1px solid rgba(255,255,255,.20);
 }
 
 
@@ -762,7 +782,7 @@ input {
 
 
 .snapshot-payment span {
-  color: #a9b5ad;
+  color: #aeb9b1;
 
   font-size: 8px;
   font-weight: 800;
@@ -785,7 +805,7 @@ input {
     sans-serif;
 
   text-shadow:
-    0 2px 8px rgba(0,0,0,.40);
+    0 2px 9px rgba(0,0,0,.52);
 }
 
 
@@ -816,7 +836,7 @@ input {
 .snapshot-payment small {
   margin-top: 7px;
 
-  color: #a3afa7;
+  color: #a7b2aa;
 
   font-size: 8px;
 
@@ -827,7 +847,7 @@ input {
 .snapshot-link {
   display: inline-block;
 
-  margin-top: 22px;
+  margin-top: 23px;
 
   color: var(--accent-soft);
 
@@ -842,6 +862,9 @@ input {
   text-transform: uppercase;
 
   text-decoration: none;
+
+  text-shadow:
+    0 1px 5px rgba(0,0,0,.52);
 }
 
 
@@ -1435,8 +1458,7 @@ input {
   padding:
     clamp(26px,4vw,44px);
 
-  box-shadow:
-    var(--shadow);
+  box-shadow: var(--shadow);
 }
 
 
@@ -2103,6 +2125,22 @@ footer address strong,
   }
 
 
+  .hero::after {
+    width: 100%;
+
+    top: 48%;
+    bottom: 0;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(3,12,7,0),
+        rgba(3,12,7,.48) 22%,
+        rgba(3,12,7,.70)
+      );
+  }
+
+
   .hero-watermark {
     top: 29%;
 
@@ -2122,6 +2160,9 @@ footer address strong,
 
   .team-summary {
     max-width: 720px;
+
+    border-left:
+      2px solid rgba(55,207,115,.72);
   }
 
 
@@ -2280,10 +2321,18 @@ footer address strong,
   }
 
 
+  .team-summary {
+    border-left:
+      2px solid rgba(55,207,115,.72);
+  }
+
+
   .team-summary-content {
     padding:
-      28px
-      24px;
+      8px
+      0
+      8px
+      22px;
   }
 
 
