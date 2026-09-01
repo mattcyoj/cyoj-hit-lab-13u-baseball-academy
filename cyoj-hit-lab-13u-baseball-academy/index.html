@@ -3,10 +3,12 @@
 
 <head>
   <meta charset="utf-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1"
   >
+
   <meta
     name="theme-color"
     content="#08110c"
@@ -45,11 +47,17 @@
   <style>
     .development-panel {
       min-height: 520px;
+
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: clamp(30px, 4vw, 46px);
-      border: 1px solid rgba(255,255,255,.16);
+
+      padding:
+        clamp(30px, 4vw, 46px);
+
+      border:
+        1px solid rgba(255,255,255,.16);
+
       background:
         radial-gradient(
           circle at 80% 18%,
@@ -61,60 +69,99 @@
           #101b14 0%,
           #09100c 100%
         );
+
       position: relative;
+
       overflow: hidden;
     }
 
     .development-panel::after {
       content: "13U";
+
       position: absolute;
+
       right: -14px;
       bottom: -48px;
-      color: rgba(255,255,255,.035);
-      font-family: "Barlow Condensed", sans-serif;
-      font-size: clamp(180px, 23vw, 330px);
+
+      color:
+        rgba(255,255,255,.035);
+
+      font-family:
+        "Barlow Condensed",
+        sans-serif;
+
+      font-size:
+        clamp(180px, 23vw, 330px);
+
       font-weight: 900;
+
       line-height: .8;
+
       pointer-events: none;
     }
 
     .development-panel-top,
     .development-panel-grid {
       position: relative;
+
       z-index: 1;
     }
 
     .development-panel-kicker {
       margin: 0;
+
       color: #71e79c;
+
       font-size: 9px;
       font-weight: 900;
+
       letter-spacing: .18em;
+
       text-transform: uppercase;
     }
 
     .development-panel h3 {
       max-width: 430px;
-      margin: 12px 0 0;
+
+      margin:
+        12px 0 0;
+
       color: #fff;
-      font: 800 clamp(40px, 4.6vw, 62px)/.92
-        "Barlow Condensed", sans-serif;
+
+      font:
+        800
+        clamp(40px, 4.6vw, 62px)/.92
+        "Barlow Condensed",
+        sans-serif;
+
       letter-spacing: -.02em;
+
       text-transform: uppercase;
     }
 
     .development-panel-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+
+      grid-template-columns:
+        1fr
+        1fr;
+
       gap: 1px;
+
       margin-top: 48px;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.12);
+
+      background:
+        rgba(255,255,255,.12);
+
+      border:
+        1px solid rgba(255,255,255,.12);
     }
 
     .development-panel-grid div {
       min-height: 108px;
+
       padding: 20px;
+
       background: #0b140e;
     }
 
@@ -125,16 +172,25 @@
 
     .development-panel-grid strong {
       color: #37cf73;
-      font: 800 20px/1
-        "Barlow Condensed", sans-serif;
+
+      font:
+        800
+        20px/1
+        "Barlow Condensed",
+        sans-serif;
+
       text-transform: uppercase;
+
       letter-spacing: .05em;
     }
 
     .development-panel-grid span {
       margin-top: 8px;
+
       color: #aebbb1;
+
       font-size: 9px;
+
       line-height: 1.5;
     }
 
@@ -178,6 +234,7 @@
       >
 
       <span>
+
         <strong>
           CYOJ HIT LAB
         </strong>
@@ -185,6 +242,7 @@
         <small>
           2027 Baseball Academy
         </small>
+
       </span>
 
     </a>
@@ -227,28 +285,33 @@
     <!-- HERO -->
     <section class="hero">
 
-      <!--
-        LARGE HERO WATERMARK
 
-        This logo belongs behind the overall
-        hero composition — NOT inside the
-        package snapshot card.
+      <!--
+        COLORED HIT LAB WATERMARK
+
+        This belongs in the large open
+        left / center area of the hero.
+
+        It should NOT appear underneath
+        the pricing summary.
       -->
       <div
         class="hero-watermark"
         aria-hidden="true"
       >
+
         <img
           src="/team-logo.webp"
           alt=""
         >
+
       </div>
 
 
       <div class="hero-inner">
 
 
-        <!-- HERO COPY -->
+        <!-- LEFT HERO -->
         <div class="hero-copy">
 
           <p class="eyebrow eyebrow-light">
@@ -288,17 +351,20 @@
         </div>
 
 
-        <!-- TEAM PACKAGE SNAPSHOT -->
+
+        <!-- RIGHT PACKAGE SUMMARY -->
         <aside
           class="team-summary package-snapshot"
-          aria-label="13U Baseball Academy team package snapshot"
+          aria-label="2027 13U Baseball Academy team package"
         >
 
           <div class="team-summary-content">
 
+
             <p class="summary-kicker">
               2027 13U Team Package
             </p>
+
 
             <div class="snapshot-price">
 
@@ -313,35 +379,38 @@
             </div>
 
 
-            <div class="snapshot-highlights">
 
-              <div>
+            <!-- PACKAGE HIGHLIGHTS -->
+            <div class="snapshot-details">
+
+
+              <div class="snapshot-detail">
 
                 <strong>
                   8–10
                 </strong>
 
                 <span>
-                  Tournaments planned
+                  Tournaments planned for the season
                 </span>
 
               </div>
 
 
-              <div>
+              <div class="snapshot-detail">
 
                 <strong>
-                  2×
+                  2× Weekly
                 </strong>
 
                 <span>
-                  Team practices each week
+                  Team practices at Geer Park
                 </span>
 
               </div>
 
 
-              <div>
+              <div class="snapshot-detail">
 
                 <strong>
                   Geer Park
@@ -354,14 +423,14 @@
               </div>
 
 
-              <div>
+              <div class="snapshot-detail">
 
                 <strong>
-                  12 Months
+                  Aug. 1, 2026 – Aug. 1, 2027
                 </strong>
 
                 <span>
-                  Hit Lab membership included
+                  CYOJ Hit Lab membership included
                 </span>
 
               </div>
@@ -369,22 +438,17 @@
             </div>
 
 
-            <div class="snapshot-membership">
 
-              <span>
-                Hit Lab membership
-              </span>
-
-              <strong>
-                Aug. 1, 2026 – Aug. 1, 2027
-              </strong>
-
+            <!-- PAYMENT SUMMARY -->
+            <div class="snapshot-payment-heading">
+              Payment Options
             </div>
 
 
-            <div class="summary-options">
+            <div class="snapshot-payments">
 
-              <div>
+
+              <div class="snapshot-payment">
 
                 <span>
                   Pay in Full
@@ -395,20 +459,24 @@
                 </strong>
 
                 <small>
-                  One secure Stripe payment
+                  One secure payment
                 </small>
 
               </div>
 
 
-              <div>
+              <div class="snapshot-payment">
 
                 <span>
                   Installment Plan
                 </span>
 
                 <strong>
-                  $1,000 / $500 / $495
+                  $1,000
+                  <i>→</i>
+                  $500
+                  <i>→</i>
+                  $495
                 </strong>
 
                 <small>
@@ -424,7 +492,7 @@
               class="snapshot-link"
               href="#payment"
             >
-              View payment schedule →
+              View Full Payment Schedule →
             </a>
 
           </div>
@@ -436,6 +504,7 @@
     </section>
 
 
+
     <!-- HERO STATS STRIP -->
     <section
       class="trust-strip"
@@ -443,6 +512,7 @@
     >
 
       <div>
+
         <strong>
           13U Baseball
         </strong>
@@ -450,10 +520,12 @@
         <span>
           2027 Academy season
         </span>
+
       </div>
 
 
       <div>
+
         <strong>
           8–10 Tournaments
         </strong>
@@ -461,10 +533,12 @@
         <span>
           Planned for the season
         </span>
+
       </div>
 
 
       <div>
+
         <strong>
           Geer Park
         </strong>
@@ -472,10 +546,12 @@
         <span>
           Two team practices each week
         </span>
+
       </div>
 
 
       <div>
+
         <strong>
           Hit Lab Membership
         </strong>
@@ -483,6 +559,7 @@
         <span>
           Aug. 1, 2026 – Aug. 1, 2027
         </span>
+
       </div>
 
     </section>
@@ -496,6 +573,7 @@
     >
 
       <div class="section-heading package-heading">
+
 
         <div>
 
@@ -520,11 +598,13 @@
       </div>
 
 
+
       <div class="package-inclusions">
 
 
         <!-- TEAM SEASON -->
         <article class="inclusion-row">
+
 
           <div class="inclusion-heading">
 
@@ -570,8 +650,10 @@
         </article>
 
 
+
         <!-- UNIFORM -->
         <article class="inclusion-row">
+
 
           <div class="inclusion-heading">
 
@@ -609,10 +691,12 @@
         </article>
 
 
+
         <!-- MEMBERSHIP -->
         <article
           class="inclusion-row inclusion-row-featured"
         >
+
 
           <div class="inclusion-heading">
 
@@ -625,11 +709,13 @@
             </h3>
 
             <p class="membership-dates">
+
               August 1, 2026 – August 1, 2027
 
               <span>
                 CYOJ Hit Lab Academy membership included
               </span>
+
             </p>
 
           </div>
@@ -666,8 +752,10 @@
         </article>
 
 
+
         <!-- DEVELOPMENT -->
         <article class="inclusion-row">
+
 
           <div class="inclusion-heading">
 
@@ -734,6 +822,7 @@
 
           <div class="development-panel">
 
+
             <div class="development-panel-top">
 
               <p class="development-panel-kicker">
@@ -752,6 +841,7 @@
               class="development-panel-grid"
               aria-label="13U development priorities"
             >
+
 
               <div>
 
@@ -809,6 +899,7 @@
           </div>
 
         </div>
+
 
 
         <div class="coach-copy">
@@ -951,6 +1042,7 @@
         </div>
 
 
+
         <figure class="training-photo">
 
           <img
@@ -977,6 +1069,7 @@
 
 
         <div class="payment-heading">
+
 
           <div>
 
@@ -1022,6 +1115,7 @@
               aria-pressed="true"
             >
 
+
               <div class="choice-topline">
 
                 <span class="choice-label">
@@ -1036,31 +1130,38 @@
 
 
               <strong>
+
                 $1,000
 
                 <small>
                   due now
                 </small>
+
               </strong>
 
 
               <div class="choice-schedule">
 
+
                 <span>
+
                   <b>
                     $500
                   </b>
 
                   Nov. 1, 2026
+
                 </span>
 
 
                 <span>
+
                   <b>
                     $495
                   </b>
 
                   Feb. 1, 2027
+
                 </span>
 
               </div>
@@ -1082,6 +1183,7 @@
               aria-pressed="false"
             >
 
+
               <div class="choice-topline">
 
                 <span class="choice-label">
@@ -1096,11 +1198,13 @@
 
 
               <strong>
+
                 $1,995
 
                 <small>
                   due now
                 </small>
+
               </strong>
 
 
@@ -1149,6 +1253,7 @@
 
               <div class="schedule-row active">
 
+
                 <div>
 
                   <span>
@@ -1161,6 +1266,7 @@
 
                 </div>
 
+
                 <strong>
                   $1,000
                 </strong>
@@ -1169,6 +1275,7 @@
 
 
               <div class="schedule-row">
+
 
                 <div>
 
@@ -1182,6 +1289,7 @@
 
                 </div>
 
+
                 <strong>
                   $500
                 </strong>
@@ -1190,6 +1298,7 @@
 
 
               <div class="schedule-row">
+
 
                 <div>
 
@@ -1202,6 +1311,7 @@
                   </small>
 
                 </div>
+
 
                 <strong>
                   $495
@@ -1424,6 +1534,7 @@
             </h3>
 
             <p>
+
               For Academy, team, payment or enrollment questions, contact
 
               <a href="mailto:academyteams@cyojhitlab.com">
@@ -1435,6 +1546,7 @@
               <a href="tel:+19713018679">
                 971-301-8679
               </a>.
+
             </p>
 
           </article>
