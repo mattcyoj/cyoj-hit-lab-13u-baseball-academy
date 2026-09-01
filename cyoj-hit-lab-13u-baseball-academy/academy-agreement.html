@@ -1,0 +1,1328 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="theme-color"
+    content="#06100a"
+  >
+
+  <meta
+    name="description"
+    content="2027 CYOJ Hit Lab 13U Baseball Academy participation and team package agreement."
+  >
+
+  <title>
+    13U Academy Agreement | CYOJ Hit Lab
+  </title>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --ink: #06100a;
+      --green: #0d7a3b;
+      --accent: #37cf73;
+      --accent-soft: #71e79c;
+      --paper: #f4f6f2;
+      --white: #ffffff;
+      --muted: #5b665f;
+      --line: #d7ded8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+
+      font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+
+    /* HEADER */
+
+    .legal-header {
+      background: #041008;
+      color: #fff;
+
+      border-bottom:
+        1px solid rgba(113,231,156,.16);
+    }
+
+    .legal-header-inner {
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+      padding:
+        15px
+        clamp(20px,5vw,60px);
+
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 24px;
+    }
+
+    .legal-brand {
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+
+      color: #fff;
+
+      text-decoration: none;
+    }
+
+    .legal-brand img {
+      width: 50px;
+      height: 50px;
+
+      object-fit: contain;
+    }
+
+    .legal-brand strong {
+      display: block;
+
+      font:
+        800
+        22px/1
+        "Barlow Condensed",
+        sans-serif;
+
+      letter-spacing: .07em;
+    }
+
+    .legal-brand small {
+      display: block;
+
+      margin-top: 4px;
+
+      color: #93a299;
+
+      font-size: 8px;
+      font-weight: 700;
+
+      letter-spacing: .13em;
+
+      text-transform: uppercase;
+    }
+
+    .return-link {
+      padding-bottom: 6px;
+
+      color: #fff;
+
+      border-bottom:
+        2px solid var(--accent);
+
+      font:
+        800
+        12px/1
+        "Barlow Condensed",
+        sans-serif;
+
+      letter-spacing: .09em;
+
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+
+    /* HERO */
+
+    .legal-hero {
+      background:
+        radial-gradient(
+          circle at 82% 12%,
+          rgba(55,207,115,.12),
+          transparent 28%
+        ),
+        linear-gradient(
+          130deg,
+          #030805 0%,
+          #061009 65%,
+          #07160d 100%
+        );
+
+      color: #fff;
+    }
+
+    .legal-hero-inner {
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+      padding:
+        clamp(70px,8vw,104px)
+        clamp(20px,5vw,60px);
+    }
+
+    .eyebrow {
+      margin: 0 0 16px;
+
+      color: var(--accent-soft);
+
+      font-size: 9px;
+      font-weight: 900;
+
+      letter-spacing: .20em;
+
+      text-transform: uppercase;
+    }
+
+    .legal-hero h1 {
+      max-width: 820px;
+
+      margin: 0;
+
+      font:
+        900
+        clamp(58px,7vw,92px)/.88
+        "Barlow Condensed",
+        sans-serif;
+
+      letter-spacing: -.025em;
+
+      text-transform: uppercase;
+    }
+
+    .legal-hero p:not(.eyebrow) {
+      max-width: 740px;
+
+      margin: 27px 0 0;
+
+      color: #d8e0da;
+
+      font-size: 15px;
+
+      line-height: 1.75;
+    }
+
+    .agreement-meta {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 14px 30px;
+
+      margin-top: 32px;
+
+      padding-top: 22px;
+
+      border-top:
+        1px solid rgba(255,255,255,.16);
+
+      color: #adb9b0;
+
+      font-size: 9px;
+      font-weight: 700;
+
+      letter-spacing: .08em;
+
+      text-transform: uppercase;
+    }
+
+    .agreement-meta strong {
+      color: #fff;
+    }
+
+
+    /* DOCUMENT */
+
+    .legal-main {
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+      padding:
+        clamp(56px,7vw,86px)
+        clamp(20px,5vw,60px)
+        clamp(72px,8vw,106px);
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(220px,.48fr)
+        minmax(0,1.52fr);
+
+      gap:
+        clamp(44px,7vw,92px);
+
+      align-items: start;
+    }
+
+    .legal-sidebar {
+      position: sticky;
+      top: 28px;
+    }
+
+    .legal-sidebar span {
+      display: block;
+
+      color: var(--green);
+
+      font-size: 8px;
+      font-weight: 900;
+
+      letter-spacing: .17em;
+
+      text-transform: uppercase;
+    }
+
+    .legal-sidebar strong {
+      display: block;
+
+      margin-top: 9px;
+
+      font:
+        800
+        30px/1
+        "Barlow Condensed",
+        sans-serif;
+
+      text-transform: uppercase;
+    }
+
+    .legal-sidebar p {
+      margin: 15px 0 0;
+
+      color: var(--muted);
+
+      font-size: 10px;
+
+      line-height: 1.6;
+    }
+
+    .legal-document {
+      background: #fff;
+
+      border:
+        1px solid var(--line);
+    }
+
+    .legal-section {
+      padding:
+        clamp(28px,4vw,42px);
+
+      border-bottom:
+        1px solid var(--line);
+    }
+
+    .legal-section:last-child {
+      border-bottom: 0;
+    }
+
+    .section-number {
+      margin: 0 0 7px;
+
+      color: var(--green);
+
+      font-size: 8px;
+      font-weight: 900;
+
+      letter-spacing: .17em;
+
+      text-transform: uppercase;
+    }
+
+    .legal-section h2 {
+      margin: 0;
+
+      font:
+        800
+        clamp(27px,3vw,36px)/1
+        "Barlow Condensed",
+        sans-serif;
+
+      text-transform: uppercase;
+    }
+
+    .legal-section p {
+      margin: 15px 0 0;
+
+      color: #3f4942;
+
+      font-size: 12px;
+
+      line-height: 1.75;
+    }
+
+    .legal-section ul {
+      margin:
+        18px
+        0
+        0;
+
+      padding: 0;
+
+      list-style: none;
+
+      display: grid;
+
+      gap: 12px;
+    }
+
+    .legal-section li {
+      position: relative;
+
+      padding-left: 24px;
+
+      color: #3f4942;
+
+      font-size: 12px;
+
+      line-height: 1.65;
+    }
+
+    .legal-section li::before {
+      content: "✓";
+
+      position: absolute;
+
+      left: 0;
+      top: 0;
+
+      color: var(--green);
+
+      font-weight: 900;
+    }
+
+    .schedule-table {
+      margin-top: 20px;
+
+      border-top:
+        1px solid var(--line);
+    }
+
+    .schedule-row {
+      display: grid;
+
+      grid-template-columns:
+        1fr
+        auto;
+
+      gap: 24px;
+
+      align-items: center;
+
+      padding: 15px 0;
+
+      border-bottom:
+        1px solid var(--line);
+    }
+
+    .schedule-row span,
+    .schedule-row strong {
+      display: block;
+    }
+
+    .schedule-row span {
+      color: #3f4942;
+
+      font-size: 11px;
+
+      line-height: 1.45;
+    }
+
+    .schedule-row span small {
+      display: block;
+
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+    }
+
+    .schedule-row strong {
+      font:
+        800
+        25px/1
+        "Barlow Condensed",
+        sans-serif;
+    }
+
+    .notice-box {
+      margin-top: 20px;
+
+      padding: 20px;
+
+      background: #edf5f0;
+
+      border-left:
+        3px solid var(--green);
+    }
+
+    .notice-box strong {
+      display: block;
+
+      color: var(--green);
+
+      font:
+        800
+        17px/1
+        "Barlow Condensed",
+        sans-serif;
+
+      letter-spacing: .05em;
+
+      text-transform: uppercase;
+    }
+
+    .notice-box p {
+      margin-top: 8px;
+    }
+
+
+    /* CONTACT */
+
+    .legal-contact {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .legal-contact-inner {
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+      padding:
+        44px
+        clamp(20px,5vw,60px);
+
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 30px;
+    }
+
+    .legal-contact span {
+      display: block;
+
+      color: var(--accent-soft);
+
+      font-size: 8px;
+      font-weight: 900;
+
+      letter-spacing: .16em;
+
+      text-transform: uppercase;
+    }
+
+    .legal-contact strong {
+      display: block;
+
+      margin-top: 6px;
+
+      font:
+        800
+        27px/1
+        "Barlow Condensed",
+        sans-serif;
+
+      text-transform: uppercase;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+
+      align-items: flex-end;
+
+      gap: 5px;
+    }
+
+    .contact-links a {
+      color: #fff;
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+
+    /* FOOTER */
+
+    footer {
+      background: #fff;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+      padding:
+        28px
+        clamp(20px,5vw,60px);
+
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 28px;
+    }
+
+    .footer-inner p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 8px;
+
+      line-height: 1.55;
+    }
+
+    .footer-inner a {
+      color: var(--green);
+
+      font-size: 9px;
+      font-weight: 900;
+
+      text-transform: uppercase;
+
+      letter-spacing: .08em;
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+      .legal-header-inner,
+      .legal-contact-inner,
+      .footer-inner {
+        align-items: flex-start;
+      }
+
+      .legal-main {
+        grid-template-columns: 1fr;
+      }
+
+      .legal-sidebar {
+        position: static;
+      }
+
+      .legal-contact-inner,
+      .footer-inner {
+        flex-direction: column;
+      }
+
+      .contact-links {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 520px) {
+
+      .legal-brand small {
+        display: none;
+      }
+
+      .return-link {
+        font-size: 10px;
+      }
+
+      .legal-hero h1 {
+        font-size:
+          clamp(
+            50px,
+            15vw,
+            68px
+          );
+      }
+
+      .schedule-row {
+        grid-template-columns:
+          1fr
+          auto;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- HEADER -->
+  <header class="legal-header">
+
+    <div class="legal-header-inner">
+
+
+      <a
+        class="legal-brand"
+        href="/"
+        aria-label="Return to 13U Baseball Academy"
+      >
+
+        <img
+          src="/team-logo.webp"
+          alt=""
+          width="50"
+          height="50"
+        >
+
+        <span>
+
+          <strong>
+            CYOJ HIT LAB
+          </strong>
+
+          <small>
+            2027 Baseball Academy · 13U
+          </small>
+
+        </span>
+
+      </a>
+
+
+      <a
+        class="return-link"
+        href="/"
+      >
+        ← Return to 13U Academy
+      </a>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- HERO -->
+  <section class="legal-hero">
+
+    <div class="legal-hero-inner">
+
+      <p class="eyebrow">
+        2027 13U Baseball Academy
+      </p>
+
+      <h1>
+        Academy<br>
+        Agreement
+      </h1>
+
+      <p>
+        This document outlines the primary team-package,
+        participation, payment and Hit Lab membership terms
+        associated with the 2027 CYOJ Hit Lab 13U Baseball Academy.
+      </p>
+
+
+      <div class="agreement-meta">
+
+        <span>
+          Program:
+          <strong>
+            2027 13U Baseball Academy
+          </strong>
+        </span>
+
+        <span>
+          Team Package:
+          <strong>
+            $1,995
+          </strong>
+        </span>
+
+        <span>
+          Membership:
+          <strong>
+            Aug. 1, 2026 – Aug. 1, 2027
+          </strong>
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- DOCUMENT -->
+  <main class="legal-main">
+
+
+    <aside class="legal-sidebar">
+
+      <span>
+        CYOJ Hit Lab
+      </span>
+
+      <strong>
+        13U Academy<br>
+        Participation Terms
+      </strong>
+
+      <p>
+        Please review this agreement together with the applicable
+        payment, cancellation, facility and waiver requirements.
+      </p>
+
+    </aside>
+
+
+
+    <div class="legal-document">
+
+
+      <!-- 1 -->
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 01
+        </p>
+
+        <h2>
+          Program & Team Package
+        </h2>
+
+        <p>
+          The 2027 CYOJ Hit Lab 13U Baseball Academy team package
+          is $1,995 per athlete.
+        </p>
+
+        <p>
+          The Academy is designed to combine competitive baseball,
+          team practices, player development, training opportunities,
+          uniforms and gear, and access to CYOJ Hit Lab during the
+          applicable membership period.
+        </p>
+
+        <p>
+          The package currently includes:
+        </p>
+
+        <ul>
+
+          <li>
+            8–10 tournaments planned for the 2027 season.
+          </li>
+
+          <li>
+            Team insurance.
+          </li>
+
+          <li>
+            GameChanger Premium.
+          </li>
+
+          <li>
+            Two team practices each week.
+          </li>
+
+          <li>
+            One pitching clinic per month with Coach Brett Evert.
+          </li>
+
+          <li>
+            Outdoor and indoor team-development opportunities.
+          </li>
+
+          <li>
+            Two uniforms, socks and belt, team hat and warmup jacket.
+          </li>
+
+          <li>
+            CYOJ Hit Lab membership for the period described below.
+          </li>
+
+        </ul>
+
+
+        <div class="notice-box">
+
+          <strong>
+            Planned schedule
+          </strong>
+
+          <p>
+            Tournament counts, dates, practice schedules, locations,
+            events and other Academy programming may be adjusted as
+            the season develops. A reference to 8–10 tournaments is
+            a season plan and is not a guarantee of an exact number
+            of tournament events.
+          </p>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- 2 -->
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 02
+        </p>
+
+        <h2>
+          Payment Options
+        </h2>
+
+        <p>
+          Families may satisfy the $1,995 team-package amount by
+          selecting either the pay-in-full option or the installment
+          plan made available through the Academy payment page.
+        </p>
+
+
+        <div class="schedule-table">
+
+
+          <div class="schedule-row">
+
+            <span>
+              Pay in full
+              <small>
+                One secure payment
+              </small>
+            </span>
+
+            <strong>
+              $1,995
+            </strong>
+
+          </div>
+
+
+          <div class="schedule-row">
+
+            <span>
+              Installment plan — Initial payment
+              <small>
+                Due through the initial Stripe checkout
+              </small>
+            </span>
+
+            <strong>
+              $1,000
+            </strong>
+
+          </div>
+
+
+          <div class="schedule-row">
+
+            <span>
+              Second installment
+              <small>
+                November 1, 2026
+              </small>
+            </span>
+
+            <strong>
+              $500
+            </strong>
+
+          </div>
+
+
+          <div class="schedule-row">
+
+            <span>
+              Final installment
+              <small>
+                February 1, 2027
+              </small>
+            </span>
+
+            <strong>
+              $495
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <p>
+          When the installment option is selected, the payment method
+          used through Stripe may be securely saved for the remaining
+          scheduled installments. A later installment is not intended
+          to be processed until the prior required payment has been
+          confirmed as paid.
+        </p>
+
+        <p>
+          Additional payment, cancellation, refund or withdrawal
+          provisions are governed by the Academy's applicable
+          payment and cancellation policy.
+        </p>
+
+      </section>
+
+
+
+      <!-- 3 -->
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 03
+        </p>
+
+        <h2>
+          Hit Lab Membership
+        </h2>
+
+        <p>
+          The 2027 13U Baseball Academy team package includes a
+          CYOJ Hit Lab Academy membership for the athlete from
+          August 1, 2026 through August 1, 2027.
+        </p>
+
+        <p>
+          Current membership benefits include:
+        </p>
+
+        <ul>
+
+          <li>
+            Unlimited use of CYOJ Hit Lab during regular business hours.
+          </li>
+
+          <li>
+            After-hours access when that access option becomes available.
+          </li>
+
+          <li>
+            10% off eligible camps and clinics.
+          </li>
+
+          <li>
+            10% off eligible merchandise.
+          </li>
+
+          <li>
+            Access to the Academy training environment and applicable
+            athlete-development opportunities.
+          </li>
+
+        </ul>
+
+        <p>
+          Facility use remains subject to CYOJ Hit Lab scheduling,
+          availability, operating procedures, facility rules and
+          applicable athlete-waiver requirements.
+        </p>
+
+      </section>
+
+
+
+      <!-- 4 -->
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 04
+        </p>
+
+        <h2>
+          Athlete Waiver Requirement
+        </h2>
+
+        <p>
+          A current CYOJ Hit Lab Athlete Waiver must be completed
+          for the athlete before participation in applicable Hit Lab
+          activities or facility use.
+        </p>
+
+        <p>
+          The Athlete Waiver is completed separately through the
+          CYOJ Hit Lab waiver process. Submission of a team payment
+          does not replace the requirement to complete the current
+          Athlete Waiver.
+        </p>
+
+        <div class="notice-box">
+
+          <strong>
+            Membership activation
+          </strong>
+
+          <p>
+            Academy families may be asked to complete the required
+            Athlete Waiver before the athlete's Hit Lab membership
+            access and digital membership card are fully activated.
+          </p>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- 5 -->
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 05
+        </p>
+
+        <h2>
+          Practices, Training & Locations
+        </h2>
+
+        <p>
+          The 13U Academy uses both outdoor and indoor development
+          environments. Geer Park is an Academy outdoor training
+          location, and CYOJ Hit Lab serves as the program's West
+          Salem indoor training facility.
+        </p>
+
+        <p>
+          The inclusion of these locations does not mean every team
+          activity will occur at either location. Practice sites,
+          training locations, schedules and programming may change
+          based on field availability, facility availability,
+          weather, scheduling needs and other season considerations.
+        </p>
+
+      </section>
+
+
+
+      <!-- 6 -->
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 06
+        </p>
+
+        <h2>
+          Player & Family Expectations
+        </h2>
+
+        <p>
+          The 13U Academy is a player-development program built
+          around preparation, effort, fundamentals, accountability,
+          confidence and team participation.
+        </p>
+
+        <p>
+          Players and families are expected to follow applicable
+          Academy communications, team expectations, facility rules,
+          safety requirements and reasonable instructions from
+          Academy coaches, staff and facility personnel.
+        </p>
+
+        <p>
+          Academy participation does not guarantee a particular
+          position, batting-order placement, inning count, pitching
+          assignment, tournament role or amount of playing time.
+          Baseball decisions may be based on development,
+          preparation, team needs, safety and competitive factors.
+        </p>
+
+      </section>
+
+
+
+      <!-- 7 -->
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 07
+        </p>
+
+        <h2>
+          Program Changes
+        </h2>
+
+        <p>
+          Baseball seasons may be affected by weather, field
+          availability, tournament scheduling, opponent availability,
+          facility availability, player safety, staffing and other
+          circumstances outside the Academy's direct control.
+        </p>
+
+        <p>
+          CYOJ Hit Lab may make reasonable changes to schedules,
+          locations, training formats, tournament selections and
+          program logistics when necessary to operate the Academy
+          or respond to changing season conditions.
+        </p>
+
+      </section>
+
+
+
+      <!-- 8 -->
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 08
+        </p>
+
+        <h2>
+          Separate Policies & Requirements
+        </h2>
+
+        <p>
+          This Academy Agreement should be reviewed together with
+          other applicable CYOJ Hit Lab and Academy documents,
+          including facility rules, payment and cancellation terms,
+          privacy practices and the current CYOJ Hit Lab Athlete Waiver.
+        </p>
+
+        <p>
+          If a separate policy applies specifically to payments,
+          cancellations, refunds, facility use, privacy or safety,
+          that policy governs that subject in conjunction with this
+          Academy Agreement.
+        </p>
+
+      </section>
+
+
+
+      <!-- 9 -->
+      <section class="legal-section">
+
+        <p class="section-number">
+          Section 09
+        </p>
+
+        <h2>
+          Questions & Contact
+        </h2>
+
+        <p>
+          Families with questions regarding the 2027 13U Baseball
+          Academy, team package, payments, participation requirements
+          or Academy administration should contact CYOJ Hit Lab.
+        </p>
+
+        <p>
+          Email:
+          <a href="mailto:academyteams@cyojhitlab.com">
+            academyteams@cyojhitlab.com
+          </a>
+        </p>
+
+        <p>
+          Phone:
+          <a href="tel:+19713018679">
+            971-301-8679
+          </a>
+        </p>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+
+  <!-- CONTACT -->
+  <section class="legal-contact">
+
+    <div class="legal-contact-inner">
+
+      <div>
+
+        <span>
+          Questions about this agreement?
+        </span>
+
+        <strong>
+          CYOJ Hit Lab Academy
+        </strong>
+
+      </div>
+
+
+      <div class="contact-links">
+
+        <a href="mailto:academyteams@cyojhitlab.com">
+          academyteams@cyojhitlab.com
+        </a>
+
+        <a href="tel:+19713018679">
+          971-301-8679
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-inner">
+
+      <p>
+        CYOJ Hit Lab is operated by Create Your Own Journey Foundation,
+        a 501(c)(3) nonprofit organization.
+      </p>
+
+      <a href="/">
+        Return to 13U Baseball Academy →
+      </a>
+
+    </div>
+
+  </footer>
+
+
+</body>
+</html>
