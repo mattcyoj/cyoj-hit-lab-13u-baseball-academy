@@ -153,10 +153,10 @@ module.exports =
         'pay_in_full',
 
       team_package_total:
-        '1995.00',
+        '2500.00',
 
       amount_due:
-        '1995.00',
+        '2500.00',
 
       guardian_authorized:
         'true',
