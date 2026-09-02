@@ -26,6 +26,16 @@
 
 
   /*
+   * Current 13U Academy agreement version.
+   *
+   * Version 2 reflects the revised
+   * $2,500 package and 2027 program terms.
+   */
+  const AGREEMENT_VERSION =
+    "2026-09-01-13u-v2";
+
+
+  /*
    * MASTER PAYMENT SAFETY LOCK
    *
    * DO NOT change this to true until:
@@ -246,7 +256,7 @@
                     true,
 
                   agreementVersion:
-                    "2026-08-31-13u-v1",
+                    AGREEMENT_VERSION,
 
                   attemptId
                 })
