@@ -20,7 +20,7 @@ const INSTALLMENTS = [
   {
     key: 'installment_2',
 
-    amount: 50000,
+    amount: 75000,
 
     dueDate: '2026-11-01',
 
@@ -31,7 +31,7 @@ const INSTALLMENTS = [
   {
     key: 'installment_3',
 
-    amount: 49500,
+    amount: 75000,
 
     dueDate: '2027-02-01',
 
@@ -312,7 +312,7 @@ async function processInstallment(
    * $1,000 payment to be confirmed.
    *
    * February requires November's
-   * $500 payment to be confirmed.
+   * $750 payment to be confirmed.
    */
   const requiredEnrollmentStatus =
     installment.key ===
