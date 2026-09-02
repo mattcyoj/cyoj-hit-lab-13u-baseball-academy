@@ -111,7 +111,7 @@ module.exports = async function handler(req, res) {
       'installment',
 
     team_package_total:
-      '1995.00',
+      '2500.00',
 
     installment_1_amount:
       '1000.00',
@@ -120,13 +120,13 @@ module.exports = async function handler(req, res) {
       'initial_checkout',
 
     installment_2_amount:
-      '500.00',
+      '750.00',
 
     installment_2_due:
       '2026-11-01',
 
     installment_3_amount:
-      '495.00',
+      '750.00',
 
     installment_3_due:
       '2027-02-01',
@@ -217,7 +217,7 @@ module.exports = async function handler(req, res) {
           /*
            * Save the payment method used for
            * the initial $1,000 payment so the
-           * scheduled $500 and $495 installments
+           * scheduled $750 and $750 installments
            * can later be processed off-session.
            */
           payment_intent_data: {
@@ -263,6 +263,7 @@ module.exports = async function handler(req, res) {
       .json({
         url: session.url,
       });
+
   } catch (error) {
     console.error(
       '13U Stripe checkout session creation failed',
