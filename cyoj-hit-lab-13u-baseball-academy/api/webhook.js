@@ -6,14 +6,20 @@ export const config = {
   },
 };
 
-const STRIPE_API_VERSION = '2026-07-29.dahlia';
+const STRIPE_API_VERSION =
+  '2026-07-29.dahlia';
 
-const PROGRAM = 'CYOJ Hit Lab 2027 Baseball Academy';
-const TEAM = '13U Baseball Academy';
-const TEAM_CODE = '13U_BASEBALL_ACADEMY';
+const PROGRAM =
+  'CYOJ Hit Lab 2027 Baseball Academy';
 
-const JOTFORM_FORM_ID = '262305529358158';
-const JOTFORM_PARENT_SIGNATURE_FIELD_ID = '66';
+const TEAM =
+  '13U Baseball Academy';
+
+const TEAM_CODE =
+  '13U_BASEBALL_ACADEMY';
+
+const JOTFORM_FORM_ID =
+  '262305529358158';
 
 const JOTFORM_WAIVER_URL =
   'https://form.jotform.com/262305529358158';
@@ -32,7 +38,8 @@ function getStripe() {
   return new Stripe(
     process.env.STRIPE_SECRET_KEY,
     {
-      apiVersion: STRIPE_API_VERSION,
+      apiVersion:
+        STRIPE_API_VERSION,
     }
   );
 }
@@ -116,8 +123,10 @@ function is13UCheckout(session) {
   return (
     metadata.team === TEAM &&
     (
-      metadata.team_code === TEAM_CODE ||
-      metadata.program === PROGRAM
+      metadata.team_code ===
+        TEAM_CODE ||
+      metadata.program ===
+        PROGRAM
     )
   );
 }
@@ -132,7 +141,8 @@ function is13UScheduledInstallmentInvoice(
   return (
     metadata.program === PROGRAM &&
     metadata.team === TEAM &&
-    metadata.team_code === TEAM_CODE &&
+    metadata.team_code ===
+      TEAM_CODE &&
     metadata.payment_option ===
       'installment' &&
     [
@@ -149,9 +159,7 @@ function is13UScheduledInstallmentInvoice(
 
 
 function escapeHtml(value) {
-  return String(
-    value ?? ''
-  )
+  return String(value ?? '')
     .replaceAll(
       '&',
       '&amp;'
@@ -181,8 +189,11 @@ function formatCurrency(
   return new Intl.NumberFormat(
     'en-US',
     {
-      style: 'currency',
-      currency: 'USD',
+      style:
+        'currency',
+
+      currency:
+        'USD',
     }
   ).format(
     Number(
@@ -198,8 +209,12 @@ function formatEventDate(
   return new Intl.DateTimeFormat(
     'en-US',
     {
-      dateStyle: 'medium',
-      timeStyle: 'short',
+      dateStyle:
+        'medium',
+
+      timeStyle:
+        'short',
+
       timeZone:
         'America/Los_Angeles',
     }
@@ -241,6 +256,7 @@ function getCheckoutContact(
   session
 ) {
   return {
+
     parentGuardianName:
       getCustomFieldValue(
         session,
@@ -252,6 +268,7 @@ function getCheckoutContact(
         ?.name ||
       '',
 
+
     playerName:
       getCustomFieldValue(
         session,
@@ -261,11 +278,13 @@ function getCheckoutContact(
         ?.player_name ||
       '',
 
+
     email:
       session.customer_details
         ?.email ||
       session.customer_email ||
       '',
+
 
     phone:
       session.customer_details
@@ -371,14 +390,18 @@ function answerToText(value) {
     return '';
   }
 
+
   if (
-    typeof value === 'string' ||
-    typeof value === 'number'
+    typeof value ===
+      'string' ||
+    typeof value ===
+      'number'
   ) {
     return String(
       value
     ).trim();
   }
+
 
   if (
     Array.isArray(value)
@@ -391,14 +414,19 @@ function answerToText(value) {
       .join(', ');
   }
 
+
   if (
-    typeof value === 'object'
+    typeof value ===
+      'object'
   ) {
+
     if (
-      typeof value.full === 'string'
+      typeof value.full ===
+      'string'
     ) {
       return value.full.trim();
     }
+
 
     const nameParts = [
       value.prefix,
@@ -414,12 +442,14 @@ function answerToText(value) {
       )
       .filter(Boolean);
 
+
     if (
       nameParts.length
     ) {
       return nameParts
         .join(' ');
     }
+
 
     const phoneParts = [
       value.area,
@@ -432,6 +462,7 @@ function answerToText(value) {
       )
       .filter(Boolean);
 
+
     if (
       phoneParts.length
     ) {
@@ -439,66 +470,46 @@ function answerToText(value) {
         .join('');
     }
 
+
     return Object.values(
       value
     )
+      .filter(
+        (part) =>
+          typeof part ===
+            'string' ||
+          typeof part ===
+            'number'
+      )
       .map(
-        answerToText
+        (part) =>
+          String(part).trim()
       )
       .filter(Boolean)
       .join(' ');
   }
 
+
   return '';
-}
-
-
-function getSubmissionAnswersMap(
-  submission
-) {
-  let answers =
-    submission?.answers;
-
-  /*
-   * Jotform may provide answers
-   * as either an object or a
-   * JSON-encoded string.
-   */
-  if (
-    typeof answers === 'string'
-  ) {
-    try {
-      answers =
-        JSON.parse(
-          answers
-        );
-    } catch {
-      return {};
-    }
-  }
-
-  if (
-    !answers ||
-    typeof answers !==
-      'object' ||
-    Array.isArray(
-      answers
-    )
-  ) {
-    return {};
-  }
-
-  return answers;
 }
 
 
 function getSubmissionAnswers(
   submission
 ) {
+  const answers =
+    submission?.answers;
+
+  if (
+    !answers ||
+    typeof answers !==
+      'object'
+  ) {
+    return [];
+  }
+
   return Object.values(
-    getSubmissionAnswersMap(
-      submission
-    )
+    answers
   ).filter(Boolean);
 }
 
@@ -512,11 +523,13 @@ function findAnswerByQuestion(
       normalizeQuestionText
     );
 
+
   return (
     getSubmissionAnswers(
       submission
     ).find(
       (answerObject) => {
+
         const question =
           normalizeQuestionText(
             answerObject?.text
@@ -548,60 +561,7 @@ function getAnswerText(
   }
 
   return answerToText(
-    answerObject.answer ??
-    answerObject.prettyFormat ??
-    ''
-  );
-}
-
-
-/*
- * The current LIVE waiver's actual
- * parent/legal guardian signature
- * field is Jotform answer ID 66.
- *
- * Check that exact field first.
- * Keep label matching as a fallback.
- */
-function getParentSignature(
-  submission
-) {
-  const answers =
-    getSubmissionAnswersMap(
-      submission
-    );
-
-  const exactField =
-    answers[
-      JOTFORM_PARENT_SIGNATURE_FIELD_ID
-    ];
-
-  if (exactField) {
-    const exactValue =
-      answerToText(
-        exactField.answer ??
-        exactField.prettyFormat ??
-        ''
-      );
-
-    if (exactValue) {
-      return exactValue;
-    }
-  }
-
-  return getAnswerText(
-    submission,
-    [
-      'Parent/Legal Guardian Signature (Required if Participant / Athlete is under 18)',
-
-      'Parent / Legal Guardian Signature (Required if Participant / Athlete is under 18)',
-
-      'Parent/Legal Guardian Signature (Required if under 18)',
-
-      'Parent / Legal Guardian Signature (Required if under 18)',
-
-      'Parent/Guardian Signature (Required if under 18)',
-    ]
+    answerObject.answer
   );
 }
 
@@ -638,6 +598,7 @@ function hasCompletedWaiverMetadata(
       .trim()
       .toLowerCase();
 
+
   return [
     'completed',
     'verified',
@@ -647,79 +608,11 @@ function hasCompletedWaiverMetadata(
 }
 
 
-/*
- * A generic "completed" value is
- * NOT enough to activate membership.
- *
- * The verification must belong to:
- *
- * - the current LIVE waiver form
- * - a real Jotform submission
- * - the same athlete when a player
- *   name is supplied
- */
-function hasCurrentCompletedWaiverMetadata(
-  metadata,
-  playerName = ''
-) {
-  if (
-    !hasCompletedWaiverMetadata(
-      metadata
-    )
-  ) {
-    return false;
-  }
-
-  if (
-    String(
-      metadata
-        ?.waiver_form_id ||
-      ''
-    ).trim() !==
-      JOTFORM_FORM_ID
-  ) {
-    return false;
-  }
-
-  if (
-    !String(
-      metadata
-        ?.waiver_submission_id ||
-      ''
-    ).trim()
-  ) {
-    return false;
-  }
-
-  if (playerName) {
-    const storedPlayer =
-      normalizeIdentity(
-        metadata?.player_name
-      );
-
-    const currentPlayer =
-      normalizeIdentity(
-        playerName
-      );
-
-    if (
-      !storedPlayer ||
-      !currentPlayer ||
-      storedPlayer !==
-        currentPlayer
-    ) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-
 function getWaiverData(
   submission
 ) {
   return {
+
     athleteName:
       getAnswerText(
         submission,
@@ -727,6 +620,7 @@ function getWaiverData(
           'Participant / Athlete Full Name',
         ]
       ),
+
 
     guardianName:
       getAnswerText(
@@ -737,6 +631,7 @@ function getWaiverData(
         ]
       ),
 
+
     email:
       getAnswerText(
         submission,
@@ -744,6 +639,7 @@ function getWaiverData(
           'Email Address of Person Completing This Form',
         ]
       ),
+
 
     phone:
       getAnswerText(
@@ -753,6 +649,7 @@ function getWaiverData(
         ]
       ),
 
+
     activity:
       getAnswerText(
         submission,
@@ -761,48 +658,18 @@ function getWaiverData(
         ]
       ),
 
+
     parentSignature:
-      getParentSignature(
-        submission
+      getAnswerText(
+        submission,
+        [
+          'Parent/Legal Guardian Signature (Required if under 18)',
+          'Parent / Legal Guardian Signature (Required if under 18)',
+          'Parent/Guardian Signature (Required if under 18)',
+          'Parent/Legal Guardian Signature (Required if Participant / Athlete is under 18)',
+        ]
       ),
   };
-}
-
-
-function isValidLiveWaiverSubmission(
-  submission
-) {
-  const formId =
-    String(
-      submission?.form_id ||
-      submission?.formID ||
-      ''
-    ).trim();
-
-  if (
-    formId &&
-    formId !==
-      JOTFORM_FORM_ID
-  ) {
-    return false;
-  }
-
-  const status =
-    String(
-      submission?.status ||
-      ''
-    )
-      .trim()
-      .toUpperCase();
-
-  if (
-    status &&
-    status !== 'ACTIVE'
-  ) {
-    return false;
-  }
-
-  return true;
 }
 
 
@@ -810,18 +677,29 @@ function isMatchingMembershipWaiver(
   submission,
   contact
 ) {
-  if (
-    !isValidLiveWaiverSubmission(
-      submission
+  const submissionStatus =
+    String(
+      submission?.status ||
+      ''
     )
+      .trim()
+      .toUpperCase();
+
+
+  if (
+    submissionStatus &&
+    submissionStatus !==
+      'ACTIVE'
   ) {
     return false;
   }
+
 
   const waiver =
     getWaiverData(
       submission
     );
+
 
   if (
     !isMembershipActivity(
@@ -831,9 +709,10 @@ function isMatchingMembershipWaiver(
     return false;
   }
 
+
   /*
    * 13U athletes are minors.
-   * Never activate membership
+   * Do not activate a membership
    * without the required parent /
    * legal guardian signature.
    */
@@ -846,9 +725,9 @@ function isMatchingMembershipWaiver(
     return false;
   }
 
+
   /*
-   * Athlete name must match exactly
-   * after normalization.
+   * Athlete name must match.
    */
   const athleteMatches =
     Boolean(
@@ -868,19 +747,19 @@ function isMatchingMembershipWaiver(
         contact.playerName
       );
 
-  if (
-    !athleteMatches
-  ) {
+
+  if (!athleteMatches) {
     return false;
   }
 
+
   /*
-   * Require at least one additional
-   * identity match:
+   * Then require at least one
+   * additional identity match:
    *
    * - payer email
-   * - parent/legal guardian name
-   * - phone number
+   * - parent / guardian name
+   * - phone
    */
   const emailMatches =
     Boolean(
@@ -900,6 +779,7 @@ function isMatchingMembershipWaiver(
         contact.email
       );
 
+
   const guardianMatches =
     Boolean(
       normalizeIdentity(
@@ -908,17 +788,16 @@ function isMatchingMembershipWaiver(
     ) &&
     Boolean(
       normalizeIdentity(
-        contact
-          .parentGuardianName
+        contact.parentGuardianName
       )
     ) &&
     normalizeIdentity(
       waiver.guardianName
     ) ===
       normalizeIdentity(
-        contact
-          .parentGuardianName
+        contact.parentGuardianName
       );
+
 
   const phoneMatches =
     Boolean(
@@ -938,6 +817,7 @@ function isMatchingMembershipWaiver(
         contact.phone
       );
 
+
   return (
     emailMatches ||
     guardianMatches ||
@@ -956,6 +836,7 @@ async function findExistingMembershipWaiver(
       ''
     ).trim();
 
+
   if (!apiKey) {
     console.warn(
       '13U Jotform waiver lookup unavailable: JOTFORM_API_KEY is not configured'
@@ -970,7 +851,9 @@ async function findExistingMembershipWaiver(
     };
   }
 
+
   try {
+
     const response =
       await fetch(
         `https://api.jotform.com/form/${JOTFORM_FORM_ID}/submissions?limit=1000&orderby=created_at&direction=DESC`,
@@ -988,10 +871,13 @@ async function findExistingMembershipWaiver(
         }
       );
 
+
     const responseText =
       await response.text();
 
+
     if (!response.ok) {
+
       console.error(
         '13U Jotform waiver lookup failed',
         {
@@ -1006,6 +892,7 @@ async function findExistingMembershipWaiver(
         }
       );
 
+
       return {
         lookupStatus:
           'error',
@@ -1015,17 +902,22 @@ async function findExistingMembershipWaiver(
       };
     }
 
+
     let body;
+
 
     try {
       body =
         JSON.parse(
           responseText
         );
+
     } catch {
+
       console.error(
         '13U Jotform waiver lookup returned invalid JSON'
       );
+
 
       return {
         lookupStatus:
@@ -1035,6 +927,7 @@ async function findExistingMembershipWaiver(
           null,
       };
     }
+
 
     const submissions =
       Array.isArray(
@@ -1042,6 +935,7 @@ async function findExistingMembershipWaiver(
       )
         ? body.content
         : [];
+
 
     const match =
       submissions.find(
@@ -1051,6 +945,7 @@ async function findExistingMembershipWaiver(
             contact
           )
       );
+
 
     if (!match) {
       return {
@@ -1062,6 +957,7 @@ async function findExistingMembershipWaiver(
       };
     }
 
+
     return {
       lookupStatus:
         'matched',
@@ -1069,7 +965,9 @@ async function findExistingMembershipWaiver(
       match,
     };
 
+
   } catch (error) {
+
     console.error(
       '13U Jotform waiver lookup error',
       {
@@ -1077,6 +975,7 @@ async function findExistingMembershipWaiver(
           error.message,
       }
     );
+
 
     return {
       lookupStatus:
@@ -1110,6 +1009,7 @@ async function sendResendEmail({
       'RESEND_API_KEY is not configured'
     );
   }
+
 
   const response =
     await fetch(
@@ -1148,16 +1048,17 @@ async function sendResendEmail({
       }
     );
 
+
   const responseBody =
     await response.text();
 
-  if (
-    !response.ok
-  ) {
+
+  if (!response.ok) {
     throw new Error(
       `Resend email failed (${response.status}): ${responseBody}`
     );
   }
+
 
   console.log(
     '13U Resend email sent',
@@ -1182,63 +1083,69 @@ async function sendInitialPaymentEmails(
     return;
   }
 
+
   const contact =
     getCheckoutContact(
       session
     );
 
+
   const metadata =
     session.metadata ||
     {};
 
+
   const paymentOption =
     metadata.payment_option ||
     '';
+
 
   const amountPaid =
     session.amount_total ||
     session.amount_subtotal ||
     0;
 
+
   const isInstallment =
     paymentOption ===
       'installment';
 
+
   const remainingBalance =
     isInstallment
-      ? 99500
+      ? 150000
       : 0;
+
 
   const upcomingPayments =
     isInstallment
-      ? '$500 on November 1, 2026; $495 on February 1, 2027'
+      ? '$750 on November 1, 2026; $750 on February 1, 2027'
       : 'None — team package paid in full';
+
 
   const memberCardUrl =
     getMemberCardUrl(
       session.id
     );
 
-  /*
-   * Parent/card emails use the same
-   * strict current-waiver verification
-   * as membership activation.
-   */
+
   const waiverComplete =
-    hasCurrentCompletedWaiverMetadata(
-      metadata,
-      contact.playerName
+    hasCompletedWaiverMetadata(
+      metadata
     );
+
 
   const waiverLookupStatus =
     metadata
       .waiver_lookup_status ||
     'unknown';
 
+
   const membershipStatus =
     waiverComplete
       ? 'ACTIVE'
       : 'PENDING — ATHLETE WAIVER REQUIRED';
+
 
   const internalSubject =
     `13U Baseball Academy — Payment Received — ` +
@@ -1246,6 +1153,7 @@ async function sendInitialPaymentEmails(
     `${formatCurrency(
       amountPaid
     )}`;
+
 
   const internalText = `
 CYOJ Hit Lab 13U Baseball Academy Payment Received
@@ -1276,6 +1184,7 @@ ${getId(session.payment_intent) || 'Not available'}
 Payment Received:
 ${formatEventDate(event.created)}
 `;
+
 
   const internalHtml = `
     <div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto;color:#111827;">
@@ -1417,6 +1326,10 @@ ${formatEventDate(event.created)}
     </div>
   `;
 
+
+  /*
+   * INTERNAL PAYMENT CONFIRMATION
+   */
   await sendResendEmail({
     to:
       NOTIFICATION_TO,
@@ -1437,9 +1350,8 @@ ${formatEventDate(event.created)}
       'internal-payment-received',
   });
 
-  if (
-    !contact.email
-  ) {
+
+  if (!contact.email) {
     console.warn(
       '13U parent payment email skipped: no payer email',
       {
@@ -1454,16 +1366,16 @@ ${formatEventDate(event.created)}
     return;
   }
 
+
   /*
-   * PAYMENT + CURRENT LIVE WAIVER
-   * ALREADY VERIFIED
+   * PAYMENT + WAIVER ALREADY COMPLETE
    */
-  if (
-    waiverComplete
-  ) {
+  if (waiverComplete) {
+
     const subject =
       `${contact.playerName || '13U Academy Athlete'} — ` +
       'Your CYOJ Hit Lab Digital Membership Card Is Active';
+
 
     const text = `
 CYOJ Hit Lab 2027 13U Baseball Academy
@@ -1480,6 +1392,7 @@ August 1, 2026 – August 1, 2027
 Questions:
 support@cyojhitlab.com
 `;
+
 
     const html = `
       <div style="font-family:Arial,sans-serif;max-width:620px;margin:0 auto;color:#111827;">
@@ -1538,6 +1451,7 @@ support@cyojhitlab.com
       </div>
     `;
 
+
     await sendResendEmail({
       to:
         contact.email,
@@ -1555,16 +1469,19 @@ support@cyojhitlab.com
         'membership-card-active',
     });
 
+
     return;
   }
 
+
   /*
-   * PAYMENT COMPLETE BUT CURRENT
-   * LIVE WAIVER STILL REQUIRED
+   * PAYMENT COMPLETE BUT WAIVER
+   * STILL REQUIRED
    */
   const subject =
     `${contact.playerName || '13U Academy Athlete'} — ` +
     'Payment Confirmed · Athlete Waiver Required';
+
 
   const text = `
 CYOJ Hit Lab 2027 13U Baseball Academy
@@ -1584,6 +1501,7 @@ Once the matching membership waiver is verified, the digital membership card wil
 Questions:
 support@cyojhitlab.com
 `;
+
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:620px;margin:0 auto;color:#111827;">
@@ -1660,6 +1578,7 @@ support@cyojhitlab.com
     </div>
   `;
 
+
   await sendResendEmail({
     to:
       contact.email,
@@ -1691,19 +1610,23 @@ async function sendInitialPaymentFailureEmail(
     return;
   }
 
+
   const contact =
     getCheckoutContact(
       session
     );
+
 
   const amountDue =
     session.amount_total ||
     session.amount_subtotal ||
     0;
 
+
   const subject =
     `ACTION REQUIRED — 13U Baseball Academy Initial Payment Failed — ` +
     `${contact.playerName || 'Player'}`;
+
 
   const text = `
 CYOJ Hit Lab 13U Baseball Academy Initial Payment Failed
@@ -1721,6 +1644,7 @@ ${session.id}
 Failure Recorded:
 ${formatEventDate(event.created)}
 `;
+
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto;color:#111827;">
@@ -1785,6 +1709,7 @@ ${formatEventDate(event.created)}
     </div>
   `;
 
+
   await sendResendEmail({
     to:
       NOTIFICATION_TO,
@@ -1813,9 +1738,8 @@ async function getCustomerContact(
       customerValue
     );
 
-  if (
-    !customerId
-  ) {
+
+  if (!customerId) {
     return {
       parentGuardianName:
         '',
@@ -1830,6 +1754,7 @@ async function getCustomerContact(
         '',
     };
   }
+
 
   const customer =
     await stripe.customers
@@ -1837,9 +1762,8 @@ async function getCustomerContact(
         customerId
       );
 
-  if (
-    customer.deleted
-  ) {
+
+  if (customer.deleted) {
     return {
       parentGuardianName:
         '',
@@ -1855,20 +1779,25 @@ async function getCustomerContact(
     };
   }
 
+
   return {
+
     parentGuardianName:
       customer.metadata
         ?.parent_guardian_name ||
       '',
+
 
     playerName:
       customer.metadata
         ?.player_name ||
       '',
 
+
     email:
       customer.email ||
       '',
+
 
     phone:
       customer.phone ||
@@ -1891,21 +1820,25 @@ async function sendInstallmentEmail(
     return;
   }
 
+
   const contact =
     await getCustomerContact(
       stripe,
       invoice.customer
     );
 
+
   const installmentKey =
     invoice.metadata
       .installment_key;
+
 
   const installmentLabel =
     installmentKey ===
       'installment_2'
       ? 'November Installment'
       : 'February Installment';
+
 
   const amount =
     succeeded
@@ -1920,12 +1853,13 @@ async function sendInstallmentEmail(
           0
         );
 
+
   const remainingBalance =
     succeeded
       ? (
           installmentKey ===
             'installment_2'
-            ? 49500
+            ? 75000
             : 0
         )
       : (
@@ -1934,14 +1868,16 @@ async function sendInstallmentEmail(
           0
         );
 
+
   const nextPayment =
     succeeded &&
     installmentKey ===
       'installment_2'
-      ? '$495 on February 1, 2027'
+      ? '$750 on February 1, 2027'
       : succeeded
         ? 'None — team package paid in full'
         : 'Payment attention required';
+
 
   const subject =
     succeeded
@@ -1956,6 +1892,7 @@ async function sendInstallmentEmail(
           `ACTION REQUIRED — 13U Baseball Academy Payment Failed — ` +
           `${contact.playerName || 'Player'}`
         );
+
 
   const text = `
 CYOJ Hit Lab 13U Baseball Academy ${succeeded ? 'Installment Payment Received' : 'Payment Failed'}
@@ -1983,6 +1920,7 @@ ${invoice.id}
 ${succeeded ? 'Payment Received' : 'Failure Recorded'}:
 ${formatEventDate(event.created)}
 `;
+
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto;color:#111827;">
@@ -2100,6 +2038,7 @@ ${formatEventDate(event.created)}
     </div>
   `;
 
+
   await sendResendEmail({
     to:
       NOTIFICATION_TO,
@@ -2139,20 +2078,24 @@ async function recordSuccessfulCheckout(
     return;
   }
 
+
   const customerId =
     getId(
       session.customer
     );
+
 
   const paymentIntentId =
     getId(
       session.payment_intent
     );
 
+
   const invoiceId =
     getId(
       session.invoice
     );
+
 
   if (
     !customerId ||
@@ -2163,10 +2106,12 @@ async function recordSuccessfulCheckout(
     );
   }
 
+
   const contact =
     getCheckoutContact(
       session
     );
+
 
   if (
     !contact.parentGuardianName ||
@@ -2177,25 +2122,30 @@ async function recordSuccessfulCheckout(
     );
   }
 
+
   const paymentReceivedAt =
     new Date(
       eventCreated * 1000
     ).toISOString();
+
 
   const paymentOption =
     session.metadata
       ?.payment_option ||
     '';
 
+
   const isInstallment =
     paymentOption ===
       'installment';
+
 
   const existingCustomer =
     await stripe.customers
       .retrieve(
         customerId
       );
+
 
   const existingCustomerMetadata =
     existingCustomer.deleted
@@ -2205,87 +2155,97 @@ async function recordSuccessfulCheckout(
           {}
         );
 
+
   const sessionMetadata =
     session.metadata ||
     {};
 
+
   /*
-   * Do NOT trust a generic
-   * waiver_status=completed value.
-   *
-   * The stored verification must:
-   *
-   * - belong to the current LIVE form
-   * - contain a real submission ID
-   * - belong to this athlete
+   * Only trust an already-verified
+   * Session waiver if it belongs to
+   * the current live waiver form.
    */
   const sessionWaiverVerified =
-    hasCurrentCompletedWaiverMetadata(
-      sessionMetadata,
-      contact.playerName
+    hasCompletedWaiverMetadata(
+      sessionMetadata
+    ) &&
+    (
+      !sessionMetadata
+        .waiver_form_id ||
+      sessionMetadata
+        .waiver_form_id ===
+          JOTFORM_FORM_ID
     );
 
+
+  /*
+   * Customer metadata can persist
+   * across transactions, so additionally
+   * require the same athlete before
+   * trusting a previously verified waiver.
+   */
   const customerWaiverVerified =
-    hasCurrentCompletedWaiverMetadata(
-      existingCustomerMetadata,
-      contact.playerName
-    );
+    hasCompletedWaiverMetadata(
+      existingCustomerMetadata
+    ) &&
+    existingCustomerMetadata
+      .waiver_form_id ===
+        JOTFORM_FORM_ID &&
+    normalizeIdentity(
+      existingCustomerMetadata
+        .player_name
+    ) ===
+      normalizeIdentity(
+        contact.playerName
+      );
+
 
   const previouslyVerified =
     sessionWaiverVerified ||
     customerWaiverVerified;
 
+
   let waiverComplete =
     previouslyVerified;
+
 
   let waiverLookupStatus =
     previouslyVerified
       ? 'already_verified'
       : 'not_checked';
 
-  /*
-   * Only preserve a prior submission
-   * ID when that prior waiver record
-   * actually passed current-form and
-   * same-athlete verification.
-   */
+
   let waiverSubmissionId =
-    sessionWaiverVerified
-      ? String(
-          sessionMetadata
-            .waiver_submission_id ||
-          ''
-        )
-      : customerWaiverVerified
-        ? String(
-            existingCustomerMetadata
-              .waiver_submission_id ||
-            ''
-          )
-        : '';
+    sessionMetadata
+      .waiver_submission_id ||
+    existingCustomerMetadata
+      .waiver_submission_id ||
+    '';
+
 
   /*
    * If Stripe does not already contain
-   * a proven current waiver, query the
-   * current LIVE Jotform waiver.
+   * a verified waiver record, check
+   * the current LIVE Jotform waiver.
    */
-  if (
-    !waiverComplete
-  ) {
+  if (!waiverComplete) {
+
     const waiverLookup =
       await findExistingMembershipWaiver(
         contact
       );
 
-    waiverLookupStatus =
-      waiverLookup
-        .lookupStatus;
 
-    if (
-      waiverLookup.match
-    ) {
+    waiverLookupStatus =
+      waiverLookup.lookupStatus;
+
+
+    if (waiverLookup.match) {
+
       waiverComplete =
         true;
+
 
       waiverSubmissionId =
         String(
@@ -2297,136 +2257,145 @@ async function recordSuccessfulCheckout(
     }
   }
 
+
   const membershipStatus =
     waiverComplete
       ? 'active'
       : 'waiver_required';
 
-  const existingIssuedAt =
-    sessionWaiverVerified
-      ? (
-          sessionMetadata
-            .membership_card_issued_at ||
-          ''
-        )
-      : customerWaiverVerified
-        ? (
-            existingCustomerMetadata
-              .membership_card_issued_at ||
-            ''
-          )
-        : '';
-
-  const existingVerifiedAt =
-    sessionWaiverVerified
-      ? (
-          sessionMetadata
-            .waiver_verified_at ||
-          ''
-        )
-      : customerWaiverVerified
-        ? (
-            existingCustomerMetadata
-              .waiver_verified_at ||
-            ''
-          )
-        : '';
 
   const metadata = {
     ...sessionMetadata,
 
+
     parent_guardian_name:
       contact.parentGuardianName,
+
 
     player_name:
       contact.playerName,
 
+
     initial_checkout_session_id:
       session.id,
+
 
     initial_payment_intent_id:
       paymentIntentId,
 
+
     initial_payment_status:
       'paid',
+
 
     initial_payment_received_at:
       paymentReceivedAt,
 
+
     membership_card_session_id:
       session.id,
 
+
     membership_status:
       membershipStatus,
+
 
     enrollment_status:
       isInstallment
         ? 'initial_payment_received'
         : 'paid_in_full',
 
+
     waiver_form_id:
       JOTFORM_FORM_ID,
 
-    /*
-     * Empty string removes a stale
-     * Stripe metadata value when the
-     * current waiver has not been proven.
-     */
-    waiver_submission_id:
-      waiverComplete
-        ? waiverSubmissionId
-        : '',
 
     waiver_status:
       waiverComplete
         ? 'completed'
         : 'required',
 
+
     hit_lab_waiver_status:
       waiverComplete
         ? 'completed'
         : 'required',
 
+
     waiver_lookup_status:
       waiverLookupStatus,
-
-    waiver_verified_at:
-      waiverComplete
-        ? (
-            existingVerifiedAt ||
-            paymentReceivedAt
-          )
-        : '',
-
-    membership_card_issued_at:
-      waiverComplete
-        ? (
-            existingIssuedAt ||
-            paymentReceivedAt
-          )
-        : '',
   };
 
+
+  if (waiverSubmissionId) {
+    metadata
+      .waiver_submission_id =
+        waiverSubmissionId;
+  }
+
+
+  /*
+   * Do not issue the active membership
+   * card until both payment and waiver
+   * requirements are satisfied.
+   */
+  if (waiverComplete) {
+
+    metadata
+      .membership_card_issued_at =
+        (
+          sessionWaiverVerified
+            ? sessionMetadata
+                .membership_card_issued_at
+            : ''
+        ) ||
+        (
+          customerWaiverVerified
+            ? existingCustomerMetadata
+                .membership_card_issued_at
+            : ''
+        ) ||
+        paymentReceivedAt;
+
+
+    metadata
+      .waiver_verified_at =
+        (
+          sessionWaiverVerified
+            ? sessionMetadata
+                .waiver_verified_at
+            : ''
+        ) ||
+        (
+          customerWaiverVerified
+            ? existingCustomerMetadata
+                .waiver_verified_at
+            : ''
+        ) ||
+        paymentReceivedAt;
+  }
+
+
   const customerUpdate = {
+
     name:
       contact.parentGuardianName,
 
     metadata,
   };
 
-  if (
-    contact.email
-  ) {
+
+  if (contact.email) {
     customerUpdate.email =
       contact.email;
   }
 
-  if (
-    contact.phone
-  ) {
+
+  if (contact.phone) {
     customerUpdate.phone =
       contact.phone;
   }
+
 
   /*
    * INSTALLMENT PLAN ONLY
@@ -2436,14 +2405,15 @@ async function recordSuccessfulCheckout(
    * default payment method for the
    * November and February charges.
    */
-  if (
-    isInstallment
-  ) {
+  if (isInstallment) {
+
     const paymentIntent =
-      await stripe.paymentIntents
+      await stripe
+        .paymentIntents
         .retrieve(
           paymentIntentId
         );
+
 
     const paymentMethodId =
       getId(
@@ -2451,26 +2421,30 @@ async function recordSuccessfulCheckout(
           .payment_method
       );
 
-    if (
-      !paymentMethodId
-    ) {
+
+    if (!paymentMethodId) {
       throw new Error(
         `Missing payment method for PaymentIntent ${paymentIntentId}`
       );
     }
 
+
     customerUpdate
       .invoice_settings = {
+
         default_payment_method:
           paymentMethodId,
       };
   }
 
+
   const updates = [
+
     stripe.customers.update(
       customerId,
       customerUpdate
     ),
+
 
     stripe.paymentIntents.update(
       paymentIntentId,
@@ -2478,6 +2452,7 @@ async function recordSuccessfulCheckout(
         metadata,
       }
     ),
+
 
     stripe.checkout.sessions.update(
       session.id,
@@ -2487,9 +2462,9 @@ async function recordSuccessfulCheckout(
     ),
   ];
 
-  if (
-    invoiceId
-  ) {
+
+  if (invoiceId) {
+
     updates.push(
       stripe.invoices.update(
         invoiceId,
@@ -2500,15 +2475,17 @@ async function recordSuccessfulCheckout(
     );
   }
 
+
   await Promise.all(
     updates
   );
 
+
   /*
-   * Keep the in-memory Session
-   * synchronized so the email sent
-   * immediately afterward uses the
-   * newly verified waiver status.
+   * Keep the in-memory Session synchronized
+   * so the email immediately afterward sees
+   * the same waiver status that was just
+   * written to Stripe.
    */
   session.metadata =
     metadata;
@@ -2528,33 +2505,37 @@ async function recordInstallmentSuccess(
     return;
   }
 
+
   const customerId =
     getId(
       invoice.customer
     );
 
-  if (
-    !customerId
-  ) {
+
+  if (!customerId) {
     throw new Error(
       `Missing customer for Invoice ${invoice.id}`
     );
   }
 
+
   const installmentKey =
     invoice.metadata
       .installment_key;
+
 
   const paymentReceivedAt =
     new Date(
       eventCreated * 1000
     ).toISOString();
 
+
   const customer =
     await stripe.customers
       .retrieve(
         customerId
       );
+
 
   const customerMetadata =
     customer.deleted
@@ -2564,30 +2545,30 @@ async function recordInstallmentSuccess(
           {}
         );
 
+
   /*
-   * A successful installment may
-   * restore payment standing, but
-   * ONLY a completed waiver from the
-   * current LIVE form can restore
-   * active membership access.
+   * A successful installment fixes
+   * payment standing, but it must not
+   * bypass the athlete-waiver requirement.
    */
   const waiverComplete =
-    hasCurrentCompletedWaiverMetadata(
-      customerMetadata,
+    hasCompletedWaiverMetadata(
       customerMetadata
-        .player_name ||
-      ''
     );
 
+
   await Promise.all([
+
     stripe.invoices.update(
       invoice.id,
       {
         metadata: {
           ...(invoice.metadata || {}),
 
+
           installment_payment_status:
             'paid',
+
 
           installment_payment_received_at:
             paymentReceivedAt,
@@ -2595,24 +2576,30 @@ async function recordInstallmentSuccess(
       }
     ),
 
+
     stripe.customers.update(
       customerId,
       {
         metadata: {
+
           [`${installmentKey}_payment_status`]:
             'paid',
+
 
           [`${installmentKey}_payment_received_at`]:
             paymentReceivedAt,
 
+
           [`${installmentKey}_invoice_id`]:
             invoice.id,
+
 
           enrollment_status:
             installmentKey ===
               'installment_3'
               ? 'paid_in_full'
               : 'installment_2_paid',
+
 
           membership_status:
             waiverComplete
@@ -2638,27 +2625,30 @@ async function recordInstallmentFailure(
     return;
   }
 
+
   const customerId =
     getId(
       invoice.customer
     );
 
-  if (
-    !customerId
-  ) {
+
+  if (!customerId) {
     throw new Error(
       `Missing customer for Invoice ${invoice.id}`
     );
   }
 
+
   const installmentKey =
     invoice.metadata
       .installment_key;
+
 
   const failedAt =
     new Date(
       eventCreated * 1000
     ).toISOString();
+
 
   const attemptCount =
     String(
@@ -2666,18 +2656,23 @@ async function recordInstallmentFailure(
       1
     );
 
+
   await Promise.all([
+
     stripe.invoices.update(
       invoice.id,
       {
         metadata: {
           ...(invoice.metadata || {}),
 
+
           installment_payment_status:
             'failed',
 
+
           installment_payment_failed_at:
             failedAt,
+
 
           installment_payment_attempt_count:
             attemptCount,
@@ -2685,24 +2680,31 @@ async function recordInstallmentFailure(
       }
     ),
 
+
     stripe.customers.update(
       customerId,
       {
         metadata: {
+
           [`${installmentKey}_payment_status`]:
             'failed',
+
 
           [`${installmentKey}_payment_failed_at`]:
             failedAt,
 
+
           [`${installmentKey}_invoice_id`]:
             invoice.id,
+
 
           [`${installmentKey}_attempt_count`]:
             attemptCount,
 
+
           enrollment_status:
             'payment_attention_required',
+
 
           membership_status:
             'payment_attention_required',
@@ -2726,10 +2728,12 @@ export default async function handler(
     req.method !==
       'POST'
   ) {
+
     res.setHeader(
       'Allow',
       'POST'
     );
+
 
     return res
       .status(405)
@@ -2739,12 +2743,14 @@ export default async function handler(
       });
   }
 
+
   if (
     !process.env
       .STRIPE_SECRET_KEY ||
     !process.env
       .STRIPE_WEBHOOK_SECRET
   ) {
+
     return res
       .status(500)
       .json({
@@ -2753,10 +2759,12 @@ export default async function handler(
       });
   }
 
+
   const signatureHeader =
     req.headers[
       'stripe-signature'
     ];
+
 
   const signature =
     Array.isArray(
@@ -2765,9 +2773,9 @@ export default async function handler(
       ? signatureHeader[0]
       : signatureHeader;
 
-  if (
-    !signature
-  ) {
+
+  if (!signature) {
+
     return res
       .status(400)
       .json({
@@ -2776,16 +2784,21 @@ export default async function handler(
       });
   }
 
+
   const stripe =
     getStripe();
 
+
   let event;
 
+
   try {
+
     const rawBody =
       await getRawBody(
         req
       );
+
 
     event =
       stripe.webhooks
@@ -2796,11 +2809,14 @@ export default async function handler(
             .STRIPE_WEBHOOK_SECRET
         );
 
+
   } catch (error) {
+
     console.error(
       '13U Stripe webhook signature verification failed',
       error.message
     );
+
 
     return res
       .status(400)
@@ -2810,7 +2826,9 @@ export default async function handler(
       });
   }
 
+
   try {
+
     /*
      * IMMEDIATE PAYMENT SUCCESS
      */
@@ -2818,8 +2836,10 @@ export default async function handler(
       event.type ===
         'checkout.session.completed'
     ) {
+
       const session =
         event.data.object;
+
 
       if (
         is13UCheckout(
@@ -2828,11 +2848,13 @@ export default async function handler(
         session.payment_status ===
           'paid'
       ) {
+
         await recordSuccessfulCheckout(
           stripe,
           session,
           event.created
         );
+
 
         await sendInitialPaymentEmails(
           session,
@@ -2840,6 +2862,7 @@ export default async function handler(
         );
       }
     }
+
 
     /*
      * DELAYED PAYMENT SUCCESS
@@ -2848,19 +2871,23 @@ export default async function handler(
       event.type ===
         'checkout.session.async_payment_succeeded'
     ) {
+
       const session =
         event.data.object;
+
 
       if (
         is13UCheckout(
           session
         )
       ) {
+
         await recordSuccessfulCheckout(
           stripe,
           session,
           event.created
         );
+
 
         await sendInitialPaymentEmails(
           session,
@@ -2869,6 +2896,7 @@ export default async function handler(
       }
     }
 
+
     /*
      * DELAYED INITIAL PAYMENT FAILURE
      */
@@ -2876,14 +2904,17 @@ export default async function handler(
       event.type ===
         'checkout.session.async_payment_failed'
     ) {
+
       const session =
         event.data.object;
+
 
       await sendInitialPaymentFailureEmail(
         session,
         event
       );
     }
+
 
     /*
      * SCHEDULED INSTALLMENT SUCCESS
@@ -2892,14 +2923,17 @@ export default async function handler(
       event.type ===
         'invoice.payment_succeeded'
     ) {
+
       const invoice =
         event.data.object;
+
 
       await recordInstallmentSuccess(
         stripe,
         invoice,
         event.created
       );
+
 
       await sendInstallmentEmail(
         stripe,
@@ -2909,6 +2943,7 @@ export default async function handler(
       );
     }
 
+
     /*
      * SCHEDULED INSTALLMENT FAILURE
      */
@@ -2916,14 +2951,17 @@ export default async function handler(
       event.type ===
         'invoice.payment_failed'
     ) {
+
       const invoice =
         event.data.object;
+
 
       await recordInstallmentFailure(
         stripe,
         invoice,
         event.created
       );
+
 
       await sendInstallmentEmail(
         stripe,
@@ -2933,6 +2971,7 @@ export default async function handler(
       );
     }
 
+
     return res
       .status(200)
       .json({
@@ -2940,7 +2979,9 @@ export default async function handler(
           true,
       });
 
+
   } catch (error) {
+
     console.error(
       '13U Stripe webhook processing failed',
       {
@@ -2954,6 +2995,7 @@ export default async function handler(
           error.message,
       }
     );
+
 
     return res
       .status(500)
