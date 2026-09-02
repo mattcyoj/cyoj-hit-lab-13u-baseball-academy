@@ -133,7 +133,7 @@
         summaryPrice.textContent =
           isPlan
             ? "$1,000"
-            : "$1,995";
+            : "$2,500";
       }
     );
   });
