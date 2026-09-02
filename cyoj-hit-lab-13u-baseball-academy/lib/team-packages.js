@@ -3,16 +3,19 @@ const PACKAGES = {
     key: 'unger_black',
 
     displayName:
-      '13U Unger (Black)',
+      '13U Black Unger',
+
+    coachName:
+      'Unger',
 
     teamVariant:
       'UNGER_BLACK',
 
     packageTotal:
-      2500,
+      2700,
 
     packageTotalDisplay:
-      '$2,500',
+      '$2,700',
 
     initialAmount:
       1000,
@@ -21,10 +24,10 @@ const PACKAGES = {
       '$1,000',
 
     installment2Amount:
-      750,
+      950,
 
     installment2AmountDisplay:
-      '$750',
+      '$950',
 
     installment2Due:
       '2026-11-01',
@@ -38,14 +41,71 @@ const PACKAGES = {
     installment3Due:
       '2027-02-01',
 
+    tournamentCount:
+      12,
+
     tournamentDisplay:
-      '10–12 tournaments',
+      '12 tournaments',
 
     tournamentShort:
-      '10–12',
+      '12',
+
+    tournamentType:
+      'season schedule',
+
+    indoorTrainingDisplay:
+      '2 team training days each week inside CYOJ Hit Lab',
+
+    outdoorTrainingDisplay:
+      '1 guaranteed outdoor practice day each week at Geer Park',
+
+    outdoorTrainingStart:
+      null,
+
+    membershipDisplay:
+      'Normal CYOJ Hit Lab Academy membership',
+
+    afterHoursDisplay:
+      'After-hours access available first come, first served',
+
+    brettMonthlyIncluded:
+      true,
+
+    brettMonthlyDisplay:
+      '1 hosted Brett Evert training class per month included',
+
+    brettGroupPrice:
+      20,
+
+    brettGroupDisplay:
+      '$20 additional group sessions',
+
+    brettIndividualPrice:
+      40,
+
+    brettIndividualMinutes:
+      30,
+
+    brettIndividualDisplay:
+      '$40 additional individual 30-minute sessions',
+
+    uniformDisplay:
+      '2 uniform sets',
+
+    fallBallIncluded:
+      true,
+
+    fallBallHeadline:
+      'FALL BALL INCLUDED',
+
+    fallBallDisplay:
+      'The $2,700 player fee includes fall ball fees and fall ball jerseys. These are included in the total package price and are not an additional charge.',
+
+    refundPolicyDisplay:
+      'Team fees are non-refundable.',
 
     fullPriceEnv:
-      'STRIPE_13U_FULL_PRICE_ID',
+      'STRIPE_13U_BLACK_FULL_PRICE_ID',
   },
 
 
@@ -55,6 +115,9 @@ const PACKAGES = {
 
     displayName:
       '13U Green Team',
+
+    coachName:
+      'TBD',
 
     teamVariant:
       'GREEN',
@@ -89,11 +152,68 @@ const PACKAGES = {
     installment3Due:
       '2027-02-01',
 
+    tournamentCount:
+      7,
+
     tournamentDisplay:
-      '8–10 tournaments guaranteed',
+      '7 guaranteed local tournaments',
 
     tournamentShort:
-      '8–10',
+      '7 guaranteed',
+
+    tournamentType:
+      'local tournaments',
+
+    indoorTrainingDisplay:
+      '2 team training days each week inside CYOJ Hit Lab',
+
+    outdoorTrainingDisplay:
+      '1 guaranteed outdoor practice day each week beginning in March',
+
+    outdoorTrainingStart:
+      '2027-03-01',
+
+    membershipDisplay:
+      'Normal CYOJ Hit Lab Academy membership',
+
+    afterHoursDisplay:
+      'After-hours access available first come, first served',
+
+    brettMonthlyIncluded:
+      true,
+
+    brettMonthlyDisplay:
+      '1 hosted Brett Evert training class per month included',
+
+    brettGroupPrice:
+      20,
+
+    brettGroupDisplay:
+      '$20 additional group sessions',
+
+    brettIndividualPrice:
+      40,
+
+    brettIndividualMinutes:
+      30,
+
+    brettIndividualDisplay:
+      '$40 additional individual 30-minute sessions',
+
+    uniformDisplay:
+      '2 uniform sets',
+
+    fallBallIncluded:
+      false,
+
+    fallBallHeadline:
+      null,
+
+    fallBallDisplay:
+      null,
+
+    refundPolicyDisplay:
+      'Team fees are non-refundable.',
 
     fullPriceEnv:
       'STRIPE_13U_GREEN_FULL_PRICE_ID',
