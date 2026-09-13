@@ -16,6 +16,8 @@ module.exports = async function handler(req, res) {
    *
    * Current Academy enrollment and billing are handled at:
    * https://mycyojhitlab.com/academy/13u-baseball
+   *
+   * Legacy checkout remains intentionally disabled.
    */
   return res.status(410).json({
     error:
