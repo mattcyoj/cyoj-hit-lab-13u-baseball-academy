@@ -1,0 +1,40 @@
+name: Hit Lab Governance Lock
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  hit-lab-governance-lock:
+    name: Hit Lab Governance Lock
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@v4
+
+      - name: Verify inherited Hit Lab governance
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -f AGENTS.md
+          test -f HIT_LAB_PROJECT_INHERITANCE.md
+          test -f README.md
+
+          grep -Fq 'HITLAB-GOVERNANCE-CONTRACT: 2026-10-29-v1' AGENTS.md
+          grep -Fq 'HITLAB-GOVERNANCE-CONTRACT: 2026-10-29-v1' HIT_LAB_PROJECT_INHERITANCE.md
+          grep -Fq 'HITLAB-GOVERNANCE-CONTRACT: 2026-10-29-v1' README.md
+
+          grep -Fq 'Production readiness is coverage-based, not audit-count-based.' HIT_LAB_PROJECT_INHERITANCE.md
+          grep -Fq 'UNKNOWN is not PASS.' HIT_LAB_PROJECT_INHERITANCE.md
+          grep -Fq 'Parents/customers are not first QA.' HIT_LAB_PROJECT_INHERITANCE.md
+          grep -Fq 'Cross-repository effects must be reconciled.' HIT_LAB_PROJECT_INHERITANCE.md
+          grep -Fq 'Explicit scoped Production approval is required' HIT_LAB_PROJECT_INHERITANCE.md
+          grep -Fq 'Do not ask Matt to remember governance paths, a magic audit phrase, or an audit count.' AGENTS.md
+
+          echo 'HIT LAB GOVERNANCE LOCK PASS'
